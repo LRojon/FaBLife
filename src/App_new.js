@@ -44,8 +44,7 @@ export default function FabLifeCounter() {
 
   // Sauvegarde automatique à chaque changement
   useEffect(() => {
-    if (gameState && (gameState.player1.life !== 40 || gameState.player2.life !== 40)) {
-      // Ne sauvegarder que si ce n'est pas l'état initial par défaut
+    if (gameState) {
       saveGameState(gameState);
     }
   }, [gameState]);
@@ -81,53 +80,33 @@ export default function FabLifeCounter() {
       }));
       setCurrentPlayer('Joueur 2');
     } else {
-      const historyEntry = {
-        action: `Nouvelle partie ${selectedFormat === 'adult' ? 'Adulte' : 'Jeune'} commencée`
-      };
-      
-      const newState = {
-        format: selectedFormat,
-        player1: { life: gameState.player1.life, maxLife: gameState.player1.maxLife },
-        player2: { life: life, maxLife: life },
-        history: [historyEntry] // Reset de l'historique avec seulement l'entrée de nouvelle partie
-      };
-      
-      setGameState(newState);
+      setGameState(prev => ({
+        ...prev,
+        player2: { life: life, maxLife: life }
+      }));
       setShowStartingLife(false);
-      
-      // Forcer la sauvegarde immédiate du nouvel état
-      setTimeout(() => {
-        saveGameState(newState);
-      }, 100);
+      addToHistory(`Nouvelle partie ${selectedFormat === 'adult' ? 'Adulte' : 'Jeune'} commencée`);
     }
   };
 
   const updatePlayer1Life = (newLife) => {
     const oldLife = gameState.player1.life;
     const diff = newLife - oldLife;
-    const historyEntry = {
-      action: `Joueur 1: ${diff > 0 ? '+' : ''}${diff} PV`
-    };
-    
-    setGameState(prev => ({
-      ...prev,
-      player1: { ...prev.player1, life: newLife },
-      history: [...(prev.history || []), historyEntry]
-    }));
+    setGameState({
+      ...gameState,
+      player1: { ...gameState.player1, life: newLife }
+    });
+    addToHistory(`Joueur 1: ${diff > 0 ? '+' : ''}${diff} PV`);
   };
 
   const updatePlayer2Life = (newLife) => {
     const oldLife = gameState.player2.life;
     const diff = newLife - oldLife;
-    const historyEntry = {
-      action: `Joueur 2: ${diff > 0 ? '+' : ''}${diff} PV`
-    };
-    
-    setGameState(prev => ({
-      ...prev,
-      player2: { ...prev.player2, life: newLife },
-      history: [...(prev.history || []), historyEntry]
-    }));
+    setGameState({
+      ...gameState,
+      player2: { ...gameState.player2, life: newLife }
+    });
+    addToHistory(`Joueur 2: ${diff > 0 ? '+' : ''}${diff} PV`);
   };
 
   return (
