@@ -1,16 +1,28 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import './Animations.css';
 
 const PlayerLifeBlock = ({ player, onLifeChange, isTop }) => {
   const [shakeKey, setShakeKey] = useState(0);
+  const [lifeChange, setLifeChange] = useState(null);
+  const [totalChange, setTotalChange] = useState(0);
   
   const adjustLife = (amount) => {
     const newLife = Math.max(0, player.life + amount);
+    const actualChange = newLife - player.life; // Le vrai changement
     
-    // Détecter les pertes importantes (5 PV ou plus)
-    if (amount <= -5) {
-      // Incrémenter la clé pour forcer le redéclenchement
-      setShakeKey(prev => prev + 1);
+    console.log('Trying to change by:', amount, 'Actual change:', actualChange, 'Old life:', player.life, 'New life:', newLife);
+    
+    // Seulement si les PV ont vraiment changé
+    if (actualChange !== 0) {
+      // Détecter les pertes importantes (5 PV ou plus)
+      if (actualChange <= -5) {
+        setShakeKey(prev => prev + 1);
+      }
+      
+      // Afficher le changement de PV réel
+      setLifeChange(actualChange);
+      setTotalChange(prev => prev + actualChange);
+      console.log('Life changed by:', actualChange, 'New total:', totalChange + actualChange);
     }
     
     onLifeChange(newLife);
@@ -83,15 +95,13 @@ const PlayerLifeBlock = ({ player, onLifeChange, isTop }) => {
     document.addEventListener('contextmenu', cleanup);
   };
 
-  // Rotation différente selon le joueur : -90° pour le joueur du haut, -90° pour le joueur du bas
+  // Rotation différente selon le joueur
   const rotationClass = isTop ? '-rotate-90' : '-rotate-90';
-
   const lifePercentage = player.life && player.maxLife ? (player.life / player.maxLife) * 100 : 0;
 
   return (
     <div 
-      key={shakeKey}
-      className={`flex-1 flex bg-gray-800 ${shakeKey > 0 ? 'shake-animation' : ''}`}
+      className={'flex-1 flex bg-gray-800 ' + (shakeKey > 0 ? 'shake-animation' : '')}
       style={{
         userSelect: 'none',
         WebkitUserSelect: 'none',
@@ -101,27 +111,22 @@ const PlayerLifeBlock = ({ player, onLifeChange, isTop }) => {
         touchAction: 'manipulation'
       }}
     >
-      {/* Barre de vie sur la gauche - style jeu de combat */}
       <div className="w-12 bg-gray-900 flex flex-col p-2 justify-center items-center">
         <div className="flex flex-col justify-center items-center">
-          {/* Conteneur de la barre avec bordure - hauteur fixe */}
           <div className="w-8 h-80 bg-gradient-to-b from-gray-900 to-gray-800 border-2 border-gray-500 rounded-lg shadow-lg overflow-hidden relative">
-            {/* Barre de fond (vide) avec texture */}
             <div className="w-full h-full bg-gradient-to-b from-gray-800 to-gray-900 relative">
-              {/* Barre de vie remplie avec effet de profondeur */}
               <div 
-                className={`w-full bg-gradient-to-t ${getLifeBarColor()} transition-all duration-700 ease-in-out absolute ${isTop ? 'top-0' : 'bottom-0'} shadow-inner`}
+                className={'w-full bg-gradient-to-t ' + getLifeBarColor() + ' transition-all duration-700 ease-in-out absolute ' + (isTop ? 'top-0' : 'bottom-0') + ' shadow-inner'}
                 style={{ 
-                  height: `${lifePercentage}%`,
+                  height: lifePercentage + '%',
                   minHeight: player.life > 0 ? '3px' : '0px',
                   boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.3), inset 0 -1px 0 rgba(255,255,255,0.1)'
                 }}
               />
-              {/* Effect de brillance (style jeu de combat) avec gradient plus sophistiqué */}
               <div 
-                className={`w-full bg-gradient-to-t from-transparent via-white/30 to-transparent absolute ${isTop ? 'top-0' : 'bottom-0'} pointer-events-none transition-all duration-700 ease-in-out`}
+                className={'w-full bg-gradient-to-t from-transparent via-white/30 to-transparent absolute ' + (isTop ? 'top-0' : 'bottom-0') + ' pointer-events-none transition-all duration-700 ease-in-out'}
                 style={{ 
-                  height: `${lifePercentage}%`,
+                  height: lifePercentage + '%',
                   minHeight: player.life > 0 ? '3px' : '0px'
                 }}
               />
@@ -141,93 +146,54 @@ const PlayerLifeBlock = ({ player, onLifeChange, isTop }) => {
           </div>
         </div>
       </div>
-
-      {/* Contenu principal déplacé vers la droite */}
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
-        {/* Life display and controls in one line - rotated */}
-        <div className={`flex items-center gap-8 ${rotationClass}`}>
+      <div className="flex-1 flex flex-col items-center justify-center p-6 relative">
+        {/* Test affichage sans rotation */}
+        <div 
+          className="absolute text-4xl font-bold text-red-500 bg-white border-4 border-red-500 px-4 py-2"
+          style={{
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 999
+          }}
+        >
+          LAST: {lifeChange}<br/>
+          TOTAL: {totalChange}
+        </div>
+        
+        <div className={'flex items-center gap-8 ' + rotationClass}>
           {!isTop ? (
-            // Joueur 1 (en bas) : ordre normal - + PV +
             <>
               <button
-                onPointerDown={(e) => handleButtonInteraction(-1, e)}
-                onContextMenu={(e) => e.preventDefault()}
+                onClick={() => adjustLife(-1)}
                 className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
-                style={{ 
-                  userSelect: 'none', 
-                  touchAction: 'manipulation',
-                  WebkitTouchCallout: 'none',
-                  WebkitUserSelect: 'none',
-                  WebkitTapHighlightColor: 'transparent',
-                  WebkitUserDrag: 'none',
-                  MozUserSelect: 'none',
-                  msUserSelect: 'none'
-                }}
               >
                 −
               </button>
-
-              <div className={`text-8xl font-bold mx-4 ${getLifeColor()}`}>
+              <div className={'text-8xl font-bold mx-4 ' + getLifeColor()}>
                 {player.life || 0}
               </div>
-
               <button
-                onPointerDown={(e) => handleButtonInteraction(1, e)}
-                onContextMenu={(e) => e.preventDefault()}
+                onClick={() => adjustLife(1)}
                 className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
-                style={{ 
-                  userSelect: 'none', 
-                  touchAction: 'manipulation',
-                  WebkitTouchCallout: 'none',
-                  WebkitUserSelect: 'none',
-                  WebkitTapHighlightColor: 'transparent',
-                  WebkitUserDrag: 'none',
-                  MozUserSelect: 'none',
-                  msUserSelect: 'none'
-                }}
               >
                 +
               </button>
             </>
           ) : (
-            // Joueur 2 (en haut) : ordre inversé + PV -
             <>
               <button
-                onPointerDown={(e) => handleButtonInteraction(1, e)}
-                onContextMenu={(e) => e.preventDefault()}
+                onClick={() => adjustLife(1)}
                 className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
-                style={{ 
-                  userSelect: 'none', 
-                  touchAction: 'manipulation',
-                  WebkitTouchCallout: 'none',
-                  WebkitUserSelect: 'none',
-                  WebkitTapHighlightColor: 'transparent',
-                  WebkitUserDrag: 'none',
-                  MozUserSelect: 'none',
-                  msUserSelect: 'none'
-                }}
               >
                 +
               </button>
-
-              <div className={`text-8xl font-bold mx-4 ${getLifeColor()}`}>
+              <div className={'text-8xl font-bold mx-4 ' + getLifeColor()}>
                 {player.life || 0}
               </div>
-
               <button
-                onPointerDown={(e) => handleButtonInteraction(-1, e)}
-                onContextMenu={(e) => e.preventDefault()}
+                onClick={() => adjustLife(-1)}
                 className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
-                style={{ 
-                  userSelect: 'none', 
-                  touchAction: 'manipulation',
-                  WebkitTouchCallout: 'none',
-                  WebkitUserSelect: 'none',
-                  WebkitTapHighlightColor: 'transparent',
-                  WebkitUserDrag: 'none',
-                  MozUserSelect: 'none',
-                  msUserSelect: 'none'
-                }}
               >
                 −
               </button>

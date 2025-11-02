@@ -3,7 +3,7 @@ import HistoryModal from './components/HistoryModal';
 import FormatSelectionModal from './components/FormatSelectionModal';
 import StartingLifeModal from './components/StartingLifeModal';
 import CentralMenu from './components/CentralMenu';
-import PlayerLifeBlock from './components/PlayerLifeBlock';
+import Player from './components/Player';
 
 export default function FabLifeCounter() {
   const [showHistory, setShowHistory] = useState(false);
@@ -17,6 +17,62 @@ export default function FabLifeCounter() {
     player2: { life: 40, maxLife: 40 },
     history: []
   });
+
+  // Empêcher la mise en veille sur mobile
+  useEffect(() => {
+    let wakeLock = null;
+    
+    const requestWakeLock = async () => {
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen');
+          console.log('📱 Wake Lock activé');
+        }
+      } catch (err) {
+        console.log('❌ Wake Lock non supporté:', err);
+      }
+    };
+
+    // Demander le wake lock au chargement
+    requestWakeLock();
+
+    // Rétablir le wake lock quand l'utilisateur revient sur l'onglet
+    const handleVisibilityChange = () => {
+      if (wakeLock !== null && document.visibilityState === 'visible') {
+        requestWakeLock();
+      }
+    };
+
+    // Désactiver le menu contextuel globalement
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      return false;
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      document.removeEventListener('contextmenu', handleContextMenu);
+      if (wakeLock) {
+        wakeLock.release();
+      }
+    };
+  }, []);
+
+  // Empêcher la rotation sur mobile via CSS et événements
+  useEffect(() => {
+    const preventRotation = () => {
+      if (window.screen && window.screen.orientation && window.screen.orientation.lock) {
+        window.screen.orientation.lock('portrait').catch(err => {
+          console.log('❌ Orientation lock non supporté:', err);
+        });
+      }
+    };
+
+    preventRotation();
+  }, []);
 
   // Sauvegarde automatique
   const saveGameState = (state) => {
@@ -102,36 +158,37 @@ export default function FabLifeCounter() {
     }
   };
 
-  const updatePlayer1Life = (newLife) => {
-    const oldLife = gameState.player1.life;
+  // Fonction unifiée pour les changements de vie
+  const updatePlayerLife = (playerNumber, newLife) => {
+    const playerKey = `player${playerNumber}`;
+    const oldLife = gameState[playerKey].life;
     const diff = newLife - oldLife;
     const historyEntry = {
-      action: `Joueur 1: ${diff > 0 ? '+' : ''}${diff} PV`
+      action: `Joueur ${playerNumber}: ${diff > 0 ? '+' : ''}${diff} PV`
     };
     
     setGameState(prev => ({
       ...prev,
-      player1: { ...prev.player1, life: newLife },
+      [playerKey]: { ...prev[playerKey], life: newLife },
       history: [...(prev.history || []), historyEntry]
     }));
   };
 
-  const updatePlayer2Life = (newLife) => {
-    const oldLife = gameState.player2.life;
-    const diff = newLife - oldLife;
-    const historyEntry = {
-      action: `Joueur 2: ${diff > 0 ? '+' : ''}${diff} PV`
-    };
-    
-    setGameState(prev => ({
-      ...prev,
-      player2: { ...prev.player2, life: newLife },
-      history: [...(prev.history || []), historyEntry]
-    }));
-  };
+  const updatePlayer1Life = (newLife) => updatePlayerLife(1, newLife);
+  const updatePlayer2Life = (newLife) => updatePlayerLife(2, newLife);
 
   return (
-    <div className="h-screen flex flex-col bg-gray-900 text-gray-100 overflow-hidden">
+    <div 
+      className="h-screen flex flex-col bg-gray-900 text-gray-100 overflow-hidden"
+      onContextMenu={(e) => e.preventDefault()}
+      style={{
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
+        msUserSelect: 'none',
+        WebkitTouchCallout: 'none'
+      }}
+    >
       {showHistory && (
         <HistoryModal
           history={gameState.history || []}
@@ -156,11 +213,10 @@ export default function FabLifeCounter() {
       )}
       
       {/* Player 2 (Top, rotated) */}
-      <PlayerLifeBlock
-        key={`player2-${gameState.player2.life}-${gameState.player2.maxLife}`}
-        player={gameState.player2}
-        onLifeChange={updatePlayer2Life}
-        isTop={true}
+      <Player
+        isPlayer1={false}
+        initialLife={gameState.player2.life}
+        maxLife={gameState.player2.maxLife}
       />
 
       {/* Middle Controls */}
@@ -170,11 +226,10 @@ export default function FabLifeCounter() {
       />
 
       {/* Player 1 (Bottom) */}
-      <PlayerLifeBlock
-        key={`player1-${gameState.player1.life}-${gameState.player1.maxLife}`}
-        player={gameState.player1}
-        onLifeChange={updatePlayer1Life}
-        isTop={false}
+      <Player
+        isPlayer1={true}
+        initialLife={gameState.player1.life}
+        maxLife={gameState.player1.maxLife}
       />
     </div>
   );
