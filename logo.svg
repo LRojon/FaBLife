@@ -1,0 +1,42 @@
+<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="metalRed" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#dc2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#991b1b;stop-opacity:1" />
+    </linearGradient>
+
+    <pattern id="parchment" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="#1c1917"/>
+      <circle cx="5" cy="5" r="0.5" fill="#292524" opacity="0.3"/>
+      <circle cx="15" cy="10" r="0.5" fill="#292524" opacity="0.3"/>
+      <circle cx="10" cy="15" r="0.5" fill="#292524" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="250" height="250" fill="url(#parchment)" rx="40"/>
+  
+  <!-- Texte haut -->
+  <text x="125" y="50" font-family="Georgia, serif" font-size="16" fill="#d97706" text-anchor="middle" font-weight="bold" letter-spacing="2">LIFE</text>
+  
+  <!-- Grand coeur FAB stylisé (symbole PV) -->
+  <g transform="translate(125, 130)">
+    <!-- Coeur extérieur avec effet métallique -->
+    <path d="M 0 45 L -40 5 Q -50 -10 -50 -25 Q -50 -45 -35 -52 Q -20 -58 0 -40 Q 20 -58 35 -52 Q 50 -45 50 -25 Q 50 -10 40 5 Z" 
+          fill="#1c1917" stroke="url(#metalRed)" stroke-width="4"/>
+    
+    <!-- Coeur intérieur rouge brillant -->
+    <path d="M 0 40 L -35 5 Q -43 -8 -43 -20 Q -43 -38 -30 -44 Q -18 -48 0 -32 Q 18 -48 30 -44 Q 43 -38 43 -20 Q 43 -8 35 5 Z" 
+          fill="url(#metalRed)"/>
+    
+    <!-- Reflet brillant -->
+    <ellipse cx="-15" cy="-18" rx="12" ry="18" fill="#ef4444" opacity="0.6"/>
+    <ellipse cx="15" cy="-18" rx="12" ry="18" fill="#ef4444" opacity="0.4"/>
+    
+    <!-- Chiffre 40 monté -->
+    <text x="0" y="7" font-family="Georgia, serif" font-size="42" fill="#fff" text-anchor="middle" font-weight="bold" style="text-shadow: 2px 2px 6px rgba(0,0,0,0.9);">40</text>
+  </g>
+  
+  <!-- Texte bas -->
+  <text x="125" y="235" font-family="Georgia, serif" font-size="12" fill="#9ca3af" text-anchor="middle">COUNTER</text>
+</svg>
