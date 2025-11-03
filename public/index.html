@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#111827" />
     <meta
       name="description"
-      content="Compteur de vie FaB"
+      content="Compteur de vie pour Flesh and Blood - Application PWA"
     />
-    <!-- Empêcher la rotation de l'écran -->
-    <meta name="screen-orientation" content="portrait" />
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="FaB Life" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <!-- Empêcher la mise en veille -->
+    <meta name="apple-mobile-web-app-title" content="FaB Life" />
+    
+    <!-- Empêcher la rotation de l'écran -->
+    <meta name="screen-orientation" content="portrait" />
     <meta name="format-detection" content="telephone=no" />
     
+    <!-- Icons pour différentes plateformes -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="%PUBLIC_URL%/logo512.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     
     <title>FaB Life Counter</title>
@@ -27,8 +33,25 @@
       * {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
+        user-select: none;
         -webkit-tap-highlight-color: transparent;
         -webkit-text-size-adjust: none;
+      }
+      
+      /* Loading screen pour PWA */
+      #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #111827;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        color: white;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       }
       
       /* Forcer l'orientation portrait */
@@ -46,16 +69,21 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="loading">
+      <div>Chargement de FaB Life...</div>
+    </div>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    
+    <script>
+      // Masquer l'écran de chargement une fois que React est chargé
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loading = document.getElementById('loading');
+          if (loading) {
+            loading.style.display = 'none';
+          }
+        }, 500);
+      });
+    </script>
   </body>
 </html>
