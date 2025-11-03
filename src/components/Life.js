@@ -58,79 +58,87 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
   };
 
   const handleButtonInteraction = (amount, event) => {
-    // Éviter les événements en double avec un système de verrouillage simple
+    // Éviter les événements en double
     if (isProcessingRef.current) {
-      console.log('Event ignored - already processing');
       return;
     }
     
-    isProcessingRef.current = true;
+    // Éviter les événements multiples du même type
+    const eventKey = `${amount}_${Date.now()}`;
+    if (window.lastEventKey === eventKey) {
+      return;
+    }
+    window.lastEventKey = eventKey;
     
+    isProcessingRef.current = true;
     event.preventDefault();
     event.stopPropagation();
     
-    let timeout;
-    let interval;
+    let longPressTimer;
+    let repeatTimer;
     let hasLongPressed = false;
     let isActive = true;
     
-    console.log('Button interaction started:', amount, 'Event type:', event.type); // Debug pour prod
+    // NE PAS faire d'action immédiate - attendre de voir si c'est un appui long
     
-    const startLongPress = () => {
-      timeout = setTimeout(() => {
+    // Démarrer le timer pour l'appui long
+    longPressTimer = setTimeout(() => {
+      if (!isActive) return;
+      hasLongPressed = true;
+      
+      // Premier trigger d'appui long
+      const longPressAmount = amount * 5;
+      adjustLife(longPressAmount);
+      
+      // Répéter l'action toutes les 400ms
+      repeatTimer = setInterval(() => {
         if (!isActive) return;
-        hasLongPressed = true;
-        const longPressAmount = amount * 5;
-        console.log('Long press started with amount:', longPressAmount); // Debug
         
-        interval = setInterval(() => {
-          if (!isActive) return;
-          
-          console.log('Long press tick:', longPressAmount); // Debug
-          // Arrêter l'appui long si les PV ne changent plus
-          const success = adjustLife(longPressAmount);
-          if (!success) {
-            console.log('Long press stopped - no more changes possible'); // Debug
-            isActive = false;
-            clearInterval(interval);
-          }
-        }, 400);
-      }, 300);
-    };
-
-    const stopLongPress = () => {
+        const success = adjustLife(longPressAmount);
+        if (!success) {
+          isActive = false;
+          clearInterval(repeatTimer);
+        }
+      }, 400); // Délai de 400ms entre les triggers
+    }, 300); // Attendre 300ms pour détecter l'appui long
+    
+    const stopInteraction = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      
       isActive = false;
-      clearTimeout(timeout);
-      clearInterval(interval);
+      clearTimeout(longPressTimer);
+      clearInterval(repeatTimer);
       
-      console.log('Long press stopped, hasLongPressed:', hasLongPressed); // Debug
-      
+      // Si ce n'était pas un appui long, faire l'action simple
       if (!hasLongPressed) {
-        console.log('Short press, applying:', amount); // Debug
         adjustLife(amount);
       }
+      
+      // Débloquer après un court délai
+      setTimeout(() => {
+        isProcessingRef.current = false;
+        window.lastEventKey = null;
+      }, 100);
+      
+      // Nettoyer les listeners
+      document.removeEventListener('pointerup', stopInteraction);
+      document.removeEventListener('pointercancel', stopInteraction);
+      document.removeEventListener('touchend', stopInteraction);
+      document.removeEventListener('touchcancel', stopInteraction);
+      document.removeEventListener('mouseup', stopInteraction);
+      document.removeEventListener('mouseleave', stopInteraction);
     };
     
-    startLongPress();
-    
-    const cleanup = () => {
-      console.log('Cleanup triggered'); // Debug
-      stopLongPress();
-      
-      // Débloquer le traitement immédiatement
-      isProcessingRef.current = false;
-      console.log('Processing unlocked');
-      
-      // Nettoyer les event listeners
-      window.removeEventListener('pointerup', cleanup, { passive: false });
-      window.removeEventListener('pointercancel', cleanup, { passive: false });
-      window.removeEventListener('contextmenu', cleanup, { passive: false });
-    };
-    
-    // Utiliser seulement les événements pointer pour éviter les doublons
-    window.addEventListener('pointerup', cleanup, { passive: false });
-    window.addEventListener('pointercancel', cleanup, { passive: false });
-    window.addEventListener('contextmenu', cleanup, { passive: false });
+    // Ajouter plusieurs types d'événements pour une meilleure compatibilité
+    document.addEventListener('pointerup', stopInteraction);
+    document.addEventListener('pointercancel', stopInteraction);
+    document.addEventListener('touchend', stopInteraction);
+    document.addEventListener('touchcancel', stopInteraction);
+    document.addEventListener('mouseup', stopInteraction);
+    document.addEventListener('mouseleave', stopInteraction);
   };
 
   return (
@@ -169,6 +177,8 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
           <>
             <button
               onPointerDown={(e) => handleButtonInteraction(-1, e)}
+              onTouchStart={(e) => handleButtonInteraction(-1, e)}
+              onMouseDown={(e) => handleButtonInteraction(-1, e)}
               onContextMenu={(e) => e.preventDefault()}
               className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
               style={{ 
@@ -186,6 +196,8 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
             </div>
             <button
               onPointerDown={(e) => handleButtonInteraction(1, e)}
+              onTouchStart={(e) => handleButtonInteraction(1, e)}
+              onMouseDown={(e) => handleButtonInteraction(1, e)}
               onContextMenu={(e) => e.preventDefault()}
               className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
               style={{ 
@@ -204,6 +216,8 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
           <>
             <button
               onPointerDown={(e) => handleButtonInteraction(1, e)}
+              onTouchStart={(e) => handleButtonInteraction(1, e)}
+              onMouseDown={(e) => handleButtonInteraction(1, e)}
               onContextMenu={(e) => e.preventDefault()}
               className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
               style={{ 
@@ -221,6 +235,8 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
             </div>
             <button
               onPointerDown={(e) => handleButtonInteraction(-1, e)}
+              onTouchStart={(e) => handleButtonInteraction(-1, e)}
+              onMouseDown={(e) => handleButtonInteraction(-1, e)}
               onContextMenu={(e) => e.preventDefault()}
               className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
               style={{ 
