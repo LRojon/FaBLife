@@ -1,71 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
-  const [displayCumul, setDisplayCumul] = useState(0);
-  const [showCumul, setShowCumul] = useState(false);
-  const [pendingChanges, setPendingChanges] = useState(0); // Cumul des changements en attente
-  const timeoutRef = useRef(null);
-  const isProcessingRef = useRef(false); // Pour éviter les événements en double
-
-  // Nettoyer le timeout lors du démontage du composant
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
 
   const adjustLife = (amount) => {
-    const currentPV = pv || 0;
-    const newLife = Math.max(0, currentPV + amount);
-    const actualChange = newLife - currentPV;
+    const newLife = Math.max(0, pv + amount);
+    const actualChange = newLife - pv;
     
     // Seulement si les PV ont vraiment changé
     if (actualChange !== 0) {
-      // Mettre à jour l'affichage du cumul
-      setDisplayCumul(prev => prev + actualChange);
-      
-      // Ajouter le changement aux changements en attente
-      setPendingChanges(prev => prev + actualChange);
-      
-      setShowCumul(true);
-      
-      // Annuler le timer précédent s'il existe
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-      
-      // Nouveau timer de 800ms - quand il expire, appliquer TOUS les changements
-      timeoutRef.current = setTimeout(() => {
-        // Appliquer le total des changements accumulés
-        setPendingChanges(currentPending => {
-          if (currentPending !== 0) {
-            onLifeChange(currentPending);
-          }
-          return 0; // Reset les changements en attente
-        });
-        
-        setShowCumul(false);
-        setDisplayCumul(0);
-        timeoutRef.current = null;
-      }, 800);
-      
-      return true; // Indique que le changement a eu lieu
+      onLifeChange(actualChange);
     }
-    
-    return false; // Indique qu'aucun changement n'a eu lieu
   };
 
   const handleButtonInteraction = (amount, event) => {
-    // Éviter les événements en double avec un système de verrouillage simple
-    if (isProcessingRef.current) {
-      console.log('Event ignored - already processing');
-      return;
-    }
-    
-    isProcessingRef.current = true;
-    
     event.preventDefault();
     event.stopPropagation();
     
@@ -74,27 +21,16 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
     let hasLongPressed = false;
     let isActive = true;
     
-    console.log('Button interaction started:', amount, 'Event type:', event.type); // Debug pour prod
-    
     const startLongPress = () => {
       timeout = setTimeout(() => {
         if (!isActive) return;
         hasLongPressed = true;
         const longPressAmount = amount * 5;
-        console.log('Long press started with amount:', longPressAmount); // Debug
         
         interval = setInterval(() => {
           if (!isActive) return;
-          
-          console.log('Long press tick:', longPressAmount); // Debug
-          // Arrêter l'appui long si les PV ne changent plus
-          const success = adjustLife(longPressAmount);
-          if (!success) {
-            console.log('Long press stopped - no more changes possible'); // Debug
-            isActive = false;
-            clearInterval(interval);
-          }
-        }, 400);
+          adjustLife(longPressAmount);
+        }, 150);
       }, 300);
     };
 
@@ -103,10 +39,7 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
       clearTimeout(timeout);
       clearInterval(interval);
       
-      console.log('Long press stopped, hasLongPressed:', hasLongPressed); // Debug
-      
       if (!hasLongPressed) {
-        console.log('Short press, applying:', amount); // Debug
         adjustLife(amount);
       }
     };
@@ -114,23 +47,17 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
     startLongPress();
     
     const cleanup = () => {
-      console.log('Cleanup triggered'); // Debug
       stopLongPress();
-      
-      // Débloquer le traitement immédiatement
-      isProcessingRef.current = false;
-      console.log('Processing unlocked');
-      
-      // Nettoyer les event listeners
-      window.removeEventListener('pointerup', cleanup, { passive: false });
-      window.removeEventListener('pointercancel', cleanup, { passive: false });
-      window.removeEventListener('contextmenu', cleanup, { passive: false });
+      document.removeEventListener('mouseup', cleanup);
+      document.removeEventListener('touchend', cleanup);
+      document.removeEventListener('mouseleave', cleanup);
+      document.removeEventListener('contextmenu', cleanup);
     };
     
-    // Utiliser seulement les événements pointer pour éviter les doublons
-    window.addEventListener('pointerup', cleanup, { passive: false });
-    window.addEventListener('pointercancel', cleanup, { passive: false });
-    window.addEventListener('contextmenu', cleanup, { passive: false });
+    document.addEventListener('mouseup', cleanup);
+    document.addEventListener('touchend', cleanup);
+    document.addEventListener('mouseleave', cleanup);
+    document.addEventListener('contextmenu', cleanup);
   };
 
   return (
@@ -145,11 +72,11 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
         touchAction: 'manipulation'
       }}
     >
-      {/* Affichage du cumul amélioré */}
-      {showCumul && displayCumul !== 0 && (
+      {/* Affichage du cumul */}
+      {cumul !== null && (
         <div 
           className={`absolute text-3xl font-bold ${
-            displayCumul > 0 ? 'text-green-400' : 'text-red-400'
+            cumul > 0 ? 'text-green-400' : 'text-red-400'
           }`}
           style={{
             top: '20%',
@@ -159,7 +86,7 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
             zIndex: 10
           }}
         >
-          {displayCumul > 0 ? '+' : ''}{displayCumul}
+          {cumul > 0 ? '+' : ''}{cumul}
         </div>
       )}
       
