@@ -212,11 +212,11 @@ export default function FabLifeCounter() {
         />
       )}
       
-      {/* Player 1 (Bottom on mobile, Left on desktop) */}
+      {/* Player 2 (Top on mobile, Right on desktop) */}
       <Player
-        isPlayer1={true}
-        initialLife={gameState.player1.life}
-        maxLife={gameState.player1.maxLife}
+        isPlayer1={false}
+        initialLife={gameState.player2.life}
+        maxLife={gameState.player2.maxLife}
       />
 
       {/* Middle Controls */}
@@ -225,11 +225,11 @@ export default function FabLifeCounter() {
         onShowHistory={() => setShowHistory(true)}
       />
 
-      {/* Player 2 (Top on mobile, Right on desktop) */}
+      {/* Player 1 (Bottom on mobile, Left on desktop) */}
       <Player
-        isPlayer1={false}
-        initialLife={gameState.player2.life}
-        maxLife={gameState.player2.maxLife}
+        isPlayer1={true}
+        initialLife={gameState.player1.life}
+        maxLife={gameState.player1.maxLife}
       />
     </div>
   );

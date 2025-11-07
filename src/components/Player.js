@@ -28,7 +28,7 @@ const Player = ({ isPlayer1, initialLife = 20, maxLife = 20 }) => {
 
   return (
     <div 
-      className={`flex-1 flex bg-gray-800 relative ${rotationClass} md:rotate-0 md:flex-col md:w-1/2 md:h-full md:border-x md:border-gray-700 ${isPlayer1 ? 'md:order-1' : 'md:order-2'}`}
+      className={`flex-1 flex bg-gray-800 relative ${rotationClass} md:rotate-0 md:flex-col md:w-1/2 md:h-full md:border-x md:border-gray-700 ${isPlayer1 ? 'order-2 md:order-1' : 'order-1 md:order-2'}`}
       style={{
         userSelect: 'none',
         WebkitUserSelect: 'none',
