@@ -16,8 +16,8 @@ const StartingLifeModal = ({ player, format, onClose, onSelectLife }) => {
   const positionClass = isPlayer2 ? 'items-start pt-8' : 'items-end pb-8';
   
   return (
-    <div className={`fixed inset-0 bg-black bg-opacity-75 z-50 flex ${positionClass} justify-center p-4`}>
-      <div className={`bg-gray-800 rounded-lg w-80 h-96 p-6 border-2 border-gray-600 transform -rotate-90 ${isPlayer2 ? 'origin-top-center' : 'origin-bottom-center'}`}>
+    <div className={`fixed inset-0 bg-black bg-opacity-75 z-50 flex ${positionClass} justify-center p-4 md:items-center md:pt-0 md:pb-0`}>
+      <div className={`bg-gray-800 rounded-lg w-80 h-96 p-6 border-2 border-gray-600 transform md:transform-none -rotate-90 md:rotate-0 ${isPlayer2 ? 'origin-top-center md:origin-center' : 'origin-bottom-center md:origin-center'}`}>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-bold">PV - {player}</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-white">

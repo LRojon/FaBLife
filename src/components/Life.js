@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
+  const [displayCumul, setDisplayCumul] = useState(null);
+  const cumulTimeoutRef = useRef(null);
+  const applyTimeoutRef = useRef(null);
+  const longPressTimeoutRef = useRef(null);
+  const longPressIntervalRef = useRef(null);
+  const isLongPressingRef = useRef(false);
+  const accumulatedRef = useRef(0);
 
-  const adjustLife = (amount) => {
-    const newLife = Math.max(0, pv + amount);
-    const actualChange = newLife - pv;
-    
-    // Seulement si les PV ont vraiment changé
-    if (actualChange !== 0) {
-      onLifeChange(actualChange);
+  const showCumul = (value, duration = 300) => {
+    setDisplayCumul(value);
+    if (cumulTimeoutRef.current) clearTimeout(cumulTimeoutRef.current);
+    cumulTimeoutRef.current = setTimeout(() => {
+      setDisplayCumul(null);
+    }, duration);
+  };
+
+  const applyAccumulated = () => {
+    if (accumulatedRef.current !== 0) {
+      onLifeChange(accumulatedRef.current);
+      accumulatedRef.current = 0;
     }
   };
 
@@ -16,53 +28,78 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
     event.preventDefault();
     event.stopPropagation();
     
-    let timeout;
-    let interval;
-    let hasLongPressed = false;
-    let isActive = true;
-    
-    const startLongPress = () => {
-      timeout = setTimeout(() => {
-        if (!isActive) return;
-        hasLongPressed = true;
-        const longPressAmount = amount * 5;
+    isLongPressingRef.current = false;
+    let isSimpleClick = true;
+
+    const handlePointerUp = () => {
+      // Arrêter les timers
+      if (longPressTimeoutRef.current) clearTimeout(longPressTimeoutRef.current);
+      if (longPressIntervalRef.current) clearInterval(longPressIntervalRef.current);
+      
+      if (isLongPressingRef.current) {
+        // C'était un long press
+        isLongPressingRef.current = false;
         
-        interval = setInterval(() => {
-          if (!isActive) return;
-          adjustLife(longPressAmount);
-        }, 150);
-      }, 300);
+        // Le cumul du long press est déjà accumulé, on le garde
+        // Réinitialiser le timer d'application pour permettre d'autres interactions
+        if (applyTimeoutRef.current) clearTimeout(applyTimeoutRef.current);
+        applyTimeoutRef.current = setTimeout(() => {
+          applyAccumulated();
+        }, 500); // Attendre 500ms après la fin du long press
+        
+      } else if (isSimpleClick) {
+        // C'était un simple clic, l'ajouter au cumul existant
+        accumulatedRef.current += amount;
+        showCumul(accumulatedRef.current, 1000);
+        
+        // Réinitialiser le timer d'application du cumul
+        if (applyTimeoutRef.current) clearTimeout(applyTimeoutRef.current);
+        applyTimeoutRef.current = setTimeout(() => {
+          applyAccumulated();
+        }, 1000);
+      }
+      
+      isSimpleClick = false;
+      
+      // Nettoyer les listeners
+      document.removeEventListener('pointerup', handlePointerUp);
+      document.removeEventListener('pointercancel', handlePointerUp);
     };
 
-    const stopLongPress = () => {
-      isActive = false;
-      clearTimeout(timeout);
-      clearInterval(interval);
-      
-      if (!hasLongPressed) {
-        adjustLife(amount);
+    // Démarrer le timer pour le long press
+    longPressTimeoutRef.current = setTimeout(() => {
+      if (!isLongPressingRef.current) {
+        isLongPressingRef.current = true;
+        isSimpleClick = false;
+        
+        // Annuler le timer d'application du simple clic si un long press démarre
+        if (applyTimeoutRef.current) {
+          clearTimeout(applyTimeoutRef.current);
+          applyTimeoutRef.current = null;
+        }
+        
+        const longPressAmount = amount * 5;
+        
+        // Appliquer le premier ±5 immédiatement
+        accumulatedRef.current += longPressAmount;
+        showCumul(accumulatedRef.current, 500);
+
+        // Boucle du long press pour les suivants
+        longPressIntervalRef.current = setInterval(() => {
+          accumulatedRef.current += longPressAmount;
+          showCumul(accumulatedRef.current, 500);
+        }, 500);
       }
-    };
-    
-    startLongPress();
-    
-    const cleanup = () => {
-      stopLongPress();
-      document.removeEventListener('mouseup', cleanup);
-      document.removeEventListener('touchend', cleanup);
-      document.removeEventListener('mouseleave', cleanup);
-      document.removeEventListener('contextmenu', cleanup);
-    };
-    
-    document.addEventListener('mouseup', cleanup);
-    document.addEventListener('touchend', cleanup);
-    document.addEventListener('mouseleave', cleanup);
-    document.addEventListener('contextmenu', cleanup);
+    }, 300);
+
+    // Listener pour arrêter le long press
+    document.addEventListener('pointerup', handlePointerUp);
+    document.addEventListener('pointercancel', handlePointerUp);
   };
 
   return (
     <div 
-      className="w-full flex flex-col items-center justify-center p-6 relative"
+      className="w-full h-full flex flex-col items-center justify-center p-6 relative md:h-full"
       style={{
         userSelect: 'none',
         WebkitUserSelect: 'none',
@@ -73,10 +110,10 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
       }}
     >
       {/* Affichage du cumul */}
-      {cumul !== null && (
+      {displayCumul !== null && (
         <div 
           className={`absolute text-3xl font-bold ${
-            cumul > 0 ? 'text-green-400' : 'text-red-400'
+            displayCumul > 0 ? 'text-green-400' : 'text-red-400'
           }`}
           style={{
             top: '20%',
@@ -86,7 +123,7 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
             zIndex: 10
           }}
         >
-          {cumul > 0 ? '+' : ''}{cumul}
+          {displayCumul > 0 ? '+' : ''}{displayCumul}
         </div>
       )}
       
@@ -97,8 +134,9 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
             <button
               onPointerDown={(e) => handleButtonInteraction(-1, e)}
               onContextMenu={(e) => e.preventDefault()}
-              className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
+              className="text-white hover:text-gray-200 active:text-gray-400 font-black select-none transition-colors cursor-pointer"
               style={{ 
+                fontSize: 'clamp(3rem, 15vw, 12rem)',
                 userSelect: 'none', 
                 touchAction: 'manipulation',
                 WebkitTouchCallout: 'none',
@@ -108,14 +146,22 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
             >
               −
             </button>
-            <div className="text-8xl font-bold mx-4 text-white">
+            <div 
+              className="font-bold mx-4 text-white text-center"
+              style={{
+                fontSize: 'clamp(4rem, 20vw, 16rem)',
+                userSelect: 'none',
+                WebkitUserSelect: 'none'
+              }}
+            >
               {pv || 0}
             </div>
             <button
               onPointerDown={(e) => handleButtonInteraction(1, e)}
               onContextMenu={(e) => e.preventDefault()}
-              className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
+              className="text-white hover:text-gray-200 active:text-gray-400 font-black select-none transition-colors cursor-pointer"
               style={{ 
+                fontSize: 'clamp(3rem, 15vw, 12rem)',
                 userSelect: 'none', 
                 touchAction: 'manipulation',
                 WebkitTouchCallout: 'none',
@@ -132,8 +178,9 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
             <button
               onPointerDown={(e) => handleButtonInteraction(1, e)}
               onContextMenu={(e) => e.preventDefault()}
-              className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
+              className="text-white hover:text-gray-200 active:text-gray-400 font-black select-none transition-colors cursor-pointer"
               style={{ 
+                fontSize: 'clamp(3rem, 15vw, 12rem)',
                 userSelect: 'none', 
                 touchAction: 'manipulation',
                 WebkitTouchCallout: 'none',
@@ -143,14 +190,22 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
             >
               +
             </button>
-            <div className="text-8xl font-bold mx-4 text-white">
+            <div 
+              className="font-bold mx-4 text-white text-center"
+              style={{
+                fontSize: 'clamp(4rem, 20vw, 16rem)',
+                userSelect: 'none',
+                WebkitUserSelect: 'none'
+              }}
+            >
               {pv || 0}
             </div>
             <button
               onPointerDown={(e) => handleButtonInteraction(-1, e)}
               onContextMenu={(e) => e.preventDefault()}
-              className="text-white hover:text-gray-200 active:text-gray-400 text-7xl font-black select-none transition-colors cursor-pointer"
+              className="text-white hover:text-gray-200 active:text-gray-400 font-black select-none transition-colors cursor-pointer"
               style={{ 
+                fontSize: 'clamp(3rem, 15vw, 12rem)',
                 userSelect: 'none', 
                 touchAction: 'manipulation',
                 WebkitTouchCallout: 'none',

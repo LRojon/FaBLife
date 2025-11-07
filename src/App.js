@@ -179,7 +179,7 @@ export default function FabLifeCounter() {
 
   return (
     <div 
-      className="h-screen flex flex-col bg-gray-900 text-gray-100 overflow-hidden"
+      className="h-screen w-full flex flex-col bg-gray-900 text-gray-100 overflow-hidden md:flex-row md:flex-wrap md:content-between"
       onContextMenu={(e) => e.preventDefault()}
       style={{
         userSelect: 'none',
@@ -212,11 +212,11 @@ export default function FabLifeCounter() {
         />
       )}
       
-      {/* Player 2 (Top, rotated) */}
+      {/* Player 1 (Bottom on mobile, Left on desktop) */}
       <Player
-        isPlayer1={false}
-        initialLife={gameState.player2.life}
-        maxLife={gameState.player2.maxLife}
+        isPlayer1={true}
+        initialLife={gameState.player1.life}
+        maxLife={gameState.player1.maxLife}
       />
 
       {/* Middle Controls */}
@@ -225,11 +225,11 @@ export default function FabLifeCounter() {
         onShowHistory={() => setShowHistory(true)}
       />
 
-      {/* Player 1 (Bottom) */}
+      {/* Player 2 (Top on mobile, Right on desktop) */}
       <Player
-        isPlayer1={true}
-        initialLife={gameState.player1.life}
-        maxLife={gameState.player1.maxLife}
+        isPlayer1={false}
+        initialLife={gameState.player2.life}
+        maxLife={gameState.player2.maxLife}
       />
     </div>
   );
