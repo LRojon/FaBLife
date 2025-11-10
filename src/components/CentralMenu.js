@@ -27,7 +27,7 @@ const CentralMenu = ({ onReset, onShowHistory }) => {
     }
   };
   return (
-    <div className="w-full bg-gray-900 border-y border-gray-700 flex items-center justify-center gap-2 py-2 px-4 md:border-x md:border-y-0 md:py-4">
+    <div className="w-full bg-gray-900 border-y border-gray-700 flex items-center justify-center gap-2 py-2 px-4 order-2 md:order-none md:border-x md:border-y-0 md:py-4">
       <button
         onClick={onShowHistory}
         className="bg-gray-700 hover:bg-gray-600 text-white rounded-lg px-4 py-2 flex items-center gap-2 text-sm font-semibold hidden"

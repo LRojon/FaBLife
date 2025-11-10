@@ -12,6 +12,7 @@ export default function FabLifeCounter() {
   const [selectedFormat, setSelectedFormat] = useState('adult');
   const [currentPlayer, setCurrentPlayer] = useState('');
   const [gameState, setGameState] = useState({
+    gameId: 0,
     format: 'adult',
     player1: { life: 40, maxLife: 40 },
     player2: { life: 40, maxLife: 40 },
@@ -130,11 +131,14 @@ export default function FabLifeCounter() {
 
   const handleStartingLifeSelection = (life) => {
     if (currentPlayer === 'Joueur 1') {
-      setGameState(prev => ({
-        ...prev,
+      const newState = {
+        gameId: gameState.gameId,
         format: selectedFormat,
-        player1: { life: life, maxLife: life }
-      }));
+        player1: { life: life, maxLife: life },
+        player2: { life: gameState.player2.life, maxLife: gameState.player2.maxLife },
+        history: gameState.history || []
+      };
+      setGameState(newState);
       setCurrentPlayer('Joueur 2');
     } else {
       const historyEntry = {
@@ -142,10 +146,11 @@ export default function FabLifeCounter() {
       };
       
       const newState = {
+        gameId: gameState.gameId + 1,
         format: selectedFormat,
         player1: { life: gameState.player1.life, maxLife: gameState.player1.maxLife },
         player2: { life: life, maxLife: life },
-        history: [historyEntry] // Reset de l'historique avec seulement l'entrée de nouvelle partie
+        history: [historyEntry]
       };
       
       setGameState(newState);
@@ -217,6 +222,7 @@ export default function FabLifeCounter() {
         isPlayer1={false}
         initialLife={gameState.player2.life}
         maxLife={gameState.player2.maxLife}
+        gameId={gameState.gameId}
       />
 
       {/* Middle Controls */}
@@ -230,6 +236,7 @@ export default function FabLifeCounter() {
         isPlayer1={true}
         initialLife={gameState.player1.life}
         maxLife={gameState.player1.maxLife}
+        gameId={gameState.gameId}
       />
     </div>
   );

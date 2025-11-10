@@ -25,19 +25,6 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
   };
 
   const handleButtonInteraction = (amount, event) => {
-    // Éviter les événements en double
-    if (isProcessingRef.current) {
-      return;
-    }
-    
-    // Éviter les événements multiples du même type
-    const eventKey = `${amount}_${Date.now()}`;
-    if (window.lastEventKey === eventKey) {
-      return;
-    }
-    window.lastEventKey = eventKey;
-    
-    isProcessingRef.current = true;
     event.preventDefault();
     event.stopPropagation();
     
@@ -127,7 +114,6 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
         <div 
           className={`absolute text-3xl font-bold ${
             displayCumul > 0 ? 'text-green-400' : 'text-red-400'
-            displayCumul > 0 ? 'text-green-400' : 'text-red-400'
           }`}
           style={{
             top: '20%',
@@ -138,7 +124,6 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
           }}
         >
           {displayCumul > 0 ? '+' : ''}{displayCumul}
-          {displayCumul > 0 ? '+' : ''}{displayCumul}
         </div>
       )}
       
@@ -148,8 +133,6 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
           <>
             <button
               onPointerDown={(e) => handleButtonInteraction(-1, e)}
-              onTouchStart={(e) => handleButtonInteraction(-1, e)}
-              onMouseDown={(e) => handleButtonInteraction(-1, e)}
               onContextMenu={(e) => e.preventDefault()}
               className="text-white hover:text-gray-200 active:text-gray-400 font-black select-none transition-colors cursor-pointer"
               style={{ 
@@ -175,8 +158,6 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
             </div>
             <button
               onPointerDown={(e) => handleButtonInteraction(1, e)}
-              onTouchStart={(e) => handleButtonInteraction(1, e)}
-              onMouseDown={(e) => handleButtonInteraction(1, e)}
               onContextMenu={(e) => e.preventDefault()}
               className="text-white hover:text-gray-200 active:text-gray-400 font-black select-none transition-colors cursor-pointer"
               style={{ 
@@ -196,8 +177,6 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
           <>
             <button
               onPointerDown={(e) => handleButtonInteraction(1, e)}
-              onTouchStart={(e) => handleButtonInteraction(1, e)}
-              onMouseDown={(e) => handleButtonInteraction(1, e)}
               onContextMenu={(e) => e.preventDefault()}
               className="text-white hover:text-gray-200 active:text-gray-400 font-black select-none transition-colors cursor-pointer"
               style={{ 
@@ -223,8 +202,6 @@ const Life = ({ pv, cumul, onLifeChange, isPlayer1 }) => {
             </div>
             <button
               onPointerDown={(e) => handleButtonInteraction(-1, e)}
-              onTouchStart={(e) => handleButtonInteraction(-1, e)}
-              onMouseDown={(e) => handleButtonInteraction(-1, e)}
               onContextMenu={(e) => e.preventDefault()}
               className="text-white hover:text-gray-200 active:text-gray-400 font-black select-none transition-colors cursor-pointer"
               style={{ 
