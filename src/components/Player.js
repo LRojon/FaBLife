@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import LifeBar from './LifeBar';
 import Life from './Life';
 
-const Player = ({ isPlayer1, initialLife = 20, maxLife = 20 }) => {
+const Player = ({ isPlayer1, initialLife = 20, maxLife = 20, gameId = 0 }) => {
   const [currentPV, setCurrentPV] = useState(initialLife);
   const [cumul, setCumul] = useState(null);
 
@@ -11,7 +11,7 @@ const Player = ({ isPlayer1, initialLife = 20, maxLife = 20 }) => {
   // Mettre à jour les PV si initialLife change (lors du reset via App.js)
   useEffect(() => {
     setCurrentPV(initialLife);
-  }, [initialLife]);
+  }, [initialLife, maxLife, gameId]);
 
   const handleLifeChange = (change) => {
     const newLife = Math.max(0, currentPV + change);
@@ -28,7 +28,7 @@ const Player = ({ isPlayer1, initialLife = 20, maxLife = 20 }) => {
 
   return (
     <div 
-      className={`flex-1 flex bg-gray-800 relative ${rotationClass}`}
+      className={`flex-1 flex bg-gray-800 relative ${rotationClass} md:rotate-0 md:flex-col md:w-1/2 md:h-full md:border-r md:border-gray-700 last:md:border-r-0`}
       style={{
         userSelect: 'none',
         WebkitUserSelect: 'none',
@@ -39,7 +39,7 @@ const Player = ({ isPlayer1, initialLife = 20, maxLife = 20 }) => {
       }}
     >
       {/* Barre de PV en haut qui prend toute la largeur */}
-      <div className="absolute top-4 left-4 right-4 z-20">
+      <div className="absolute top-4 left-4 right-4 z-20 md:static md:w-full md:px-4 md:pt-4">
         <LifeBar 
           currentPV={currentPV} 
           maxPV={maxLife} 

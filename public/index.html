@@ -54,8 +54,8 @@
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       }
       
-      /* Forcer l'orientation portrait */
-      @media screen and (orientation: landscape) {
+      /* Forcer l'orientation portrait sur mobile */
+      @media screen and (max-width: 768px) and (orientation: landscape) {
         body {
           transform: rotate(90deg);
           transform-origin: center;
@@ -63,6 +63,31 @@
           width: 100vh;
           height: 100vw;
           overflow: hidden;
+        }
+      }
+
+      /* Responsive layout */
+      body, html, #root {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Desktop: disposition horizontale (landscape) */
+      @media screen and (min-width: 769px) {
+        html, body {
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        
+        #root {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: row;
         }
       }
     </style>

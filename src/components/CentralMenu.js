@@ -27,7 +27,7 @@ const CentralMenu = ({ onReset, onShowHistory }) => {
     }
   };
   return (
-    <div className="bg-gray-900 border-y border-gray-700 flex items-center justify-center gap-2 py-2 px-4">
+    <div className="w-full bg-gray-900 border-b border-gray-700 flex items-center justify-center gap-2 py-2 px-4">
       <button
         onClick={onShowHistory}
         className="bg-gray-700 hover:bg-gray-600 text-white rounded-lg px-4 py-2 flex items-center gap-2 text-sm font-semibold hidden"
@@ -38,18 +38,19 @@ const CentralMenu = ({ onReset, onShowHistory }) => {
 
       <button
         onClick={toggleFullscreen}
-        className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg p-2 flex items-center justify-center"
+        className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg p-2 flex items-center justify-center md:p-3"
         title={isFullscreen ? "Quitter le plein écran" : "Plein écran"}
       >
-        {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
+        {isFullscreen ? <Minimize className="w-4 h-4 md:w-5 md:h-5" /> : <Maximize className="w-4 h-4 md:w-5 md:h-5" />}
       </button>
 
       <button
         onClick={onReset}
-        className="bg-red-600 hover:bg-red-700 text-white rounded-lg px-4 py-2 flex items-center gap-2 text-sm font-semibold"
+        className="bg-red-600 hover:bg-red-700 text-white rounded-lg p-2 md:px-4 md:py-2 flex items-center gap-2 text-sm font-semibold md:gap-2"
+        title="Reset"
       >
-        <RotateCcw className="w-4 h-4" />
-        Reset
+        <RotateCcw className="w-4 h-4 md:w-5 md:h-5" />
+        <span className="hidden md:inline">Reset</span>
       </button>
     </div>
   );

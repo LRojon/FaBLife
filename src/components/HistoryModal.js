@@ -9,7 +9,7 @@ const HistoryModal = ({ history, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
-      <div className="bg-gray-800 rounded-lg w-full max-w-4xl h-[90vh] p-6 overflow-hidden">
+      <div className="bg-gray-800 rounded-lg w-full max-w-4xl h-[90vh] p-6 overflow-hidden md:w-full md:max-w-6xl md:max-h-[80vh]">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold flex items-center gap-2">
             <History className="w-6 h-6" />
@@ -20,9 +20,9 @@ const HistoryModal = ({ history, onClose }) => {
           </button>
         </div>
 
-        {/* Tableau orienté à 90° vers la droite */}
-        <div className="transform rotate-90 origin-center w-full h-full">
-          <div className="grid grid-cols-2 gap-4 h-full -translate-y-full">
+        {/* Tableau orienté à 90° vers la droite sur mobile, normal sur desktop */}
+        <div className="transform -rotate-90 md:rotate-0 origin-center md:origin-top-left w-full h-full md:h-auto">
+          <div className="grid grid-cols-2 gap-4 h-full md:h-auto md:grid-cols-2 -translate-y-full md:translate-y-0">
             {/* Colonne Joueur 1 */}
             <div className="bg-gray-700 rounded-lg p-4 overflow-y-auto">
               <h3 className="text-lg font-semibold mb-4 text-center text-blue-400">Joueur 1</h3>

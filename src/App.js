@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import HistoryModal from './components/HistoryModal';
 import FormatSelectionModal from './components/FormatSelectionModal';
 import StartingLifeModal from './components/StartingLifeModal';
-import CentralMenu from './components/CentralMenu';
-import Player from './components/Player';
+import MobileLayout from './components/MobileLayout';
+import DesktopLayout from './components/DesktopLayout';
 
 export default function FabLifeCounter() {
   const [showHistory, setShowHistory] = useState(false);
@@ -11,12 +11,24 @@ export default function FabLifeCounter() {
   const [showStartingLife, setShowStartingLife] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState('adult');
   const [currentPlayer, setCurrentPlayer] = useState('');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [gameState, setGameState] = useState({
+    gameId: 0,
     format: 'adult',
     player1: { life: 40, maxLife: 40 },
     player2: { life: 40, maxLife: 40 },
     history: []
   });
+
+  // Empêcher la mise en veille sur mobile
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Empêcher la mise en veille sur mobile
   useEffect(() => {
@@ -130,11 +142,14 @@ export default function FabLifeCounter() {
 
   const handleStartingLifeSelection = (life) => {
     if (currentPlayer === 'Joueur 1') {
-      setGameState(prev => ({
-        ...prev,
+      const newState = {
+        gameId: gameState.gameId,
         format: selectedFormat,
-        player1: { life: life, maxLife: life }
-      }));
+        player1: { life: life, maxLife: life },
+        player2: { life: gameState.player2.life, maxLife: gameState.player2.maxLife },
+        history: gameState.history || []
+      };
+      setGameState(newState);
       setCurrentPlayer('Joueur 2');
     } else {
       const historyEntry = {
@@ -142,10 +157,11 @@ export default function FabLifeCounter() {
       };
       
       const newState = {
+        gameId: gameState.gameId + 1,
         format: selectedFormat,
         player1: { life: gameState.player1.life, maxLife: gameState.player1.maxLife },
         player2: { life: life, maxLife: life },
-        history: [historyEntry] // Reset de l'historique avec seulement l'entrée de nouvelle partie
+        history: [historyEntry]
       };
       
       setGameState(newState);
@@ -178,17 +194,7 @@ export default function FabLifeCounter() {
   const updatePlayer2Life = (newLife) => updatePlayerLife(2, newLife);
 
   return (
-    <div 
-      className="h-screen flex flex-col bg-gray-900 text-gray-100 overflow-hidden"
-      onContextMenu={(e) => e.preventDefault()}
-      style={{
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
-        MozUserSelect: 'none',
-        msUserSelect: 'none',
-        WebkitTouchCallout: 'none'
-      }}
-    >
+    <>
       {showHistory && (
         <HistoryModal
           history={gameState.history || []}
@@ -211,26 +217,20 @@ export default function FabLifeCounter() {
           onSelectLife={handleStartingLifeSelection}
         />
       )}
-      
-      {/* Player 2 (Top, rotated) */}
-      <Player
-        isPlayer1={false}
-        initialLife={gameState.player2.life}
-        maxLife={gameState.player2.maxLife}
-      />
 
-      {/* Middle Controls */}
-      <CentralMenu 
-        onReset={handleReset}
-        onShowHistory={() => setShowHistory(true)}
-      />
-
-      {/* Player 1 (Bottom) */}
-      <Player
-        isPlayer1={true}
-        initialLife={gameState.player1.life}
-        maxLife={gameState.player1.maxLife}
-      />
-    </div>
+      {isMobile ? (
+        <MobileLayout 
+          gameState={gameState}
+          onReset={handleReset}
+          onShowHistory={() => setShowHistory(true)}
+        />
+      ) : (
+        <DesktopLayout 
+          gameState={gameState}
+          onReset={handleReset}
+          onShowHistory={() => setShowHistory(true)}
+        />
+      )}
+    </>
   );
 }

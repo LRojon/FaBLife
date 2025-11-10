@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 const FormatSelectionModal = ({ onClose, onSelectFormat }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
-      <div className="bg-gray-800 rounded-lg w-80 h-96 p-6 border-2 border-gray-600 transform -rotate-90">
+      <div className="bg-gray-800 rounded-lg w-80 h-96 p-6 border-2 border-gray-600 transform md:transform-none -rotate-90 md:rotate-0">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-bold">Format</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-white">
