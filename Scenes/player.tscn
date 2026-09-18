@@ -1,0 +1,176 @@
+[gd_scene format=3 uid="uid://ccvirfn375req"]
+
+[ext_resource type="StyleBox" uid="uid://cd3ansm3ncq6f" path="res://Assets/StyleBox/HP_OK.tres" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://gmeclxlg34ji" path="res://Scripts/player.gd" id="1_vgqql"]
+[ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="2_6t5aa"]
+[ext_resource type="StyleBox" uid="uid://crui5yq61p0p8" path="res://Assets/StyleBox/HP_SUP.tres" id="2_vgqql"]
+[ext_resource type="LabelSettings" uid="uid://csk5na2csuxru" path="res://Assets/Fonts/BufferInf.tres" id="5_fkybt"]
+[ext_resource type="FontFile" uid="uid://b865x8m3mvaj6" path="res://Assets/Fonts/Almendra-Bold.ttf" id="5_x3wgy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_skvsw"]
+font = ExtResource("2_6t5aa")
+font_size = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s002b"]
+bg_color = Color(0, 0, 0, 0.5019608)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skvsw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vgqql"]
+bg_color = Color(1, 1, 1, 0.0627451)
+
+[sub_resource type="LabelSettings" id="LabelSettings_s002b"]
+font = ExtResource("2_6t5aa")
+font_size = 400
+
+[node name="Player" type="Control" unique_id=1853351526]
+custom_minimum_size = Vector2(900, 900)
+custom_maximum_size = Vector2(900, 900)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_right = -60.0
+offset_bottom = -960.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(480, 480)
+script = ExtResource("1_vgqql")
+_hero = "ArakniS"
+
+[node name="Content" type="Control" parent="." unique_id=239564124]
+custom_minimum_size = Vector2(900, 900)
+custom_maximum_size = Vector2(900, 900)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(450, 450)
+
+[node name="BG" type="Control" parent="Content" unique_id=466493110]
+custom_minimum_size = Vector2(1080, 960)
+custom_maximum_size = Vector2(1080, 960)
+anchors_preset = 0
+offset_left = -90.0
+offset_top = -30.0
+offset_right = 990.0
+offset_bottom = 930.0
+
+[node name="Texture" type="TextureRect" parent="Content/BG" unique_id=242796409]
+custom_minimum_size = Vector2(1080, 960)
+custom_maximum_size = Vector2(1080, 960)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Darker" type="ColorRect" parent="Content/BG" unique_id=1805911175]
+custom_minimum_size = Vector2(1080, 960)
+custom_maximum_size = Vector2(1080, 960)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content" unique_id=732168127]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Hero Name" type="Label" parent="Content/VBoxContainer" unique_id=1830284872]
+layout_mode = 2
+text = "Dash I/O"
+label_settings = SubResource("LabelSettings_skvsw")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/VBoxContainer" unique_id=904305583]
+clip_contents = true
+layout_mode = 2
+alignment = 1
+
+[node name="NormalBar" type="ProgressBar" parent="Content/VBoxContainer/HBoxContainer" unique_id=753663379]
+custom_minimum_size = Vector2(840, 40)
+custom_maximum_size = Vector2(840, 40)
+clip_contents = true
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_s002b")
+theme_override_styles/fill = ExtResource("1_cvnsp")
+value = 100.0
+show_percentage = false
+
+[node name="SupBar" type="ProgressBar" parent="Content/VBoxContainer/HBoxContainer/NormalBar" unique_id=952161916]
+custom_minimum_size = Vector2(840, 40)
+custom_maximum_size = Vector2(840, 40)
+layout_mode = 0
+offset_right = 900.0
+offset_bottom = 40.0
+theme_override_styles/fill = ExtResource("2_vgqql")
+value = 50.0
+show_percentage = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Content/VBoxContainer" unique_id=1123360492]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Minus" type="Button" parent="Content/VBoxContainer/HBoxContainer2" unique_id=1787446180]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_x3wgy")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/normal = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgqql")
+theme_override_styles/hover = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_skvsw")
+text = "-"
+
+[node name="HP" type="Label" parent="Content/VBoxContainer/HBoxContainer2" unique_id=1012168453]
+layout_mode = 2
+text = "40"
+label_settings = SubResource("LabelSettings_s002b")
+
+[node name="Plus" type="Button" parent="Content/VBoxContainer/HBoxContainer2" unique_id=435181391]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_x3wgy")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/normal = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgqql")
+theme_override_styles/hover = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_skvsw")
+text = "+"
+
+[node name="Buffer" type="Label" parent="Content/VBoxContainer" unique_id=635451782]
+layout_mode = 2
+text = "5"
+label_settings = ExtResource("5_fkybt")
+horizontal_alignment = 1
+
+[node name="MinusTimer" type="Timer" parent="Content" unique_id=1204846829]
+one_shot = true
+
+[node name="PlusTimer" type="Timer" parent="Content" unique_id=1983087959]
+one_shot = true
+
+[node name="BufferTimer" type="Timer" parent="Content" unique_id=1948262167]
+one_shot = true

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://p1l4ep0orl21"]
+
+[ext_resource type="PackedScene" uid="uid://ccvirfn375req" path="res://Scenes/player.tscn" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://crujft6it885t" path="res://Scenes/menu.tscn" id="2_8gbba"]
+
+[node name="Main" type="Control" unique_id=375502707]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1560027611]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Player1" parent="VBoxContainer" unique_id=1853351526 instance=ExtResource("1_bo1nx")]
+z_as_relative = false
+layout_mode = 2
+vMode = false
+
+[node name="Menu" parent="VBoxContainer" unique_id=1898191867 instance=ExtResource("2_8gbba")]
+z_index = 100
+z_as_relative = false
+layout_mode = 2
+
+[node name="Player2" parent="VBoxContainer" unique_id=1433977807 instance=ExtResource("1_bo1nx")]
+z_as_relative = false
+layout_mode = 2
+vMode = false
+p1 = false

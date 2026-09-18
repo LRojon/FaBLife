@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://csk5na2csuxru"]
+
+[ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="1_5ixou"]
+
+[resource]
+font = ExtResource("1_5ixou")
+font_size = 50
+font_color = Color(0.78431374, 0.19607843, 0.19607843, 1)
