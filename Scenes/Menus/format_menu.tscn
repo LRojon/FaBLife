@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cgeuexqu0pq0v"]
+
+[ext_resource type="Script" uid="uid://biuyfr7uskbvh" path="res://Scripts/Menus/format_menu.gd" id="1_5tsoo"]
+
+[node name="FormatMenu" type="Control" unique_id=1898191867 groups=["FormatMenu"]]
+custom_minimum_size = Vector2(0, 80)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_5tsoo")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1292185297]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1718759369]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1087538982]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1

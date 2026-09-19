@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://epp11325x8ct"]
+
+[ext_resource type="Script" uid="uid://sspeyi57rjy5" path="res://Scripts/Menus/historique.gd" id="1_ychas"]
+[ext_resource type="LabelSettings" uid="uid://upnltleuckjk" path="res://Assets/Fonts/HistoName.tres" id="2_nxu1m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjybq"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 0.9019608)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ychas"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 10
+
+[node name="Historique" type="Control" unique_id=1910458868]
+z_index = 200
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1080.0
+offset_bottom = 1920.0
+script = ExtResource("1_ychas")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1245408819]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="Panel" type="PanelContainer" parent="MarginContainer" unique_id=2108099468]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tjybq")
+
+[node name="Control" type="Control" parent="MarginContainer/Panel" unique_id=903082619]
+layout_mode = 2
+
+[node name="HLine" type="Line2D" parent="MarginContainer/Panel/Control" unique_id=1636724759]
+points = PackedVector2Array(24, 220, 1004, 220)
+default_color = Color(0.5890956, 0.5890956, 0.5890956, 1)
+
+[node name="VLine" type="Line2D" parent="MarginContainer/Panel/Control" unique_id=1047430590]
+points = PackedVector2Array(515, 30, 515, 1800)
+default_color = Color(0.5890956, 0.5890956, 0.5890956, 1)
+
+[node name="Quit" type="Button" parent="MarginContainer/Panel" unique_id=1975985911]
+z_index = 1000
+z_as_relative = false
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_ychas")
+action_mode = 0
+keep_pressed_outside = true
+text = "X"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel" unique_id=1397277369]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer" unique_id=1991168486]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="Player 1" type="Label" parent="MarginContainer/Panel/MarginContainer/GridContainer" unique_id=1004789197]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Player 1"
+label_settings = ExtResource("2_nxu1m")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Player 2" type="Label" parent="MarginContainer/Panel/MarginContainer/GridContainer" unique_id=1145976075]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Player2"
+label_settings = ExtResource("2_nxu1m")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/GridContainer" unique_id=1933578249]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HistoricP1" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/GridContainer/ScrollContainer" unique_id=160018392]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/GridContainer" unique_id=1489078851]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HistoricP2" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/GridContainer/ScrollContainer2" unique_id=1572258494]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

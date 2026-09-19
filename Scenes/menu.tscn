@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://crujft6it885t"]
 
+[ext_resource type="Texture2D" uid="uid://ddfs0i8oxdkgj" path="res://Assets/Icons/Hero.png" id="1_1rerr"]
+[ext_resource type="Script" uid="uid://dyc5x18831aoe" path="res://Scripts/Menus/menu.gd" id="1_xhh6f"]
+[ext_resource type="Texture2D" uid="uid://c0a2umg6x31ft" path="res://Assets/Icons/Historique.png" id="3_cayip"]
+
 [node name="Menu" type="Control" unique_id=1898191867]
+z_index = 200
 custom_minimum_size = Vector2(0, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 3
@@ -8,6 +13,8 @@ anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 3
+mouse_filter = 2
+script = ExtResource("1_xhh6f")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1718759369]
 layout_mode = 1
@@ -16,10 +23,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1087538982]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 
@@ -28,81 +37,27 @@ custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/Button" unique_id=771174222]
+[node name="Hero" type="TextureButton" parent="VBoxContainer/HBoxContainer/Button" unique_id=1521805387]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
+texture_normal = ExtResource("1_1rerr")
+stretch_mode = 6
 
-[node name="Button2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1798681506]
+[node name="Button2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=241270198]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/Button2" unique_id=1182636605]
+[node name="Historique" type="TextureButton" parent="VBoxContainer/HBoxContainer/Button2" unique_id=324113515]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
-
-[node name="Button3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=3428544]
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(-1, 80)
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/Button3" unique_id=653459747]
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(80, 80)
-layout_mode = 2
-
-[node name="Button4" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1415459110]
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(-1, 80)
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/Button4" unique_id=1333094941]
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(80, 80)
-layout_mode = 2
-
-[node name="Button5" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=992816850]
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(-1, 80)
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/Button5" unique_id=1035260651]
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(80, 80)
-layout_mode = 2
-
-[node name="Button6" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=273648179]
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(-1, 80)
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/Button6" unique_id=1456965625]
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(80, 80)
-layout_mode = 2
-
-[node name="Button7" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=673078673]
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(-1, 80)
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/Button7" unique_id=2012263416]
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(80, 80)
-layout_mode = 2
+texture_normal = ExtResource("3_cayip")
+stretch_mode = 6

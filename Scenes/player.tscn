@@ -2,10 +2,16 @@
 
 [ext_resource type="StyleBox" uid="uid://cd3ansm3ncq6f" path="res://Assets/StyleBox/HP_OK.tres" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://gmeclxlg34ji" path="res://Scripts/player.gd" id="1_vgqql"]
+[ext_resource type="Shader" uid="uid://c1rgwj2u3ew4r" path="res://Assets/Shaders/grayscale.gdshader" id="2_3smsa"]
 [ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="2_6t5aa"]
 [ext_resource type="StyleBox" uid="uid://crui5yq61p0p8" path="res://Assets/StyleBox/HP_SUP.tres" id="2_vgqql"]
 [ext_resource type="LabelSettings" uid="uid://csk5na2csuxru" path="res://Assets/Fonts/BufferInf.tres" id="5_fkybt"]
 [ext_resource type="FontFile" uid="uid://b865x8m3mvaj6" path="res://Assets/Fonts/Almendra-Bold.ttf" id="5_x3wgy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3wgy"]
+resource_local_to_scene = true
+shader = ExtResource("2_3smsa")
+shader_parameter/intensity = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_skvsw"]
 font = ExtResource("2_6t5aa")
@@ -28,25 +34,21 @@ bg_color = Color(1, 1, 1, 0.0627451)
 font = ExtResource("2_6t5aa")
 font_size = 400
 
-[node name="Player" type="Control" unique_id=1853351526]
-custom_minimum_size = Vector2(900, 900)
-custom_maximum_size = Vector2(900, 900)
+[node name="Player" type="Control" unique_id=1853351526 groups=["Player"]]
+custom_minimum_size = Vector2(1080, 960)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 60.0
-offset_right = -60.0
 offset_bottom = -960.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(480, 480)
+mouse_filter = 2
 script = ExtResource("1_vgqql")
-_hero = "ArakniS"
+_hero = "ArakniM"
 
 [node name="Content" type="Control" parent="." unique_id=239564124]
-custom_minimum_size = Vector2(900, 900)
-custom_maximum_size = Vector2(900, 900)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,29 +56,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(450, 450)
+mouse_filter = 2
 
 [node name="BG" type="Control" parent="Content" unique_id=466493110]
-custom_minimum_size = Vector2(1080, 960)
-custom_maximum_size = Vector2(1080, 960)
-anchors_preset = 0
-offset_left = -90.0
-offset_top = -30.0
-offset_right = 990.0
-offset_bottom = 930.0
-
-[node name="Texture" type="TextureRect" parent="Content/BG" unique_id=242796409]
-custom_minimum_size = Vector2(1080, 960)
-custom_maximum_size = Vector2(1080, 960)
+custom_minimum_size = Vector2(-1, -1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(540, 480)
+mouse_filter = 2
+
+[node name="Texture" type="TextureRect" parent="Content/BG" unique_id=242796409]
+material = SubResource("ShaderMaterial_x3wgy")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 6
 
 [node name="Darker" type="ColorRect" parent="Content/BG" unique_id=1805911175]
-custom_minimum_size = Vector2(1080, 960)
-custom_maximum_size = Vector2(1080, 960)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,10 +95,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Hero Name" type="Label" parent="Content/VBoxContainer" unique_id=1830284872]
+[node name="Spacing" type="Label" parent="Content/VBoxContainer" unique_id=1830284872]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_skvsw")
+horizontal_alignment = 1
+
+[node name="Hero Name" type="Label" parent="Content/VBoxContainer" unique_id=130883750]
 layout_mode = 2
 text = "Dash I/O"
 label_settings = SubResource("LabelSettings_skvsw")
@@ -107,8 +117,8 @@ layout_mode = 2
 alignment = 1
 
 [node name="NormalBar" type="ProgressBar" parent="Content/VBoxContainer/HBoxContainer" unique_id=753663379]
-custom_minimum_size = Vector2(840, 40)
-custom_maximum_size = Vector2(840, 40)
+custom_minimum_size = Vector2(960, 50)
+custom_maximum_size = Vector2(960, 50)
 clip_contents = true
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_s002b")
@@ -117,11 +127,12 @@ value = 100.0
 show_percentage = false
 
 [node name="SupBar" type="ProgressBar" parent="Content/VBoxContainer/HBoxContainer/NormalBar" unique_id=952161916]
-custom_minimum_size = Vector2(840, 40)
-custom_maximum_size = Vector2(840, 40)
-layout_mode = 0
-offset_right = 900.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/fill = ExtResource("2_vgqql")
 value = 50.0
 show_percentage = false

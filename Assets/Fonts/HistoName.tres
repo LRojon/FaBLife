@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://upnltleuckjk"]
+
+[ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="1_ntdgn"]
+
+[resource]
+font = ExtResource("1_ntdgn")
+font_size = 48

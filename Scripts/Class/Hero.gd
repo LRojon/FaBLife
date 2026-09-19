@@ -1,6 +1,6 @@
 class_name Hero
 
-var id      : int
+var id      : String
 var name    : String
 var ll      : int
 var base_hp : int
@@ -16,3 +16,6 @@ func _init(_id, _name, _ll, _base_hp, _classes, _talents, _formats) -> void:
 	classes = _classes
 	talents = _talents
 	formats = _formats
+
+func get_img_path() -> String:
+	return "res://Assets/Sprites/Heroes/" + self.id + ".jpg"

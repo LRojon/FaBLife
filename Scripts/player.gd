@@ -1,20 +1,21 @@
-extends Control
+class_name Player extends Control
 
 ##### DECLARATIONS #####
 
-const LONG_PRESS_DELAY : float = 1.0
-const BUFFER_DELAY     : float = 1.5
+const LONG_PRESS_DELAY : float = 0.7
+const BUFFER_DELAY     : float = 1.0
 const HP_BAR_DELAY     : float = 0.5
 const HP_BOF_THRESHOLD : float = 50.0
 const HP_NOK_THRESHOLD : float = 25.0
 
 const OFFSET_Y : int = 14
 
-var HP_OK      = load("res://Assets/StyleBox/HP_OK.tres")
-var HP_BOF     = load("res://Assets/StyleBox/HP_BOF.tres")
-var HP_NOK     = load("res://Assets/StyleBox/HP_NOK.tres")
-var BUFFER_SUP = load("res://Assets/Fonts/BufferSup.tres")
-var BUFFER_INF = load("res://Assets/Fonts/BufferInf.tres")
+const HP_OK          = preload("res://Assets/StyleBox/HP_OK.tres")
+const HP_BOF         = preload("res://Assets/StyleBox/HP_BOF.tres")
+const HP_NOK         = preload("res://Assets/StyleBox/HP_NOK.tres")
+const BUFFER_SUP     = preload("res://Assets/Fonts/BufferSup.tres")
+const BUFFER_INF     = preload("res://Assets/Fonts/BufferInf.tres")
+const HERO_SELECTION = preload("res://Scenes/Menus/hero_selection.tscn")
 
 @export var _hero : String = ""
 @export var vMode : bool   = true
@@ -23,6 +24,9 @@ var BUFFER_INF = load("res://Assets/Fonts/BufferInf.tres")
 @onready var content     = $Content
 @onready var bg          = $Content/BG
 @onready var bg_texture  = $Content/BG/Texture
+@onready var bg_darker   = $Content/BG/Darker
+
+@onready var sysContent  = $Content/VBoxContainer
 @onready var hero_name   = $"Content/VBoxContainer/Hero Name"
 @onready var hp          = $Content/VBoxContainer/HBoxContainer2/HP
 @onready var minus       = $Content/VBoxContainer/HBoxContainer2/Minus
@@ -34,13 +38,15 @@ var BUFFER_INF = load("res://Assets/Fonts/BufferInf.tres")
 @onready var plusTimer   = $Content/PlusTimer
 @onready var bufferTimer = $Content/BufferTimer
 
-var hero		: Hero = null
-var minusHold	: bool = false
-var plusHold	: bool = false
-var previous_hp : int  = 0
-var current_hp	: int  = 0 :
+var historic	: Array[int]	= []
+var hero		: Hero			= null
+var minusHold	: bool			= false
+var plusHold	: bool			= false
+var previous_hp : int 			= 0
+var current_hp	: int 			= 0 :
 	set(value):
 		current_hp = value
+		current_hp = 0 if current_hp < 0 else current_hp
 		emit_signal("current_hp_changed")
 var buffer		: int  = 0 :
 	set(value):
@@ -53,28 +59,43 @@ signal current_hp_changed
 ##### BUILT-IN #####
 
 func _ready() -> void:
+	var screenSize = get_viewport_rect().size
+	var targetSize = Vector2(screenSize.x, screenSize.y / 2)
 	#if vMode:
 		#self.rotation = 0
 	#else:
 		#self.rotation_degrees = -90
 	if p1:
 		content.rotation_degrees = 180
-	bg.position += Vector2.UP * OFFSET_Y
+	#sysContent.position.y += targetSize.y * 0.1
+	custom_minimum_size = targetSize
+	custom_maximum_size = screenSize
+	size = targetSize
+	content.pivot_offset = targetSize / 2
+	bg.pivot_offset = targetSize / 2
+	print("bg target size: ", Vector2(screenSize.x, screenSize.y / 2))
+	#bg.position += Vector2.UP * OFFSET_Y
 	
 	hero = Data._get_hero(_hero)
-	hero_name.text = hero.name
-	current_hp = hero.base_hp
-	previous_hp = hero.base_hp
-	#bg.texture = load("res://Assets/Sprites/Heroes/" + _hero + ".jpg")
-	bg_texture.texture = load("res://Assets/Sprites/Heroes/Dio.jpg")
-	
-	hp.text = str(hero.base_hp)
-	normBar.value = 100
-	supBar.value  = 0
-	bufferT.text  = ""
+	update_hero(hero)
 	
 	self.connect("buffer_changed", _on_buffer_changed)
 	self.connect("current_hp_changed", _on_current_hp_changed)
+	Event.connect("hero_selected", func (_hero, _p1):
+		if _p1 == self.p1:
+			update_hero(_hero)
+	)
+	Event.connect("format_selected", func(format : Data.Format):
+		for child in content.get_children():
+			if child is HeroSelection:
+				child.queue_free()
+		
+		var instance : HeroSelection = HERO_SELECTION.instantiate()
+		instance.format = format
+		instance.p1 = self.p1
+		instance.position.y += targetSize.y * 0.05
+		content.add_child(instance)
+	)
 	bufferTimer.connect("timeout", _on_buffer_timeout)
 	minus.connect("button_down", _on_minus_press)
 	minus.connect("button_up"  , _on_minus_release)
@@ -84,6 +105,19 @@ func _ready() -> void:
 	plusTimer.connect("timeout", _on_plus_timeout)
 
 ##### LOGIC #####
+
+func update_hero(_hero: Hero):
+	hero = _hero
+	hero_name.text = _hero.name
+	previous_hp = _hero.base_hp
+	current_hp = _hero.base_hp
+	bg_texture.texture = load("res://Assets/Sprites/Heroes/" + _hero.id + ".jpg")
+	
+	hp.text = str(_hero.base_hp)
+	normBar.value = 100
+	supBar.value  = 0
+	bufferT.text  = ""
+	historic = []
 
 func change_bar(from : float, to : float):
 	print("Call change bar | from: ", from, " to: ", to)
@@ -119,6 +153,7 @@ func _on_current_hp_changed():
 	print("current_hp_changed")
 	bufferTimer.stop()
 	hp.text = str(current_hp)
+	print("hp | previous : ", previous_hp, " current : ", current_hp)
 	var from : float = float(previous_hp) / hero.base_hp * 100
 	var to   : float = float(current_hp)  / hero.base_hp * 100
 	change_bar(from, to)
@@ -128,6 +163,13 @@ func _on_current_hp_changed():
 		normBar.add_theme_stylebox_override("fill", HP_BOF)
 	else:
 		normBar.add_theme_stylebox_override("fill", HP_NOK)
+	
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.tween_property(bg_texture, "material:shader_parameter/intensity", (1.0 - (to / 100.0)) if to < 100.0 else 0.0, 0.5)
+	#bg_texture.set_instance_shader_parameter("intensity", (1.0 - (to / 100.0)) if to < 100.0 else 0.0)
+	
 	previous_hp = current_hp
 
 func _on_buffer_changed():
@@ -144,6 +186,8 @@ func _on_buffer_timeout():
 	print("buffer_timeout")
 	bufferTimer.stop()
 	current_hp += buffer
+	historic.push_back(buffer)
+	print("mod add: ", buffer)
 	buffer = 0
 
 func _on_minus_press():

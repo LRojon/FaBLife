@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://cqlwt76y8xl8m"]
+
+[ext_resource type="PackedScene" uid="uid://cnq3jdq4iaxfv" path="res://Scenes/Menus/hero_sel_button.tscn" id="1_a15u0"]
+[ext_resource type="Script" uid="uid://b3sh6phmrpkuj" path="res://Scripts/Menus/hero_selection.gd" id="1_yl55r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s002b"]
+bg_color = Color(0, 0, 0, 0.5019608)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HeroSelection" type="PanelContainer" unique_id=224738878]
+custom_minimum_size = Vector2(900, 900)
+custom_maximum_size = Vector2(900, 900)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -450.0
+offset_right = 450.0
+offset_bottom = 900.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s002b")
+script = ExtResource("1_yl55r")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=670515153]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer" unique_id=384996080]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/ScrollContainer" unique_id=1816468328]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 5
+
+[node name="HeroSelButton" parent="MarginContainer/ScrollContainer/GridContainer" unique_id=282805444 instance=ExtResource("1_a15u0")]
+layout_mode = 2

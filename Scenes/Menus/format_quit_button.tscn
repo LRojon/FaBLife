@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://m6h8h8yynoj0"]
+
+[ext_resource type="Script" uid="uid://8ad0rr51pdfn" path="res://Scripts/Menus/format_quit_button.gd" id="1_y28bu"]
+[ext_resource type="FontFile" uid="uid://b865x8m3mvaj6" path="res://Assets/Fonts/Almendra-Bold.ttf" id="2_7y7e2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sqfb8"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.78431374)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 5
+
+[node name="FormatButton" type="HBoxContainer" unique_id=1557019311]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(-1, 80)
+size_flags_horizontal = 3
+alignment = 1
+script = ExtResource("1_y28bu")
+
+[node name="Format" type="Button" parent="." unique_id=1515965381]
+custom_minimum_size = Vector2(0, 80)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7y7e2")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_sqfb8")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_sqfb8")
+keep_pressed_outside = true
+text = " X "

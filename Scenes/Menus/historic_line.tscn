@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://boj6q43sy4mwv"]
+
+[ext_resource type="Script" uid="uid://fxlwvnpxvvqs" path="res://Scripts/Menus/historic_line.gd" id="1_i0sd7"]
+[ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="1_q7vhb"]
+[ext_resource type="LabelSettings" uid="uid://csk5na2csuxru" path="res://Assets/Fonts/BufferInf.tres" id="2_i0sd7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nxu1m"]
+font = ExtResource("1_q7vhb")
+font_size = 100
+
+[node name="HistoricLine" type="HBoxContainer" unique_id=2023448762]
+alignment = 1
+script = ExtResource("1_i0sd7")
+
+[node name="HP" type="Label" parent="." unique_id=2080825598]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "38"
+label_settings = SubResource("LabelSettings_nxu1m")
+horizontal_alignment = 1
+
+[node name="Modifier" type="Label" parent="." unique_id=1248463457]
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = ExtResource("2_i0sd7")
+horizontal_alignment = 1
