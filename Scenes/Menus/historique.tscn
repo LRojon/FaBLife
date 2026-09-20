@@ -33,6 +33,7 @@ corner_radius_bottom_left = 3
 corner_detail = 10
 
 [node name="Historique" type="Control" unique_id=1910458868]
+top_level = true
 z_index = 200
 layout_mode = 3
 anchors_preset = 0

@@ -96,6 +96,9 @@ func _ready() -> void:
 		instance.position.y += targetSize.y * 0.05
 		content.add_child(instance)
 	)
+	Event.connect("reset_game", func ():
+		update_hero(hero)
+	)
 	bufferTimer.connect("timeout", _on_buffer_timeout)
 	minus.connect("button_down", _on_minus_press)
 	minus.connect("button_up"  , _on_minus_release)

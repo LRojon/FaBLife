@@ -4,8 +4,9 @@ extends Control
 const FORMAT_MENU = preload("res://Scenes/Menus/format_menu.tscn")
 const HISTORIQUE  = preload("res://Scenes/Menus/historique.tscn")
 
-@onready var hero_btn = $VBoxContainer/HBoxContainer/Button/Hero
+@onready var hero_btn  = $VBoxContainer/HBoxContainer/Button/Hero
 @onready var histo_btn = $VBoxContainer/HBoxContainer/Button2/Historique
+@onready var reset_btn = $VBoxContainer/HBoxContainer/Button3/Reset
 
 func _ready() -> void:
 	hero_btn.connect("pressed", func():
@@ -25,4 +26,8 @@ func _ready() -> void:
 			break
 		if parent:
 			parent.add_child(instance)
+	)
+	
+	reset_btn.connect("pressed", func():
+		Event.emit_signal("reset_game")
 	)
