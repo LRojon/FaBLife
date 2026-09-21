@@ -2,8 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://ddfs0i8oxdkgj" path="res://Assets/Icons/Hero.png" id="1_1rerr"]
 [ext_resource type="Script" uid="uid://dyc5x18831aoe" path="res://Scripts/Menus/menu.gd" id="1_xhh6f"]
+[ext_resource type="Texture2D" uid="uid://1brrykka3jg7" path="res://Assets/Icons/RotateV.png" id="2_wwsa2"]
 [ext_resource type="Texture2D" uid="uid://c0a2umg6x31ft" path="res://Assets/Icons/Historique.png" id="3_cayip"]
 [ext_resource type="Texture2D" uid="uid://sjxhgbtg0rx6" path="res://Assets/Icons/Reset.png" id="4_158mb"]
+[ext_resource type="Texture2D" uid="uid://ohiq3co8appp" path="res://Assets/Icons/Timer.png" id="4_jsrd8"]
 
 [node name="Menu" type="Control" unique_id=1898191867]
 z_index = 200
@@ -33,7 +35,7 @@ mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Button" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1899346827]
+[node name="RotateBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1650820493]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
@@ -41,14 +43,33 @@ size_flags_horizontal = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="Hero" type="TextureButton" parent="VBoxContainer/HBoxContainer/Button" unique_id=1521805387]
+[node name="Rotate" type="TextureButton" parent="VBoxContainer/HBoxContainer/RotateBtn" unique_id=1195085987]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_rotation = -1.5707964
+texture_normal = ExtResource("2_wwsa2")
+stretch_mode = 6
+
+[node name="HeroBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1899346827]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 1
+
+[node name="Hero" type="TextureButton" parent="VBoxContainer/HBoxContainer/HeroBtn" unique_id=1521805387]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(80, 80)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_rotation = -1.5707964
 texture_normal = ExtResource("1_1rerr")
 stretch_mode = 6
 
-[node name="Button2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=241270198]
+[node name="TimerBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=680606590]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
@@ -56,14 +77,35 @@ size_flags_horizontal = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="Historique" type="TextureButton" parent="VBoxContainer/HBoxContainer/Button2" unique_id=324113515]
+[node name="Timer" type="TextureButton" parent="VBoxContainer/HBoxContainer/TimerBtn" unique_id=686445514]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_rotation = -1.5707964
+texture_normal = ExtResource("4_jsrd8")
+stretch_mode = 6
+
+[node name="Time" type="Timer" parent="VBoxContainer/HBoxContainer/TimerBtn" unique_id=1312338176]
+
+[node name="HistoBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=241270198]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 1
+
+[node name="Historique" type="TextureButton" parent="VBoxContainer/HBoxContainer/HistoBtn" unique_id=324113515]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(80, 80)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_rotation = -1.5707964
 texture_normal = ExtResource("3_cayip")
 stretch_mode = 6
 
-[node name="Button3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1699923855]
+[node name="ResetBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1699923855]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
@@ -71,9 +113,11 @@ size_flags_horizontal = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="Reset" type="TextureButton" parent="VBoxContainer/HBoxContainer/Button3" unique_id=1081315802]
+[node name="Reset" type="TextureButton" parent="VBoxContainer/HBoxContainer/ResetBtn" unique_id=1081315802]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_rotation = -1.5707964
 texture_normal = ExtResource("4_158mb")
 stretch_mode = 6

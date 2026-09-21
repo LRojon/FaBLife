@@ -2,13 +2,28 @@ class_name Player extends Control
 
 ##### DECLARATIONS #####
 
+const MODE_V_PARAM = {
+	"V" : {
+		"HP_BAR": Vector2(960, 50),
+		"BAR_FILL": ProgressBar.FILL_BEGIN_TO_END,
+		"DEG_ROT_P1": -90,
+		"DEG_ROT_P2": 90,
+		"BTN_ORDER": [2, 1, 0]
+	},
+	"H" : {
+		"HP_BAR": Vector2(860, 45),
+		"BAR_FILL": ProgressBar.FILL_END_TO_BEGIN,
+		"DEG_ROT_P1": 90,
+		"DEG_ROT_P2": -90,
+		"BTN_ORDER": [2, 1, 0]
+	}
+}
+
 const LONG_PRESS_DELAY : float = 0.7
 const BUFFER_DELAY     : float = 1.0
 const HP_BAR_DELAY     : float = 0.5
 const HP_BOF_THRESHOLD : float = 50.0
 const HP_NOK_THRESHOLD : float = 25.0
-
-const OFFSET_Y : int = 14
 
 const HP_OK          = preload("res://Assets/StyleBox/HP_OK.tres")
 const HP_BOF         = preload("res://Assets/StyleBox/HP_BOF.tres")
@@ -18,7 +33,6 @@ const BUFFER_INF     = preload("res://Assets/Fonts/BufferInf.tres")
 const HERO_SELECTION = preload("res://Scenes/Menus/hero_selection.tscn")
 
 @export var _hero : String = ""
-@export var vMode : bool   = true
 @export var p1    : bool   = true
 
 @onready var content     = $Content
@@ -28,6 +42,7 @@ const HERO_SELECTION = preload("res://Scenes/Menus/hero_selection.tscn")
 
 @onready var sysContent  = $Content/VBoxContainer
 @onready var hero_name   = $"Content/VBoxContainer/Hero Name"
+@onready var hp_content  = $Content/VBoxContainer/HBoxContainer2
 @onready var hp          = $Content/VBoxContainer/HBoxContainer2/HP
 @onready var minus       = $Content/VBoxContainer/HBoxContainer2/Minus
 @onready var plus        = $Content/VBoxContainer/HBoxContainer2/Plus
@@ -61,20 +76,17 @@ signal current_hp_changed
 func _ready() -> void:
 	var screenSize = get_viewport_rect().size
 	var targetSize = Vector2(screenSize.x, screenSize.y / 2)
-	#if vMode:
-		#self.rotation = 0
-	#else:
-		#self.rotation_degrees = -90
+
 	if p1:
 		content.rotation_degrees = 180
-	#sysContent.position.y += targetSize.y * 0.1
 	custom_minimum_size = targetSize
 	custom_maximum_size = screenSize
-	size = targetSize
+	content.custom_minimum_size = targetSize
+	content.custom_maximum_size = screenSize
 	content.pivot_offset = targetSize / 2
+	pivot_offset = targetSize / 2
 	bg.pivot_offset = targetSize / 2
 	print("bg target size: ", Vector2(screenSize.x, screenSize.y / 2))
-	#bg.position += Vector2.UP * OFFSET_Y
 	
 	hero = Data._get_hero(_hero)
 	update_hero(hero)
@@ -99,6 +111,7 @@ func _ready() -> void:
 	Event.connect("reset_game", func ():
 		update_hero(hero)
 	)
+	Event.connect("modev_changed", _on_modev_changed)
 	bufferTimer.connect("timeout", _on_buffer_timeout)
 	minus.connect("button_down", _on_minus_press)
 	minus.connect("button_up"  , _on_minus_release)
@@ -149,6 +162,15 @@ func change_bar(from : float, to : float):
 			tween2.set_ease(Tween.EASE_OUT)
 			tween2.set_trans(Tween.TRANS_EXPO)
 			tween2. tween_property(normBar, "value", to, HP_BAR_DELAY / 2)
+
+func change_child_order(parent: Node, order: Array):
+	if parent.get_children().size() != order.size():
+		push_error("change_child_order: the order array size must be equal to number of node child.")
+		return
+	var tmp_child: Array[Node] = parent.get_children()
+	for o in order:
+		for c in tmp_child:
+			parent.move_child(c, o)
 
 ##### EVENT #####
 
@@ -226,3 +248,22 @@ func _on_plus_timeout():
 	buffer += 5
 	plusHold = true
 	plusTimer.start(LONG_PRESS_DELAY / 2)
+
+func _on_modev_changed():
+	print('on modeV changed')
+	
+	var targetSize := Vector2(content.custom_minimum_size.y, content.custom_minimum_size.x)
+	print("targetSize: ", targetSize)
+	var mode := "V" if Settings.modeV else "H"
+	
+	content.pivot_offset = targetSize / 2
+	normBar.custom_minimum_size = MODE_V_PARAM[mode]["HP_BAR"]
+	if p1:
+		content.rotation_degrees += MODE_V_PARAM[mode]["DEG_ROT_P1"]
+		normBar.fill_mode = MODE_V_PARAM[mode]["BAR_FILL"]
+		supBar.fill_mode  = MODE_V_PARAM[mode]["BAR_FILL"]
+		change_child_order(hp_content, MODE_V_PARAM[mode]["BTN_ORDER"])
+	else:
+		content.rotation_degrees += MODE_V_PARAM[mode]["DEG_ROT_P2"]
+	content.custom_maximum_size = targetSize
+	content.custom_minimum_size = targetSize

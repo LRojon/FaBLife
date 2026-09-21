@@ -7,6 +7,14 @@ enum Format {
 	UPF
 }
 
+# En sec
+var TIMER : Dictionary[Data.Format, int] = {
+	Data.Format.CC   : 55 * 60,
+	Data.Format.SAGE : 35 * 60,
+	Data.Format.LL   : 55 * 60,
+	Data.Format.UPF  : -1
+}
+
 func _get_str_format(format : Data.Format) -> String:
 	return Data.Format.keys()[format]
 

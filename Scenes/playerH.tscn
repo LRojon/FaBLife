@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://b5ytswjh758xt"]
+
+[ext_resource type="Script" uid="uid://gmeclxlg34ji" path="res://Scripts/player.gd" id="1_g441m"]
+[ext_resource type="Shader" uid="uid://c1rgwj2u3ew4r" path="res://Assets/Shaders/grayscale.gdshader" id="2_sr8pr"]
+[ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="3_t2c7y"]
+[ext_resource type="StyleBox" uid="uid://cd3ansm3ncq6f" path="res://Assets/StyleBox/HP_OK.tres" id="4_jesna"]
+[ext_resource type="StyleBox" uid="uid://crui5yq61p0p8" path="res://Assets/StyleBox/HP_SUP.tres" id="5_v17ue"]
+[ext_resource type="FontFile" uid="uid://b865x8m3mvaj6" path="res://Assets/Fonts/Almendra-Bold.ttf" id="6_7aqpq"]
+[ext_resource type="LabelSettings" uid="uid://csk5na2csuxru" path="res://Assets/Fonts/BufferInf.tres" id="7_dm87b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3wgy"]
+resource_local_to_scene = true
+shader = ExtResource("2_sr8pr")
+shader_parameter/intensity = 0.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_skvsw"]
+font = ExtResource("3_t2c7y")
+font_size = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s002b"]
+bg_color = Color(0, 0, 0, 0.5019608)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skvsw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vgqql"]
+bg_color = Color(1, 1, 1, 0.0627451)
+
+[sub_resource type="LabelSettings" id="LabelSettings_s002b"]
+font = ExtResource("3_t2c7y")
+font_size = 400
+
+[node name="Player" type="Control" unique_id=1853351526 groups=["Player"]]
+custom_minimum_size = Vector2(1080, 960)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -960.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(480, 480)
+mouse_filter = 2
+script = ExtResource("1_g441m")
+_hero = "ArakniM"
+
+[node name="Content" type="Control" parent="." unique_id=239564124]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(450, 450)
+mouse_filter = 2
+
+[node name="BG" type="Control" parent="Content" unique_id=466493110]
+custom_minimum_size = Vector2(-1, -1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(540, 480)
+mouse_filter = 2
+
+[node name="Texture" type="TextureRect" parent="Content/BG" unique_id=242796409]
+material = SubResource("ShaderMaterial_x3wgy")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 6
+
+[node name="Darker" type="ColorRect" parent="Content/BG" unique_id=1805911175]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content" unique_id=732168127]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Spacing" type="Label" parent="Content/VBoxContainer" unique_id=1830284872]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_skvsw")
+horizontal_alignment = 1
+
+[node name="Hero Name" type="Label" parent="Content/VBoxContainer" unique_id=130883750]
+layout_mode = 2
+text = "Dash I/O"
+label_settings = SubResource("LabelSettings_skvsw")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/VBoxContainer" unique_id=904305583]
+clip_contents = true
+layout_mode = 2
+alignment = 1
+
+[node name="NormalBar" type="ProgressBar" parent="Content/VBoxContainer/HBoxContainer" unique_id=753663379]
+custom_minimum_size = Vector2(960, 50)
+custom_maximum_size = Vector2(960, 50)
+clip_contents = true
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_s002b")
+theme_override_styles/fill = ExtResource("4_jesna")
+value = 100.0
+show_percentage = false
+
+[node name="SupBar" type="ProgressBar" parent="Content/VBoxContainer/HBoxContainer/NormalBar" unique_id=952161916]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = ExtResource("5_v17ue")
+value = 50.0
+show_percentage = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Content/VBoxContainer" unique_id=1123360492]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Minus" type="Button" parent="Content/VBoxContainer/HBoxContainer2" unique_id=1787446180]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7aqpq")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/normal = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgqql")
+theme_override_styles/hover = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_skvsw")
+text = "-"
+
+[node name="HP" type="Label" parent="Content/VBoxContainer/HBoxContainer2" unique_id=1012168453]
+layout_mode = 2
+text = "40"
+label_settings = SubResource("LabelSettings_s002b")
+
+[node name="Plus" type="Button" parent="Content/VBoxContainer/HBoxContainer2" unique_id=435181391]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7aqpq")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/normal = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgqql")
+theme_override_styles/hover = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_skvsw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_skvsw")
+text = "+"
+
+[node name="Buffer" type="Label" parent="Content/VBoxContainer" unique_id=635451782]
+layout_mode = 2
+text = "5"
+label_settings = ExtResource("7_dm87b")
+horizontal_alignment = 1
+
+[node name="MinusTimer" type="Timer" parent="Content" unique_id=1204846829]
+one_shot = true
+
+[node name="PlusTimer" type="Timer" parent="Content" unique_id=1983087959]
+one_shot = true
+
+[node name="BufferTimer" type="Timer" parent="Content" unique_id=1948262167]
+one_shot = true

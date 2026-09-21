@@ -5,3 +5,7 @@ signal format_selected(format: Data.Format)
 signal hero_selection_open()
 
 signal reset_game()
+
+# Settings signal
+signal change_modev()
+signal modev_changed()

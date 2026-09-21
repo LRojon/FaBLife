@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Data="*uid://cxexjpplx3afv"
 Event="*uid://dnkva462qq16"
+Settings="*uid://cu4koj6rqhixw"
 
 [display]
 
