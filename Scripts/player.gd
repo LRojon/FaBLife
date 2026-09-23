@@ -4,14 +4,14 @@ class_name Player extends Control
 
 const MODE_V_PARAM = {
 	"V" : {
-		"HP_BAR": Vector2(960, 50),
+		"HP_BAR": Vector2(0, 50),
 		"BAR_FILL": ProgressBar.FILL_BEGIN_TO_END,
 		"DEG_ROT_P1": -90,
 		"DEG_ROT_P2": 90,
 		"BTN_ORDER": [2, 1, 0]
 	},
 	"H" : {
-		"HP_BAR": Vector2(860, 45),
+		"HP_BAR": Vector2(0, 45),
 		"BAR_FILL": ProgressBar.FILL_END_TO_BEGIN,
 		"DEG_ROT_P1": 90,
 		"DEG_ROT_P2": -90,
@@ -46,8 +46,8 @@ const HERO_SELECTION = preload("res://Scenes/Menus/hero_selection.tscn")
 @onready var hp          = $Content/VBoxContainer/HBoxContainer2/HP
 @onready var minus       = $Content/VBoxContainer/HBoxContainer2/Minus
 @onready var plus        = $Content/VBoxContainer/HBoxContainer2/Plus
-@onready var normBar     = $Content/VBoxContainer/HBoxContainer/NormalBar
-@onready var supBar      = $Content/VBoxContainer/HBoxContainer/NormalBar/SupBar
+@onready var normBar     = $Content/VBoxContainer/HBoxContainer/MarginContainer/NormalBar
+@onready var supBar      = $Content/VBoxContainer/HBoxContainer/MarginContainer/NormalBar/SupBar
 @onready var bufferT     = $Content/VBoxContainer/Buffer
 @onready var minusTimer  = $Content/MinusTimer
 @onready var plusTimer   = $Content/PlusTimer
@@ -257,7 +257,7 @@ func _on_modev_changed():
 	var mode := "V" if Settings.modeV else "H"
 	
 	content.pivot_offset = targetSize / 2
-	normBar.custom_minimum_size = MODE_V_PARAM[mode]["HP_BAR"]
+	#normBar.custom_minimum_size = MODE_V_PARAM[mode]["HP_BAR"]
 	if p1:
 		content.rotation_degrees += MODE_V_PARAM[mode]["DEG_ROT_P1"]
 		normBar.fill_mode = MODE_V_PARAM[mode]["BAR_FILL"]

@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://bxe6g6kii0ask"]
+
+[ext_resource type="Script" uid="uid://boslal1xf1pxp" path="res://Scripts/Menus/settings_menu.gd" id="1_aj7v3"]
+[ext_resource type="LabelSettings" uid="uid://vykbwniavbmf" path="res://Assets/Fonts/SettingsLabel.tres" id="1_mvkpc"]
+[ext_resource type="Texture2D" uid="uid://bva1m47l04exl" path="res://Assets/Buttons/CheckBox_true.png" id="3_ffwnc"]
+[ext_resource type="Texture2D" uid="uid://b4uil4pvke35f" path="res://Assets/Buttons/CheckBox_false.png" id="4_etqfa"]
+[ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="5_etqfa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fbc5"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_etqfa"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.5764706, 0.24313726, 0, 0.6)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvkpc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 0.101960786, 0.101960786, 0.6)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+corner_detail = 20
+
+[node name="SettingsMenu" type="MarginContainer" unique_id=1958163848]
+z_index = 200
+offset_right = 1080.0
+offset_bottom = 1920.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="SettingsPanel" type="PanelContainer" parent="." unique_id=24748351]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5fbc5")
+script = ExtResource("1_aj7v3")
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel" unique_id=1415600308]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer" unique_id=240226284]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="VModeLine" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=1672731940]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="VModeLbl" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/VModeLine" unique_id=1374833281]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Mode vertical:"
+label_settings = ExtResource("1_mvkpc")
+
+[node name="VModeContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/VModeLine" unique_id=825993319]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="VMode" type="CheckBox" parent="SettingsPanel/MarginContainer/VBoxContainer/VModeLine/VModeContainer" unique_id=578560033]
+custom_minimum_size = Vector2(100, 100)
+custom_maximum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_icons/checked = ExtResource("3_ffwnc")
+theme_override_icons/unchecked = ExtResource("4_etqfa")
+
+[node name="CustomMenuLine" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=1499048625]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CustomMenuLbl" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine" unique_id=133217002]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Menu central :"
+label_settings = ExtResource("1_mvkpc")
+
+[node name="CustomMenuContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine" unique_id=280623771]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine/CustomMenuContainer" unique_id=1888222267]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_etqfa")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_etqfa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_etqfa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_etqfa")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_etqfa")
+theme_override_styles/focus = SubResource("StyleBoxFlat_etqfa")
+text = " Paramétrer "
+
+[node name="SettingsLine3" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=772522953]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="SettingsLbl" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsLine3" unique_id=1479151471]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Label :"
+label_settings = ExtResource("1_mvkpc")
+
+[node name="SettingsContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsLine3" unique_id=893561018]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingsLine4" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=2095777534]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="SettingsLbl" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsLine4" unique_id=64153724]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Label :"
+label_settings = ExtResource("1_mvkpc")
+
+[node name="SettingsContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsLine4" unique_id=904101066]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingsLine5" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=1329554728]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="SettingsLbl" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsLine5" unique_id=659136134]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Label :"
+label_settings = ExtResource("1_mvkpc")
+
+[node name="SettingsContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsLine5" unique_id=2021291663]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Quit" type="Button" parent="SettingsPanel" unique_id=1619372690]
+custom_minimum_size = Vector2(100, 100)
+custom_maximum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_mvkpc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mvkpc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mvkpc")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_mvkpc")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_mvkpc")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mvkpc")
+text = " X "

@@ -25,12 +25,12 @@ content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 10
+bg_color = Color(1, 0.101960786, 0.101960786, 0.6)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 20
 
 [node name="Historique" type="Control" unique_id=1910458868]
 top_level = true
@@ -67,19 +67,6 @@ default_color = Color(0.5890956, 0.5890956, 0.5890956, 1)
 [node name="VLine" type="Line2D" parent="MarginContainer/Panel/Control" unique_id=1047430590]
 points = PackedVector2Array(515, 30, 515, 1800)
 default_color = Color(0.5890956, 0.5890956, 0.5890956, 1)
-
-[node name="Quit" type="Button" parent="MarginContainer/Panel" unique_id=1975985911]
-z_index = 1000
-z_as_relative = false
-custom_minimum_size = Vector2(80, 80)
-custom_maximum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_ychas")
-action_mode = 0
-keep_pressed_outside = true
-text = "X"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel" unique_id=1397277369]
 layout_mode = 2
@@ -134,3 +121,22 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Quit" type="Button" parent="MarginContainer" unique_id=1975985911]
+z_index = 1000
+z_as_relative = false
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_ychas")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ychas")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ychas")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ychas")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ychas")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ychas")
+action_mode = 0
+keep_pressed_outside = true
+text = "X"

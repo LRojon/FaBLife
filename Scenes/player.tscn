@@ -116,17 +116,24 @@ clip_contents = true
 layout_mode = 2
 alignment = 1
 
-[node name="NormalBar" type="ProgressBar" parent="Content/VBoxContainer/HBoxContainer" unique_id=753663379]
-custom_minimum_size = Vector2(960, 50)
-custom_maximum_size = Vector2(960, 50)
+[node name="MarginContainer" type="MarginContainer" parent="Content/VBoxContainer/HBoxContainer" unique_id=1564988805]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_right = 120
+
+[node name="NormalBar" type="ProgressBar" parent="Content/VBoxContainer/HBoxContainer/MarginContainer" unique_id=753663379]
+custom_minimum_size = Vector2(0, 50)
+custom_maximum_size = Vector2(-1, 50)
 clip_contents = true
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_s002b")
 theme_override_styles/fill = ExtResource("1_cvnsp")
 value = 100.0
 show_percentage = false
 
-[node name="SupBar" type="ProgressBar" parent="Content/VBoxContainer/HBoxContainer/NormalBar" unique_id=952161916]
+[node name="SupBar" type="ProgressBar" parent="Content/VBoxContainer/HBoxContainer/MarginContainer/NormalBar" unique_id=952161916]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -145,6 +152,7 @@ alignment = 1
 [node name="Minus" type="Button" parent="Content/VBoxContainer/HBoxContainer2" unique_id=1787446180]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("5_x3wgy")
 theme_override_font_sizes/font_size = 200
 theme_override_styles/normal = SubResource("StyleBoxFlat_skvsw")
@@ -162,6 +170,7 @@ label_settings = SubResource("LabelSettings_s002b")
 [node name="Plus" type="Button" parent="Content/VBoxContainer/HBoxContainer2" unique_id=435181391]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("5_x3wgy")
 theme_override_font_sizes/font_size = 200
 theme_override_styles/normal = SubResource("StyleBoxFlat_skvsw")

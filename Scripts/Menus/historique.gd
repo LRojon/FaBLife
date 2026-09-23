@@ -2,7 +2,7 @@ extends Control
 
 const HISTORIC_LINE = preload("res://Scenes/Menus/historic_line.tscn")
 
-@onready var quit_btn = $MarginContainer/Panel/Quit
+@onready var quit_btn = $MarginContainer/Quit
 
 @onready var heroP1Lbl = $"MarginContainer/Panel/MarginContainer/GridContainer/Player 1"
 @onready var historicList1 = $MarginContainer/Panel/MarginContainer/GridContainer/ScrollContainer/HistoricP1

@@ -24,15 +24,14 @@ alignment = 1
 
 [node name="Player1" parent="VBoxContainer" unique_id=1853351526 instance=ExtResource("1_bo1nx")]
 layout_mode = 2
-vMode = false
 
 [node name="Player2" parent="VBoxContainer" unique_id=1433977807 instance=ExtResource("1_bo1nx")]
 layout_mode = 2
-vMode = false
 p1 = false
 
 [node name="Menu" parent="." unique_id=1898191867 instance=ExtResource("2_8gbba")]
 top_level = true
+z_index = 100
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
