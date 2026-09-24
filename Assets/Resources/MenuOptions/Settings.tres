@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MenuOptionData" format=3 uid="uid://bcgj3qlv7vnwb"]
+
+[ext_resource type="Texture2D" uid="uid://tf3vpcmm5okd" path="res://Assets/Icons/Settings.png" id="1_sx73c"]
+[ext_resource type="Script" uid="uid://w2qdypc42vpg" path="res://Assets/Resources/MenuOptionData.gd" id="2_ld4yt"]
+
+[resource]
+script = ExtResource("2_ld4yt")
+id = 6
+label = "Parmètre"
+can_disabled = false
+icon = ExtResource("1_sx73c")
+metadata/_custom_type_script = "uid://w2qdypc42vpg"

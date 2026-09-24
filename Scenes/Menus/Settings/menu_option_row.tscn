@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c78urxbh5lbcm" path="res://Assets/Icons/Drag.png" id="1_cdgh7"]
 [ext_resource type="Texture2D" uid="uid://bva1m47l04exl" path="res://Assets/Buttons/CheckBox_true.png" id="1_fu8j2"]
+[ext_resource type="Script" uid="uid://biu2si1gsaldp" path="res://Scripts/Menus/Settings/menu_option_row.gd" id="1_um8qg"]
 [ext_resource type="Texture2D" uid="uid://b4uil4pvke35f" path="res://Assets/Buttons/CheckBox_false.png" id="2_cdgh7"]
 
 [node name="MenuOptionRow" type="HBoxContainer" unique_id=61679055]
@@ -10,8 +11,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_um8qg")
 
-[node name="DragHandle" type="TextureRect" parent="." unique_id=508403750]
+[node name="Up" type="Button" parent="." unique_id=696154395]
+layout_mode = 2
+text = "▲"
+
+[node name="Bottom" type="Button" parent="." unique_id=1484688121]
+layout_mode = 2
+text = "▼"
+
+[node name="Check" type="CheckBox" parent="." unique_id=195903428]
+layout_mode = 2
+theme_override_icons/checked = ExtResource("1_fu8j2")
+theme_override_icons/unchecked = ExtResource("2_cdgh7")
+
+[node name="Icon" type="TextureRect" parent="." unique_id=508403750]
 custom_minimum_size = Vector2(100, 100)
 custom_maximum_size = Vector2(100, 100)
 layout_mode = 2
@@ -20,8 +35,4 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="." unique_id=1706853277]
 layout_mode = 2
-
-[node name="CheckBox" type="CheckBox" parent="." unique_id=195903428]
-layout_mode = 2
-theme_override_icons/checked = ExtResource("1_fu8j2")
-theme_override_icons/unchecked = ExtResource("2_cdgh7")
+text = "Label"

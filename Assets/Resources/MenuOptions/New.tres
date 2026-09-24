@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MenuOptionData" format=3 uid="uid://bfxd8m5vswj6u"]
+
+[ext_resource type="Texture2D" uid="uid://ddfs0i8oxdkgj" path="res://Assets/Icons/Hero.png" id="1_pxfe3"]
+[ext_resource type="Script" uid="uid://w2qdypc42vpg" path="res://Assets/Resources/MenuOptionData.gd" id="2_hc3sc"]
+
+[resource]
+script = ExtResource("2_hc3sc")
+id = 4
+label = "Nouvelle partie"
+icon = ExtResource("1_pxfe3")
+metadata/_custom_type_script = "uid://w2qdypc42vpg"

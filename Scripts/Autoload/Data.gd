@@ -202,6 +202,18 @@ var _Hero : Dictionary[String, Hero] = {
 }
 
 
+var MENU_OPTION = [
+	load("res://Assets/Resources/MenuOptions/Database.tres"),
+	load("res://Assets/Resources/MenuOptions/GEM.tres"),
+	load("res://Assets/Resources/MenuOptions/Historic.tres"),
+	load("res://Assets/Resources/MenuOptions/ModeV.tres"),
+	load("res://Assets/Resources/MenuOptions/New.tres"),
+	load("res://Assets/Resources/MenuOptions/Reset.tres"),
+	load("res://Assets/Resources/MenuOptions/Settings.tres"),
+	load("res://Assets/Resources/MenuOptions/Timer.tres"),
+]
+
+
 func _get_class(_name: String) -> Class:
 	if Data.classes.find_key(_name):
 		return Data.classes[_name]

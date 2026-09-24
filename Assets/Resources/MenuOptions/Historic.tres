@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MenuOptionData" format=3 uid="uid://dno048ud0po77"]
+
+[ext_resource type="Texture2D" uid="uid://c0a2umg6x31ft" path="res://Assets/Icons/Historique.png" id="1_wqfix"]
+[ext_resource type="Script" uid="uid://w2qdypc42vpg" path="res://Assets/Resources/MenuOptionData.gd" id="2_g07ww"]
+
+[resource]
+script = ExtResource("2_g07ww")
+id = 2
+label = "Historique"
+icon = ExtResource("1_wqfix")
+metadata/_custom_type_script = "uid://w2qdypc42vpg"

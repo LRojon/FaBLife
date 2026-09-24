@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MenuOptionData" format=3 uid="uid://b4dnqxbxtxrgn"]
+
+[ext_resource type="Texture2D" uid="uid://sjxhgbtg0rx6" path="res://Assets/Icons/Reset.png" id="1_8q1q4"]
+[ext_resource type="Script" uid="uid://w2qdypc42vpg" path="res://Assets/Resources/MenuOptionData.gd" id="2_8uexv"]
+
+[resource]
+script = ExtResource("2_8uexv")
+id = 5
+label = "RaZ"
+icon = ExtResource("1_8q1q4")
+metadata/_custom_type_script = "uid://w2qdypc42vpg"

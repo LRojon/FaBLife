@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MenuOptionData" format=3 uid="uid://brwdxro8m7mjh"]
+
+[ext_resource type="Texture2D" uid="uid://beofgowvqbv53" path="res://Assets/Icons/GEM.png" id="1_hfa0j"]
+[ext_resource type="Script" uid="uid://w2qdypc42vpg" path="res://Assets/Resources/MenuOptionData.gd" id="2_0lttr"]
+
+[resource]
+script = ExtResource("2_0lttr")
+id = 1
+label = "GEM"
+icon = ExtResource("1_hfa0j")
+metadata/_custom_type_script = "uid://w2qdypc42vpg"

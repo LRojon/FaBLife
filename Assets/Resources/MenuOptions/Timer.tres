@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MenuOptionData" format=3 uid="uid://dcmhjt41ef0ng"]
+
+[ext_resource type="Texture2D" uid="uid://ohiq3co8appp" path="res://Assets/Icons/Timer.png" id="1_7dcej"]
+[ext_resource type="Script" uid="uid://w2qdypc42vpg" path="res://Assets/Resources/MenuOptionData.gd" id="1_p3dc8"]
+
+[resource]
+script = ExtResource("1_p3dc8")
+id = 7
+label = "Timer"
+icon = ExtResource("1_7dcej")
+metadata/_custom_type_script = "uid://w2qdypc42vpg"

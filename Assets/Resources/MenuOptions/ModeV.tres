@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MenuOptionData" format=3 uid="uid://durx8n1q2oiod"]
+
+[ext_resource type="Texture2D" uid="uid://1brrykka3jg7" path="res://Assets/Icons/RotateV.png" id="1_fipev"]
+[ext_resource type="Script" uid="uid://w2qdypc42vpg" path="res://Assets/Resources/MenuOptionData.gd" id="2_tpygd"]
+
+[resource]
+script = ExtResource("2_tpygd")
+id = 3
+label = "Mode Vertical"
+icon = ExtResource("1_fipev")
+metadata/_custom_type_script = "uid://w2qdypc42vpg"
