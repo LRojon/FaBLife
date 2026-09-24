@@ -1,6 +1,40 @@
 [gd_scene format=3 uid="uid://cx21du6e2qedc"]
 
 [ext_resource type="Script" uid="uid://8abmg3xndg0j" path="res://Scripts/Menus/Settings/menu_editor.gd" id="1_0opgt"]
+[ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="2_aowxb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hck4p"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.8509804)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.2)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_7nnug"]
+font = ExtResource("2_aowxb")
+font_size = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0opgt"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 0.101960786, 0.101960786, 0.6)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 5
 
 [node name="MenuEditor" type="Control" unique_id=1006123073]
 layout_mode = 3
@@ -11,10 +45,67 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0opgt")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=623719465]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1645574075]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 300
 
-[node name="RowsContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=98962871]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=86197886]
+z_index = 300
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hck4p")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer" unique_id=1887010922]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer" unique_id=1577990864]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2044117737]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=663115930]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ordre Menu"
+label_settings = SubResource("LabelSettings_7nnug")
+
+[node name="Quit" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=978349044]
+custom_minimum_size = Vector2(100, 100)
+custom_maximum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_0opgt")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0opgt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0opgt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_0opgt")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0opgt")
+text = " X "
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1400132378]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=623719465]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RowsContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=98962871]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 25

@@ -7,6 +7,17 @@ enum Format {
 	UPF
 }
 
+var MENU_OPTION: Array[MenuOptionData] = [
+	load("res://Assets/Resources/MenuOptions/Database.tres"),
+	load("res://Assets/Resources/MenuOptions/GEM.tres"),
+	load("res://Assets/Resources/MenuOptions/Historic.tres"),
+	load("res://Assets/Resources/MenuOptions/ModeV.tres"),
+	load("res://Assets/Resources/MenuOptions/New.tres"),
+	load("res://Assets/Resources/MenuOptions/Reset.tres"),
+	load("res://Assets/Resources/MenuOptions/Settings.tres"),
+	load("res://Assets/Resources/MenuOptions/Timer.tres"),
+]
+
 # En sec
 var TIMER : Dictionary[Data.Format, int] = {
 	Data.Format.CC   : 55 * 60,
@@ -201,18 +212,11 @@ var _Hero : Dictionary[String, Hero] = {
 	"YZyggy"		: Hero.new("YZyggy",		"Zyggy"								,    0, 20, ["Illusionist"], ["Lightning"], [Format.UPF, Format.SAGE]),
 }
 
+var menuOption : Dictionary[int, MenuOptionData] = {}
 
-var MENU_OPTION = [
-	load("res://Assets/Resources/MenuOptions/Database.tres"),
-	load("res://Assets/Resources/MenuOptions/GEM.tres"),
-	load("res://Assets/Resources/MenuOptions/Historic.tres"),
-	load("res://Assets/Resources/MenuOptions/ModeV.tres"),
-	load("res://Assets/Resources/MenuOptions/New.tres"),
-	load("res://Assets/Resources/MenuOptions/Reset.tres"),
-	load("res://Assets/Resources/MenuOptions/Settings.tres"),
-	load("res://Assets/Resources/MenuOptions/Timer.tres"),
-]
-
+func _ready() -> void:
+	for mo: MenuOptionData in MENU_OPTION:
+		menuOption.set(mo.id, mo)
 
 func _get_class(_name: String) -> Class:
 	if Data.classes.find_key(_name):

@@ -35,13 +35,13 @@ grow_vertical = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1087538982]
+[node name="MenuContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1087538982]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="RotateBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1650820493]
+[node name="3-RotateBtn" type="HBoxContainer" parent="VBoxContainer/MenuContainer" unique_id=1650820493]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
@@ -49,7 +49,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="Rotate" type="TextureButton" parent="VBoxContainer/HBoxContainer/RotateBtn" unique_id=1195085987]
+[node name="Rotate" type="TextureButton" parent="VBoxContainer/MenuContainer/3-RotateBtn" unique_id=1195085987]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
@@ -58,7 +58,7 @@ offset_transform_rotation = -1.5707964
 texture_normal = ExtResource("2_wwsa2")
 stretch_mode = 6
 
-[node name="HeroBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1899346827]
+[node name="4-HeroBtn" type="HBoxContainer" parent="VBoxContainer/MenuContainer" unique_id=1899346827]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
@@ -66,7 +66,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="Hero" type="TextureButton" parent="VBoxContainer/HBoxContainer/HeroBtn" unique_id=1521805387]
+[node name="Hero" type="TextureButton" parent="VBoxContainer/MenuContainer/4-HeroBtn" unique_id=1521805387]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
@@ -75,7 +75,7 @@ offset_transform_rotation = -1.5707964
 texture_normal = ExtResource("1_1rerr")
 stretch_mode = 6
 
-[node name="TimerBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=680606590]
+[node name="7-TimerBtn" type="HBoxContainer" parent="VBoxContainer/MenuContainer" unique_id=680606590]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
@@ -83,7 +83,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="TimerStart" type="TextureButton" parent="VBoxContainer/HBoxContainer/TimerBtn" unique_id=686445514]
+[node name="TimerStart" type="TextureButton" parent="VBoxContainer/MenuContainer/7-TimerBtn" unique_id=686445514]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
@@ -92,9 +92,9 @@ offset_transform_rotation = -1.5707964
 texture_normal = ExtResource("4_jsrd8")
 stretch_mode = 6
 
-[node name="Timer" type="Timer" parent="VBoxContainer/HBoxContainer/TimerBtn" unique_id=1312338176]
+[node name="Timer" type="Timer" parent="VBoxContainer/MenuContainer/7-TimerBtn" unique_id=1312338176]
 
-[node name="DisTime" type="Label" parent="VBoxContainer/HBoxContainer/TimerBtn" unique_id=1885914927]
+[node name="DisTime" type="Label" parent="VBoxContainer/MenuContainer/7-TimerBtn" unique_id=1885914927]
 visible = false
 layout_mode = 2
 offset_transform_enabled = true
@@ -103,7 +103,7 @@ text = "55:00"
 label_settings = SubResource("LabelSettings_43yrm")
 horizontal_alignment = 1
 
-[node name="HistoBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=241270198]
+[node name="2-HistoBtn" type="HBoxContainer" parent="VBoxContainer/MenuContainer" unique_id=241270198]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
@@ -111,7 +111,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="Historique" type="TextureButton" parent="VBoxContainer/HBoxContainer/HistoBtn" unique_id=324113515]
+[node name="Historique" type="TextureButton" parent="VBoxContainer/MenuContainer/2-HistoBtn" unique_id=324113515]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
@@ -120,7 +120,7 @@ offset_transform_rotation = -1.5707964
 texture_normal = ExtResource("3_cayip")
 stretch_mode = 6
 
-[node name="ResetBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1699923855]
+[node name="5-ResetBtn" type="HBoxContainer" parent="VBoxContainer/MenuContainer" unique_id=1699923855]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
@@ -129,7 +129,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="Reset" type="TextureButton" parent="VBoxContainer/HBoxContainer/ResetBtn" unique_id=1081315802]
+[node name="Reset" type="TextureButton" parent="VBoxContainer/MenuContainer/5-ResetBtn" unique_id=1081315802]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
@@ -138,7 +138,7 @@ offset_transform_rotation = -1.5707964
 texture_normal = ExtResource("4_158mb")
 stretch_mode = 6
 
-[node name="SettingsBtn" type="HBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1897126998]
+[node name="6-SettingsBtn" type="HBoxContainer" parent="VBoxContainer/MenuContainer" unique_id=1897126998]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(-1, 80)
 layout_mode = 2
@@ -146,7 +146,43 @@ size_flags_horizontal = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="Settings" type="TextureButton" parent="VBoxContainer/HBoxContainer/SettingsBtn" unique_id=1117005639]
+[node name="Settings" type="TextureButton" parent="VBoxContainer/MenuContainer/6-SettingsBtn" unique_id=1117005639]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(80, 80)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_rotation = -1.5707964
+texture_normal = ExtResource("8_q3rjx")
+stretch_mode = 6
+
+[node name="0-DatabaseBtn" type="HBoxContainer" parent="VBoxContainer/MenuContainer" unique_id=1330696287]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 1
+
+[node name="Database" type="TextureButton" parent="VBoxContainer/MenuContainer/0-DatabaseBtn" unique_id=1387476822]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(80, 80)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_rotation = -1.5707964
+texture_normal = ExtResource("8_q3rjx")
+stretch_mode = 6
+
+[node name="1-GEMBtn" type="HBoxContainer" parent="VBoxContainer/MenuContainer" unique_id=352746225]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 1
+
+[node name="GEM" type="TextureButton" parent="VBoxContainer/MenuContainer/1-GEMBtn" unique_id=1968273763]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 2

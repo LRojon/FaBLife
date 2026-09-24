@@ -9,3 +9,6 @@ signal reset_game()
 # Settings signal
 signal change_modev()
 signal modev_changed()
+
+signal change_menu()
+signal menu_changed()

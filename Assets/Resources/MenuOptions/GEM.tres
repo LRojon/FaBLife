@@ -7,5 +7,6 @@
 script = ExtResource("2_0lttr")
 id = 1
 label = "GEM"
+enabled = false
 icon = ExtResource("1_hfa0j")
 metadata/_custom_type_script = "uid://w2qdypc42vpg"

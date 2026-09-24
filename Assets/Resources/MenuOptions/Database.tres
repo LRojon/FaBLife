@@ -6,5 +6,6 @@
 [resource]
 script = ExtResource("2_3nvh4")
 label = "Database"
+enabled = false
 icon = ExtResource("1_cp3n1")
 metadata/_custom_type_script = "uid://w2qdypc42vpg"

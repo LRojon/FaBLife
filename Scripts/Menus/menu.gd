@@ -10,15 +10,16 @@ const ROTATE_ICON = {
 	"H": preload("res://Assets/Icons/RotateH.png")
 }
 
-@onready var hero_btn     = $VBoxContainer/HBoxContainer/HeroBtn/Hero
-@onready var histo_btn    = $VBoxContainer/HBoxContainer/HistoBtn/Historique
-@onready var reset_btn    = $VBoxContainer/HBoxContainer/ResetBtn/Reset
-@onready var rotate_btn   = $VBoxContainer/HBoxContainer/RotateBtn/Rotate
-@onready var timer_strt   = $VBoxContainer/HBoxContainer/TimerBtn/TimerStart
-@onready var settings_btn = $VBoxContainer/HBoxContainer/SettingsBtn/Settings
+@onready var container    = $VBoxContainer/MenuContainer
+@onready var hero_btn     = $"VBoxContainer/MenuContainer/4-HeroBtn/Hero"
+@onready var histo_btn    = $"VBoxContainer/MenuContainer/2-HistoBtn/Historique"
+@onready var reset_btn    = $"VBoxContainer/MenuContainer/5-ResetBtn/Reset"
+@onready var rotate_btn   = $"VBoxContainer/MenuContainer/3-RotateBtn/Rotate"
+@onready var timer_strt   = $"VBoxContainer/MenuContainer/7-TimerBtn/TimerStart"
+@onready var settings_btn = $"VBoxContainer/MenuContainer/6-SettingsBtn/Settings"
 
-@onready var timer	 = $VBoxContainer/HBoxContainer/TimerBtn/Timer
-@onready var disTime = $VBoxContainer/HBoxContainer/TimerBtn/DisTime
+@onready var timer	 = $"VBoxContainer/MenuContainer/7-TimerBtn/Timer"
+@onready var disTime = $"VBoxContainer/MenuContainer/7-TimerBtn/DisTime"
 
 var format_timer : int = Data.TIMER[Data.Format.CC]
 
@@ -35,6 +36,16 @@ func _ready() -> void:
 		_reset_timer()
 		format_timer = Data.TIMER[format]
 	)
+	
+	var pos: int = 0
+	for mo in Settings.menuOption:
+		var moveChild: HBoxContainer
+		for child in container.get_children():
+			if child.name.split("-")[0] == str(mo[0]):
+				moveChild = child
+		container.move_child(moveChild, pos)
+		moveChild.visible = mo[1]
+		pos += 1
 
 func _process(delta: float) -> void:
 	if !timer.is_stopped():

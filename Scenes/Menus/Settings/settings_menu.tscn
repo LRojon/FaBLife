@@ -107,7 +107,7 @@ label_settings = ExtResource("1_mvkpc")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine/CustomMenuContainer" unique_id=1888222267]
+[node name="MenuEditor" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine/CustomMenuContainer" unique_id=1888222267]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_etqfa")
 theme_override_font_sizes/font_size = 48
