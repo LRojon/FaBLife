@@ -1,15 +1,15 @@
-extends PanelContainer
+extends MarginContainer
 
 ##### DECLARATIONS #####
 
 const MENU_EDITOR = preload("res://Scenes/Menus/Settings/menu_editor.tscn")
 
-@onready var quit = $Quit
+@onready var quit = $VBoxContainer/SettingsPanel/Quit
 
-@onready var vmode = $MarginContainer/VBoxContainer/VModeLine/VModeContainer/VMode
-@onready var menu_editor = $MarginContainer/VBoxContainer/CustomMenuLine/CustomMenuContainer/MenuEditor
-@onready var fabrary_db    = $MarginContainer/VBoxContainer/DatabaseSrcLine/SettingsContainer/Fabrary
-@onready var card_vault_db = $MarginContainer/VBoxContainer/DatabaseSrcLine/SettingsContainer/Cardvault
+@onready var vmode = $VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/VModeLine/VModeContainer/VMode
+@onready var menu_editor = $VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine/CustomMenuContainer/MenuEditor
+@onready var fabrary_db    = $VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine/SettingsContainer/Fabrary
+@onready var card_vault_db = $VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine/SettingsContainer/Cardvault
 
 ##### BUILT-IN #####
 

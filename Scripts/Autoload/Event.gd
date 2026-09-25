@@ -18,4 +18,6 @@ signal db_src_changed()
 
 # Menu Editor Signal
 signal check_pressed(_id: int)
+signal up_pressed(_id: int)
+signal bottom_pressed(_id: int)
 signal menu_editor_changed()

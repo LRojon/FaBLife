@@ -30,11 +30,11 @@ func _ready() -> void:
 
 
 func _on_up_pressed():
-	pass
+	Event.emit_signal("up_pressed", option.id)
 
 
 func _on_bottom_pressed():
-	pass
+	Event.emit_signal("bottom_pressed", option.id)
 
 
 func _on_check_pressed():

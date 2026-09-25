@@ -79,65 +79,70 @@ theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
-
-[node name="SettingsPanel" type="PanelContainer" parent="." unique_id=24748351]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5fbc5")
 script = ExtResource("1_aj7v3")
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel" unique_id=1415600308]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1356930569]
+layout_mode = 2
+alignment = 1
+
+[node name="SettingsPanel" type="PanelContainer" parent="VBoxContainer" unique_id=24748351]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5fbc5")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/SettingsPanel" unique_id=1415600308]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer" unique_id=240226284]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer" unique_id=240226284]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="VModeLine" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=1672731940]
+[node name="VModeLine" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer" unique_id=1672731940]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="VModeLbl" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/VModeLine" unique_id=1374833281]
+[node name="VModeLbl" type="Label" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/VModeLine" unique_id=1374833281]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Mode vertical:"
 label_settings = ExtResource("1_mvkpc")
 
-[node name="VModeContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/VModeLine" unique_id=825993319]
+[node name="VModeContainer" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/VModeLine" unique_id=825993319]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="VMode" type="CheckBox" parent="SettingsPanel/MarginContainer/VBoxContainer/VModeLine/VModeContainer" unique_id=578560033]
+[node name="VMode" type="CheckBox" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/VModeLine/VModeContainer" unique_id=578560033]
 custom_minimum_size = Vector2(100, 100)
 custom_maximum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_icons/checked = ExtResource("3_ffwnc")
 theme_override_icons/unchecked = ExtResource("4_etqfa")
 
-[node name="CustomMenuLine" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=1499048625]
+[node name="CustomMenuLine" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer" unique_id=1499048625]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="CustomMenuLbl" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine" unique_id=133217002]
+[node name="CustomMenuLbl" type="Label" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine" unique_id=133217002]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Menu central :"
 label_settings = ExtResource("1_mvkpc")
 
-[node name="CustomMenuContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine" unique_id=280623771]
+[node name="CustomMenuContainer" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine" unique_id=280623771]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="MenuEditor" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine/CustomMenuContainer" unique_id=1888222267]
+[node name="MenuEditor" type="Button" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine/CustomMenuContainer" unique_id=1888222267]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_etqfa")
 theme_override_font_sizes/font_size = 48
@@ -148,25 +153,25 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_etqfa")
 theme_override_styles/focus = SubResource("StyleBoxFlat_etqfa")
 text = " Paramétrer "
 
-[node name="DatabaseSrcLine" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=772522953]
+[node name="DatabaseSrcLine" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer" unique_id=772522953]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="DatabaseSrcLbl" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine" unique_id=1479151471]
+[node name="DatabaseSrcLbl" type="Label" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine" unique_id=1479151471]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Source BDD :"
 label_settings = ExtResource("1_mvkpc")
 
-[node name="SettingsContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine" unique_id=893561018]
+[node name="SettingsContainer" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine" unique_id=893561018]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 25
 alignment = 1
 
-[node name="Fabrary" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine/SettingsContainer" unique_id=2048205753]
+[node name="Fabrary" type="Button" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine/SettingsContainer" unique_id=2048205753]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
@@ -180,7 +185,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_ee2tp")
 toggle_mode = true
 text = " Fabrary "
 
-[node name="Cardvault" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine/SettingsContainer" unique_id=287834658]
+[node name="Cardvault" type="Button" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine/SettingsContainer" unique_id=287834658]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
@@ -194,41 +199,41 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_ee2tp")
 toggle_mode = true
 text = " Card Vault "
 
-[node name="SettingsLine4" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=2095777534]
+[node name="SettingsLine4" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer" unique_id=2095777534]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="SettingsLbl" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsLine4" unique_id=64153724]
+[node name="SettingsLbl" type="Label" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/SettingsLine4" unique_id=64153724]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Label :"
 label_settings = ExtResource("1_mvkpc")
 
-[node name="SettingsContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsLine4" unique_id=904101066]
+[node name="SettingsContainer" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/SettingsLine4" unique_id=904101066]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="SettingsLine5" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=1329554728]
+[node name="SettingsLine5" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer" unique_id=1329554728]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="SettingsLbl" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsLine5" unique_id=659136134]
+[node name="SettingsLbl" type="Label" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/SettingsLine5" unique_id=659136134]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Label :"
 label_settings = ExtResource("1_mvkpc")
 
-[node name="SettingsContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsLine5" unique_id=2021291663]
+[node name="SettingsContainer" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/SettingsLine5" unique_id=2021291663]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Quit" type="Button" parent="SettingsPanel" unique_id=1619372690]
+[node name="Quit" type="Button" parent="VBoxContainer/SettingsPanel" unique_id=1619372690]
 custom_minimum_size = Vector2(100, 100)
 custom_maximum_size = Vector2(100, 100)
 layout_mode = 2

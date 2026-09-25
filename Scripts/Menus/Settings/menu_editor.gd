@@ -10,6 +10,8 @@ const MAX_BTN = 5
 func _ready() -> void:
 	Event.connect("menu_changed", _update_options)
 	Event.connect("check_pressed", _on_check_pressed)
+	Event.connect("up_pressed", _on_up_pressed)
+	Event.connect("bottom_pressed", _on_bottom_pressed)
 	
 	_update_options()
 	
@@ -35,7 +37,6 @@ func _get_nb_btn_enbaled():
 	return ret
 
 func _on_check_pressed(_id: int):
-	
 	for el in Settings.menuOption:
 		if el[0] == _id:
 			if _get_nb_btn_enbaled() >= MAX_BTN and !el[1]:
@@ -47,5 +48,37 @@ func _on_check_pressed(_id: int):
 			el[1] = !el[1]
 			Data.menuOption[_id].enabled = !Data.menuOption[_id].enabled
 			break
+	Settings._save()
+	Event.emit_signal("menu_editor_changed")
+	_update_options()
+
+func _on_up_pressed(_id: int):
+	var pos = 0
+	for el in Settings.menuOption:
+		if el[0] == _id:
+			break
+		pos += 1
+	if pos == 0:
+		return
+	var tmp: Array = Settings.menuOption[pos]
+	Settings.menuOption[pos] = Settings.menuOption[pos - 1]
+	Settings.menuOption[pos - 1] = tmp
+	Settings._save()
+	Event.emit_signal("menu_editor_changed")
+	_update_options()
+
+
+func _on_bottom_pressed(_id: int):
+	var pos = 0
+	for el in Settings.menuOption:
+		if el[0] == _id:
+			break
+		pos += 1
+	if pos == len(Settings.menuOption):
+		return
+	var tmp: Array = Settings.menuOption[pos]
+	Settings.menuOption[pos] = Settings.menuOption[pos + 1]
+	Settings.menuOption[pos + 1] = tmp
+	Settings._save()
 	Event.emit_signal("menu_editor_changed")
 	_update_options()
