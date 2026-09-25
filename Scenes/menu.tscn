@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://ohiq3co8appp" path="res://Assets/Icons/Timer.png" id="4_jsrd8"]
 [ext_resource type="FontFile" uid="uid://b865x8m3mvaj6" path="res://Assets/Fonts/Almendra-Bold.ttf" id="5_wbdvm"]
 [ext_resource type="Texture2D" uid="uid://tf3vpcmm5okd" path="res://Assets/Icons/Settings.png" id="8_q3rjx"]
+[ext_resource type="Texture2D" uid="uid://cfua8sgfkflct" path="res://Assets/Icons/Database.png" id="9_7qvly"]
+[ext_resource type="Texture2D" uid="uid://coejdpby56nj0" path="res://Assets/Icons/GEM_big.png" id="10_rfqti"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_43yrm"]
 font = ExtResource("5_wbdvm")
@@ -170,7 +172,7 @@ custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_rotation = -1.5707964
-texture_normal = ExtResource("8_q3rjx")
+texture_normal = ExtResource("9_7qvly")
 stretch_mode = 6
 
 [node name="1-GEMBtn" type="HBoxContainer" parent="VBoxContainer/MenuContainer" unique_id=352746225]
@@ -188,5 +190,5 @@ custom_maximum_size = Vector2(80, 80)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_rotation = -1.5707964
-texture_normal = ExtResource("8_q3rjx")
+texture_normal = ExtResource("10_rfqti")
 stretch_mode = 6

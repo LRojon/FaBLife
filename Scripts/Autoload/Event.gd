@@ -12,3 +12,10 @@ signal modev_changed()
 
 signal change_menu()
 signal menu_changed()
+
+signal change_db_src(db_src: String)
+signal db_src_changed()
+
+# Menu Editor Signal
+signal check_pressed(_id: int)
+signal menu_editor_changed()

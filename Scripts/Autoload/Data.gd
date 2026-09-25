@@ -1,10 +1,17 @@
 extends Node
 
+##### CONSTANTES #####
+
 enum Format {
 	CC,
 	SAGE,
 	LL,
 	UPF
+}
+
+const DB_SRC: Dictionary[String, String] = {
+	"fabrary" : "https://fabrary.net/",
+	"cardvault" : "https://cardvault.fabtcg.com/"
 }
 
 var MENU_OPTION: Array[MenuOptionData] = [
@@ -25,9 +32,6 @@ var TIMER : Dictionary[Data.Format, int] = {
 	Data.Format.LL   : 55 * 60,
 	Data.Format.UPF  : -1
 }
-
-func _get_str_format(format : Data.Format) -> String:
-	return Data.Format.keys()[format]
 
 var classes : Dictionary[String, Class] = {
 	"Adjudicator"	: Class.new(0,  "Assassin"),
@@ -212,11 +216,23 @@ var _Hero : Dictionary[String, Hero] = {
 	"YZyggy"		: Hero.new("YZyggy",		"Zyggy"								,    0, 20, ["Illusionist"], ["Lightning"], [Format.UPF, Format.SAGE]),
 }
 
+##### DECLARATIONS ####
+
 var menuOption : Dictionary[int, MenuOptionData] = {}
+
+##### BUILT-IN #####
 
 func _ready() -> void:
 	for mo: MenuOptionData in MENU_OPTION:
 		menuOption.set(mo.id, mo)
+
+##### GETTER #####
+
+func _get_db_src(_id: String):
+	if Data.DB_SRC.keys().has(_id):
+		return DB_SRC[_id]
+	push_error("DB source not found")
+	return ""
 
 func _get_class(_name: String) -> Class:
 	if Data.classes.find_key(_name):
@@ -244,3 +260,6 @@ func _get_heroes_by_format(format: Data.Format) -> Array[Hero]:
 		if val.formats.has(format):
 			ret_heroes.push_back(val)
 	return ret_heroes
+
+func _get_str_format(format : Data.Format) -> String:
+	return Data.Format.keys()[format]

@@ -1,6 +1,8 @@
 class_name Menu
 extends Control
 
+##### DECLARATIONS #####
+
 const FORMAT_MENU   = preload("res://Scenes/Menus/format_menu.tscn")
 const HISTORIQUE    = preload("res://Scenes/Menus/historique.tscn")
 const SETTINGS_MENU = preload("res://Scenes/Menus/Settings/settings_menu.tscn")
@@ -23,6 +25,8 @@ const ROTATE_ICON = {
 
 var format_timer : int = Data.TIMER[Data.Format.CC]
 
+##### BUILT-IN #####
+
 func _ready() -> void:
 	hero_btn.connect("pressed", _on_hero_btn_pressed)
 	histo_btn.connect("pressed", _on_histo_btn_pressed)
@@ -36,7 +40,25 @@ func _ready() -> void:
 		_reset_timer()
 		format_timer = Data.TIMER[format]
 	)
+	Event.connect("menu_editor_changed", _update_btn)
+	_update_btn()
 	
+
+func _process(delta: float) -> void:
+	if !timer.is_stopped():
+		var minutes := int(timer.time_left / 60)
+		var seconds := int(fmod(timer.time_left, 60))
+		disTime.text = ("0" if minutes < 10 else "") + str(minutes) + ":"
+		disTime.text += ("0" if seconds < 10 else "") + str(seconds)
+
+##### LOGIC #####
+
+func _reset_timer():
+	timer.stop()
+	timer_strt.visible = true
+	disTime.visible = false
+
+func _update_btn():
 	var pos: int = 0
 	for mo in Settings.menuOption:
 		var moveChild: HBoxContainer
@@ -47,17 +69,7 @@ func _ready() -> void:
 		moveChild.visible = mo[1]
 		pos += 1
 
-func _process(delta: float) -> void:
-	if !timer.is_stopped():
-		var minutes := int(timer.time_left / 60)
-		var seconds := int(fmod(timer.time_left, 60))
-		disTime.text = ("0" if minutes < 10 else "") + str(minutes) + ":"
-		disTime.text += ("0" if seconds < 10 else "") + str(seconds)
-
-func _reset_timer():
-	timer.stop()
-	timer_strt.visible = true
-	disTime.visible = false
+##### SIGNAL RESPONSES #####
 
 func _on_hero_btn_pressed():
 	print("hero button press")
@@ -97,3 +109,6 @@ func _on_settings_btn_pressed():
 	for node in get_tree().get_nodes_in_group("MainScreen"):
 		node.add_child(instance)
 		break
+
+func _on_menu_editor_changed():
+	pass

@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://biqylnq3o2og1"]
+
+[ext_resource type="Script" uid="uid://crpcqby0hpq1e" path="res://Scripts/Menus/Popup/error_popup.gd" id="1_vcc0f"]
+[ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="2_64ep2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pshgl"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 0, 0, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_pshgl"]
+font = ExtResource("2_64ep2")
+font_size = 48
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pqa74"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64ep2"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_bottom_left = 25
+corner_detail = 20
+
+[node name="ErrorPopup" type="MarginContainer" unique_id=2009081024]
+top_level = true
+z_index = 1000
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_vcc0f")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=260484669]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pshgl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=823364073]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer" unique_id=546176891]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer" unique_id=747975925]
+layout_mode = 2
+text = "Erreur"
+label_settings = SubResource("LabelSettings_pshgl")
+autowrap_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/VBoxContainer" unique_id=797241512]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_pqa74")
+theme_override_styles/fill = SubResource("StyleBoxFlat_64ep2")
+value = 75.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="." unique_id=2035847446]

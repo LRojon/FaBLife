@@ -38,4 +38,4 @@ func _on_bottom_pressed():
 
 
 func _on_check_pressed():
-	pass
+	Event.emit_signal("check_pressed", option.id)

@@ -11,12 +11,19 @@ var menuOption : Array[Array] = [
 	[0, false],
 	[1, false],
 ]
+var db_src: String = "fabrary"
 
 func _ready() -> void:
 	_load()
 	Event.connect("change_modev", func ():
 		modeV = !modeV
+		_save()
 		Event.emit_signal("modev_changed")
+	)
+	Event.connect("change_db_src", func(_id):
+		db_src = _id
+		_save()
+		Event.emit_signal("db_src_changed")
 	)
 	
 
