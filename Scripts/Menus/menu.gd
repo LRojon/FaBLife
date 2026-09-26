@@ -6,6 +6,7 @@ extends Control
 const FORMAT_MENU   = preload("res://Scenes/Menus/format_menu.tscn")
 const HISTORIQUE    = preload("res://Scenes/Menus/historique.tscn")
 const SETTINGS_MENU = preload("res://Scenes/Menus/Settings/settings_menu.tscn")
+const GEM           = preload("res://Scenes/GEM.tscn")
 
 const ROTATE_ICON = {
 	"V": preload("res://Assets/Icons/RotateV.png"),
@@ -19,6 +20,8 @@ const ROTATE_ICON = {
 @onready var rotate_btn   = $"VBoxContainer/MenuContainer/3-RotateBtn/Rotate"
 @onready var timer_strt   = $"VBoxContainer/MenuContainer/7-TimerBtn/TimerStart"
 @onready var settings_btn = $"VBoxContainer/MenuContainer/6-SettingsBtn/Settings"
+@onready var gem_btn      = $"VBoxContainer/MenuContainer/1-GEMBtn/GEM"
+@onready var db_btn       = $"VBoxContainer/MenuContainer/0-DatabaseBtn/Database"
 
 @onready var timer	 = $"VBoxContainer/MenuContainer/7-TimerBtn/Timer"
 @onready var disTime = $"VBoxContainer/MenuContainer/7-TimerBtn/DisTime"
@@ -34,6 +37,8 @@ func _ready() -> void:
 	rotate_btn.connect("pressed", _on_rotate_btn_pressed)
 	timer_strt.connect("pressed", _on_timer_strt_pressed)
 	settings_btn.connect("pressed", _on_settings_btn_pressed)
+	gem_btn.connect("pressed", _on_gem_btn_pressed)
+	db_btn.connect("pressed", _on_database_btn_pressed)
 	
 	Event.connect("modev_changed", func(): rotate_btn.texture_normal = ROTATE_ICON["V" if Settings.modeV else "H"])
 	Event.connect("format_selected", func(format: Data.Format): 
@@ -106,9 +111,12 @@ func _on_timer_strt_pressed():
 func _on_settings_btn_pressed():
 	print("Settings button press")
 	var instance = SETTINGS_MENU.instantiate()
-	for node in get_tree().get_nodes_in_group("MainScreen"):
-		node.add_child(instance)
-		break
+	get_tree().root.add_child(instance)
 
-func _on_menu_editor_changed():
-	pass
+func _on_gem_btn_pressed():
+	print("GEM button pressed")
+	OS.shell_open("https://gem.fabtcg.com/")
+
+func _on_database_btn_pressed():
+	print("db button pressed")
+	OS.shell_open(Data.DB_SRC[Settings.db_src])

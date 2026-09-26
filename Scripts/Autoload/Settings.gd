@@ -14,6 +14,8 @@ var menuOption : Array[Array] = [
 	[1, false],
 ]
 var db_src: String = "fabrary"
+var gem_usr: String = ""
+var gem_pwd: String = ""
 
 func _ready() -> void:
 	_load()

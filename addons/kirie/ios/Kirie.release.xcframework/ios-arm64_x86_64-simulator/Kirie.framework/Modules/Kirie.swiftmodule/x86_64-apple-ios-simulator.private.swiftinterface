@@ -1,0 +1,37 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3.3 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
+// swift-module-flags: -target x86_64-apple-ios14.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 6 -O -enable-experimental-feature DebugDescriptionMacro -module-name Kirie
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
+import Dispatch
+import Foundation
+import Swift
+import SwiftCBOR
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_cdecl("kirie_swift_init")
+public func kirie_swift_init()
+@_cdecl("kirie_swift_deinit")
+public func kirie_swift_deinit()
+@_cdecl("kirie_attach_host_view")
+public func kirie_attach_host_view(_ hostViewPointer: Swift.UnsafeMutableRawPointer?)
+@_cdecl("kirie_detach_host_view")
+public func kirie_detach_host_view(_ hostViewPointer: Swift.UnsafeMutableRawPointer?)
+@_cdecl("kirie_swift_create_webview")
+public func kirie_swift_create_webview(_ viewID: Swift.Int64, _ initialURLPointer: Swift.UnsafePointer<Swift.CChar>?, _ defaultHostViewPointer: Swift.UnsafeMutableRawPointer?)
+@_cdecl("kirie_swift_destroy_webview")
+public func kirie_swift_destroy_webview(_ viewID: Swift.Int64)
+@_cdecl("kirie_swift_load_url")
+public func kirie_swift_load_url(_ viewID: Swift.Int64, _ urlPointer: Swift.UnsafePointer<Swift.CChar>?)
+@_cdecl("kirie_swift_load_html_string")
+public func kirie_swift_load_html_string(_ viewID: Swift.Int64, _ htmlPointer: Swift.UnsafePointer<Swift.CChar>?, _ baseURLPointer: Swift.UnsafePointer<Swift.CChar>?)
+@_cdecl("kirie_swift_send_ipc_message")
+public func kirie_swift_send_ipc_message(_ viewID: Swift.Int64, _ messageJSONPointer: Swift.UnsafePointer<Swift.CChar>?)
+@_cdecl("kirie_swift_send_text")
+public func kirie_swift_send_text(_ viewID: Swift.Int64, _ messagePointer: Swift.UnsafePointer<Swift.CChar>?)
+@_cdecl("kirie_swift_send_binary")
+public func kirie_swift_send_binary(_ viewID: Swift.Int64, _ bytesPointer: Swift.UnsafePointer<Swift.UInt8>?, _ byteCount: Swift.Int)
+@_cdecl("kirie_swift_send_data_json")
+public func kirie_swift_send_data_json(_ viewID: Swift.Int64, _ jsonPointer: Swift.UnsafePointer<Swift.CChar>?)

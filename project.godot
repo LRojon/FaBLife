@@ -13,6 +13,7 @@ config_version=5
 config/name="FAB Life"
 run/main_scene="uid://p1l4ep0orl21"
 config/features=PackedStringArray("4.7", "Mobile")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
@@ -28,6 +29,10 @@ window/size/viewport_height=1920
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GodotChrome/plugin.cfg", "res://addons/kirie/plugin.cfg")
 
 [global_group]
 
