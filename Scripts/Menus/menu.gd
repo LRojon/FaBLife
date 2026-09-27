@@ -6,7 +6,6 @@ extends Control
 const FORMAT_MENU   = preload("res://Scenes/Menus/format_menu.tscn")
 const HISTORIQUE    = preload("res://Scenes/Menus/historique.tscn")
 const SETTINGS_MENU = preload("res://Scenes/Menus/Settings/settings_menu.tscn")
-const GEM           = preload("res://Scenes/GEM.tscn")
 
 const ROTATE_ICON = {
 	"V": preload("res://Assets/Icons/RotateV.png"),
@@ -80,7 +79,7 @@ func _on_hero_btn_pressed():
 	print("hero button press")
 	Event.emit_signal("hero_selection_open")
 	var instance : FormatMenu = FORMAT_MENU.instantiate()
-	self.add_child(instance)
+	get_tree().root.add_child(instance)
 	
 func _on_histo_btn_pressed():
 	print("histo button press")

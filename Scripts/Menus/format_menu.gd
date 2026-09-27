@@ -5,7 +5,8 @@ const FORMAT_BUTTON      = preload("res://Scenes/Menus/format_button.tscn")
 const FORMAT_QUIT_BUTTON = preload("res://Scenes/Menus/format_quit_button.tscn")
 
 
-@onready var list = $VBoxContainer/HBoxContainer
+@onready var list = $VBoxContainer/HBoxContainer2/Container
+@onready var quit = $VBoxContainer/QuitContainer
 
 func _ready() -> void:
 	_update_buttons()
@@ -24,4 +25,4 @@ func _update_buttons():
 		instance.format = f
 		list.add_child(instance)
 	var instance = FORMAT_QUIT_BUTTON.instantiate()
-	list.add_child(instance)
+	quit.add_child(instance)

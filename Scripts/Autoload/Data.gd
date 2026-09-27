@@ -9,6 +9,13 @@ enum Format {
 	UPF
 }
 
+const FORMAT_IMG: Dictionary[Data.Format, Texture] = {
+	Data.Format.CC: preload("res://Assets/Icons/cc.png"),
+	Data.Format.SAGE: preload("res://Assets/Icons/sage.png"),
+	Data.Format.LL: preload("res://Assets/Icons/ll.png"),
+	Data.Format.UPF: preload("res://Assets/Icons/upf.png"),
+}
+
 const DB_SRC: Dictionary[String, String] = {
 	"fabrary" : "https://fabrary.net/",
 	"cardvault" : "https://cardvault.fabtcg.com/"
