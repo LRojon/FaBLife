@@ -10,13 +10,15 @@ const HERO_SEL_BTN = preload("res://Scenes/Menus/hero_sel_button.tscn")
 			format = value
 			emit_signal("format_changed")
 
-@onready var grid = $MarginContainer/ScrollContainer/GridContainer
+@onready var grid = $MarginContainer/VBoxContainer/ScrollContainer/GridContainer
+@onready var quit = $MarginContainer/VBoxContainer/HBoxContainer/Quit
 
 signal format_changed
 
 func _ready() -> void:
 	connect("format_changed", _on_format_changed)
 	Event.connect("hero_selected", _on_hero_selected)
+	quit.connect("pressed", func(): queue_free())
 	
 	_update_heroes_selection()
 

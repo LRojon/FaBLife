@@ -40,6 +40,8 @@ const HERO_SELECTION = preload("res://Scenes/Menus/hero_selection.tscn")
 @onready var bg_texture  = $Content/BG/Texture
 @onready var bg_darker   = $Content/BG/Darker
 
+@onready var hero_btn    = $Content/HeroButton
+
 @onready var sysContent  = $Content/VBoxContainer
 @onready var hero_name   = $"Content/VBoxContainer/Hero Name"
 @onready var hp_content  = $Content/VBoxContainer/HBoxContainer2
@@ -53,6 +55,7 @@ const HERO_SELECTION = preload("res://Scenes/Menus/hero_selection.tscn")
 @onready var plusTimer   = $Content/PlusTimer
 @onready var bufferTimer = $Content/BufferTimer
 
+var cFormat		: Data.Format	= Data.Format.CC
 var historic	: Array[int]	= []
 var hero		: Hero			= null
 var minusHold	: bool			= false
@@ -96,6 +99,7 @@ func _ready() -> void:
 	Event.connect("hero_selected", func (_hero, _p1):
 		if _p1 == self.p1:
 			update_hero(_hero)
+			Event.emit_signal("reset_game")
 	)
 	Event.connect("format_selected", func(format : Data.Format):
 		for child in content.get_children():
@@ -107,6 +111,20 @@ func _ready() -> void:
 		instance.p1 = self.p1
 		instance.position.y += targetSize.y * 0.05
 		content.add_child(instance)
+		cFormat = format
+	)
+	Event.connect("one_player_format_selected", func(format : Data.Format, _p1: bool):
+		if _p1 == p1:
+			for child in content.get_children():
+				if child is HeroSelection:
+					child.queue_free()
+			
+			var instance : HeroSelection = HERO_SELECTION.instantiate()
+			instance.format = format
+			instance.p1 = self.p1
+			instance.position.y += targetSize.y * 0.05
+			content.add_child(instance)
+			cFormat = format
 	)
 	Event.connect("reset_game", func ():
 		update_hero(hero)
@@ -119,6 +137,9 @@ func _ready() -> void:
 	plus.connect("button_down", _on_plus_press)
 	plus.connect("button_up"  , _on_plus_release)
 	plusTimer.connect("timeout", _on_plus_timeout)
+	hero_btn.connect("pressed", func ():
+		Event.emit_signal("one_player_format_selected", cFormat, p1)
+	)
 
 ##### LOGIC #####
 

@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://c1rgwj2u3ew4r" path="res://Assets/Shaders/grayscale.gdshader" id="2_3smsa"]
 [ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="2_6t5aa"]
 [ext_resource type="StyleBox" uid="uid://crui5yq61p0p8" path="res://Assets/StyleBox/HP_SUP.tres" id="2_vgqql"]
+[ext_resource type="Texture2D" uid="uid://ddfs0i8oxdkgj" path="res://Assets/Icons/Hero.png" id="3_8erm5"]
 [ext_resource type="LabelSettings" uid="uid://csk5na2csuxru" path="res://Assets/Fonts/BufferInf.tres" id="5_fkybt"]
 [ext_resource type="FontFile" uid="uid://b865x8m3mvaj6" path="res://Assets/Fonts/Almendra-Bold.ttf" id="5_x3wgy"]
 
@@ -87,6 +88,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5019608)
+
+[node name="HeroButton" type="TextureButton" parent="Content" unique_id=61847936]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_top = 100.0
+offset_right = -20.0
+offset_bottom = 180.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_8erm5")
+texture_pressed = ExtResource("3_8erm5")
+texture_hover = ExtResource("3_8erm5")
+texture_disabled = ExtResource("3_8erm5")
+texture_focused = ExtResource("3_8erm5")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content" unique_id=732168127]
 layout_mode = 1

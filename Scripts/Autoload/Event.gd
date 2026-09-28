@@ -2,6 +2,7 @@ extends Node
 
 signal hero_selected(hero: Hero, p1: bool)
 signal format_selected(format: Data.Format)
+signal one_player_format_selected(format: Data.Format, p1: bool)
 signal hero_selection_open()
 
 signal reset_game()
