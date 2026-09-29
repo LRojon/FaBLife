@@ -3,10 +3,10 @@ extends Node
 ##### CONSTANTES #####
 
 enum Format {
-	CC,
 	SAGE,
-	LL,
-	UPF
+	UPF,
+	CC,
+	LL
 }
 
 const FORMAT_IMG: Dictionary[Data.Format, Texture] = {

@@ -10,8 +10,9 @@ const HERO_SEL_BTN = preload("res://Scenes/Menus/hero_sel_button.tscn")
 			format = value
 			emit_signal("format_changed")
 
-@onready var grid = $MarginContainer/VBoxContainer/ScrollContainer/GridContainer
-@onready var quit = $MarginContainer/VBoxContainer/HBoxContainer/Quit
+@onready var grid   = $MarginContainer/VBoxContainer/ScrollContainer/GridContainer
+@onready var quit   = $MarginContainer/VBoxContainer/HBoxContainer/Quit
+@onready var search = $MarginContainer/VBoxContainer/HBoxContainer/Search
 
 signal format_changed
 
@@ -19,15 +20,20 @@ func _ready() -> void:
 	connect("format_changed", _on_format_changed)
 	Event.connect("hero_selected", _on_hero_selected)
 	quit.connect("pressed", func(): queue_free())
+	search.connect("text_changed", _on_search_text_changed)
 	
 	_update_heroes_selection()
 
-func _update_heroes_selection():
+func _update_heroes_selection(_search: String = ""):
 	for child in grid.get_children():
 		if child is HeroSelButton:
 			child.queue_free()
 	
 	var formatHeroes : Array[Hero] = Data._get_heroes_by_format(format)
+	if _search != "":
+		formatHeroes = formatHeroes.filter(func(h: Hero):
+			return h.name.to_lower().find(_search.to_lower()) != -1
+		)
 	for h in formatHeroes:
 		var instance: HeroSelButton = HERO_SEL_BTN.instantiate()
 		instance.p1 = p1
@@ -40,3 +46,6 @@ func _on_format_changed():
 func _on_hero_selected(_hero, _p1):
 	if _p1 == p1:
 		self.queue_free()
+
+func _on_search_text_changed(new: String):
+	_update_heroes_selection(new)
