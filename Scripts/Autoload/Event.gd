@@ -7,6 +7,10 @@ signal hero_selection_open()
 
 signal reset_game()
 
+signal player_change_hp(p1: bool, new_amt: int)
+signal victory(p1: bool)
+signal go_gameover()
+
 # Settings signal
 signal change_modev()
 signal modev_changed()

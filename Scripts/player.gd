@@ -41,6 +41,7 @@ const HERO_SELECTION = preload("res://Scenes/Menus/hero_selection.tscn")
 @onready var bg_darker   = $Content/BG/Darker
 
 @onready var hero_btn    = $Content/HeroButton
+@onready var particle    = $Content/VictoryParticle
 
 @onready var sysContent  = $Content/VBoxContainer
 @onready var hero_name   = $"Content/VBoxContainer/Hero Name"
@@ -66,6 +67,7 @@ var current_hp	: int 			= 0 :
 		current_hp = value
 		current_hp = 0 if current_hp < 0 else current_hp
 		emit_signal("current_hp_changed")
+		Event.emit_signal("player_change_hp", p1, current_hp)
 var buffer		: int  = 0 :
 	set(value):
 		buffer = value
@@ -89,7 +91,7 @@ func _ready() -> void:
 	content.pivot_offset = targetSize / 2
 	pivot_offset = targetSize / 2
 	bg.pivot_offset = targetSize / 2
-	print("bg target size: ", Vector2(screenSize.x, screenSize.y / 2))
+	particle.position = targetSize / 2
 	
 	hero = Data._get_hero(_hero)
 	update_hero(hero)
@@ -128,6 +130,12 @@ func _ready() -> void:
 	)
 	Event.connect("reset_game", func ():
 		update_hero(hero)
+	)
+	Event.connect("victory", func(_p1: bool):
+		if _p1 == p1:
+			particle.emitting = true
+			await get_tree().create_timer(particle.lifetime).timeout
+			Event.emit_signal("go_gameover")
 	)
 	Event.connect("modev_changed", _on_modev_changed)
 	bufferTimer.connect("timeout", _on_buffer_timeout)
