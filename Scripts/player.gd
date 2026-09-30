@@ -6,16 +6,20 @@ const MODE_V_PARAM = {
 	"V" : {
 		"HP_BAR": Vector2(0, 50),
 		"BAR_FILL": ProgressBar.FILL_BEGIN_TO_END,
-		"DEG_ROT_P1": 90,
-		"DEG_ROT_P2": -90,
-		"BTN_ORDER": [2, 1, 0]
+		"DEG_ROT_P1": -90,
+		"DEG_ROT_P2": 90,
+		"BTN_ORDER": [2, 1, 0],
+		"HERO_BTN_X_P2": "src - btn - 20",
+		"HERO_BTN_X_P1": "20"
 	},
 	"H" : {
 		"HP_BAR": Vector2(0, 45),
 		"BAR_FILL": ProgressBar.FILL_END_TO_BEGIN,
-		"DEG_ROT_P1": -90,
-		"DEG_ROT_P2": 90,
-		"BTN_ORDER": [2, 1, 0]
+		"DEG_ROT_P1": 90,
+		"DEG_ROT_P2": -90,
+		"BTN_ORDER": [2, 1, 0],
+		"HERO_BTN_X_P2": "20",
+		"HERO_BTN_X_P1": "src - btn - 20"
 	}
 }
 
@@ -91,10 +95,16 @@ func _ready() -> void:
 	content.pivot_offset = targetSize / 2
 	pivot_offset = targetSize / 2
 	bg.pivot_offset = targetSize / 2
+	
+	hero_btn.position = Vector2(targetSize.x - hero_btn.size.x - 20, 100)
+	
 	particle.position = targetSize / 2
+	particle.lifetime = Data.VICTORY_PARTICLE_TIME
 	
 	hero = Data._get_hero(_hero)
 	update_hero(hero)
+	
+	_on_modev_changed()
 	
 	self.connect("buffer_changed", _on_buffer_changed)
 	self.connect("current_hp_changed", _on_current_hp_changed)
@@ -135,7 +145,7 @@ func _ready() -> void:
 		if _p1 == p1:
 			particle.emitting = true
 			await get_tree().create_timer(particle.lifetime).timeout
-			Event.emit_signal("go_gameover")
+			Event.emit_signal("go_gameover", hero.name)
 	)
 	Event.connect("modev_changed", _on_modev_changed)
 	bufferTimer.connect("timeout", _on_buffer_timeout)
@@ -279,20 +289,42 @@ func _on_plus_timeout():
 	plusTimer.start(LONG_PRESS_DELAY / 2)
 
 func _on_modev_changed():
-	print('on modeV changed')
-	
 	var targetSize := Vector2(content.custom_minimum_size.y, content.custom_minimum_size.x)
-	print("targetSize: ", targetSize)
 	var mode := "V" if Settings.modeV else "H"
 	
 	content.pivot_offset = targetSize / 2
-	#normBar.custom_minimum_size = MODE_V_PARAM[mode]["HP_BAR"]
 	if p1:
 		content.rotation_degrees += MODE_V_PARAM[mode]["DEG_ROT_P1"]
 		normBar.fill_mode = MODE_V_PARAM[mode]["BAR_FILL"]
 		supBar.fill_mode  = MODE_V_PARAM[mode]["BAR_FILL"]
 		change_child_order(hp_content, MODE_V_PARAM[mode]["BTN_ORDER"])
+		
+		var xoffset: float = evalue(MODE_V_PARAM[mode]["HERO_BTN_X_P1"], {
+			"src" : targetSize.x,
+			"btn" : hero_btn.size.x
+		})
+		hero_btn.position.x = xoffset
 	else:
 		content.rotation_degrees += MODE_V_PARAM[mode]["DEG_ROT_P2"]
-	content.custom_maximum_size = targetSize
+
+		var xoffset: float = evalue(MODE_V_PARAM[mode]["HERO_BTN_X_P2"], {
+			"src" : targetSize.x,
+			"btn" : hero_btn.size.x
+		})
+		hero_btn.position.x = xoffset
+			
+	content.custom_maximum_size = targetSize 
 	content.custom_minimum_size = targetSize
+
+
+func evalue(expr: String, values: Dictionary) -> Variant :
+	var _exp = Expression.new()
+	var ret = _exp.parse(expr, values.keys())
+	if ret != OK:
+		push_error("Error parse expression")
+		return 0
+	var res = _exp.execute(values.values())
+	if _exp.has_execute_failed():
+		push_error("Expression execution error")
+		return 0
+	return res

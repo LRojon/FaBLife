@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://daji02f2hlr7"]
 
+[ext_resource type="Script" uid="uid://c24tongwe4dr4" path="res://Scripts/game_over.gd" id="1_eoghk"]
 [ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="1_ojehl"]
 [ext_resource type="Texture2D" uid="uid://coejdpby56nj0" path="res://Assets/Icons/GEM_big.png" id="2_8fo1c"]
 [ext_resource type="FontFile" uid="uid://b865x8m3mvaj6" path="res://Assets/Fonts/Almendra-Bold.ttf" id="2_ek8ke"]
@@ -12,20 +13,37 @@ font_size = 128
 font = ExtResource("1_ojehl")
 font_size = 96
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eoghk"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.2)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 20
+
 [sub_resource type="LabelSettings" id="LabelSettings_eoghk"]
 font = ExtResource("2_ek8ke")
 font_size = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek8ke"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(1, 1, 1, 0.2)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -34,6 +52,7 @@ corner_radius_bottom_left = 10
 corner_detail = 5
 
 [node name="GameOver" type="Control" unique_id=1992807058]
+z_index = 400
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 8
@@ -41,11 +60,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -420.0
-offset_right = 420.0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(960, 540)
+rotation = -1.5707964
+pivot_offset_ratio = Vector2(0.5, 0.5)
+script = ExtResource("1_eoghk")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1061475555]
 layout_mode = 1
@@ -72,6 +95,7 @@ theme_override_constants/margin_bottom = 50
 layout_mode = 2
 offset_transform_enabled = true
 theme_override_constants/separation = 50
+alignment = 1
 
 [node name="Line1" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1247265116]
 layout_mode = 2
@@ -79,6 +103,7 @@ offset_transform_rotation = -1.5707964
 text = "Victoire de %hero% !"
 label_settings = SubResource("LabelSettings_8fo1c")
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Line2" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1514898471]
 layout_mode = 2
@@ -89,18 +114,40 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1747552015]
 layout_mode = 2
+theme_override_constants/separation = 25
 alignment = 1
 
 [node name="Hero" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1929788155]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ojehl")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/focus = SubResource("StyleBoxFlat_eoghk")
 text = "Changer de Héros"
 
 [node name="Format" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=74848000]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ojehl")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/focus = SubResource("StyleBoxFlat_eoghk")
 text = "Changer de Format"
 
 [node name="Same" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1555825665]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ojehl")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_eoghk")
+theme_override_styles/focus = SubResource("StyleBoxFlat_eoghk")
 text = "Tout pareil"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=91827393]
@@ -113,8 +160,8 @@ text = "N'oubliez pas de rapporté votre résultat sur  "
 label_settings = SubResource("LabelSettings_eoghk")
 
 [node name="GEM" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1563524713]
-custom_minimum_size = Vector2(50, 50)
-custom_maximum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(75, 75)
+custom_maximum_size = Vector2(75, 75)
 layout_mode = 2
 uri = "https://gem.fabtcg.com/profile/player/"
 

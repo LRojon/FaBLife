@@ -1,3 +1,4 @@
+@warning_ignore_start("unused_signal")
 extends Node
 
 signal hero_selected(hero: Hero, p1: bool)
@@ -9,7 +10,9 @@ signal reset_game()
 
 signal player_change_hp(p1: bool, new_amt: int)
 signal victory(p1: bool)
-signal go_gameover()
+signal go_gameover(winner: String)
+
+signal reset_format()
 
 # Settings signal
 signal change_modev()
@@ -26,3 +29,6 @@ signal check_pressed(_id: int)
 signal up_pressed(_id: int)
 signal bottom_pressed(_id: int)
 signal menu_editor_changed()
+
+
+#@warning_ignore_restore("unused_variable")

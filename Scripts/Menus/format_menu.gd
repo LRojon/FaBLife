@@ -23,6 +23,7 @@ func _update_buttons():
 	for f: Data.Format in Data.Format.values():
 		var instance: FormatButton = FORMAT_BUTTON.instantiate()
 		instance.format = f
+		instance.disabled = f == Data.Format.UPF # UPF Coming soon
 		list.add_child(instance)
 	var instance = FORMAT_QUIT_BUTTON.instantiate()
 	quit.add_child(instance)

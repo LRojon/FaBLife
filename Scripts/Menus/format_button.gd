@@ -14,6 +14,7 @@ func _ready() -> void:
 	btn.texture_focused  = btn.texture_normal
 	
 	btn.disabled = disabled
+	modulate = Color.WHITE if !disabled else Color.from_string("#88888866", Color.BLACK)
 	
 	btn.connect("pressed", func():
 		Event.emit_signal("format_selected", format)

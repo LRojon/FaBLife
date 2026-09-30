@@ -45,6 +45,8 @@ func _ready() -> void:
 		format_timer = Data.TIMER[format]
 	)
 	Event.connect("menu_editor_changed", _update_btn)
+	Event.connect("reset_game", func(): _reset_timer())
+	Event.connect("reset_format", _on_hero_btn_pressed)
 	_update_btn()
 	
 
@@ -90,7 +92,6 @@ func _on_histo_btn_pressed():
 		break
 	
 func _on_reset_btn_pressed():
-	_reset_timer()
 	Event.emit_signal("reset_game")
 	
 func _on_rotate_btn_pressed():

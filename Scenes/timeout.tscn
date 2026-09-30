@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://deo8sr7dq42uu"]
+
+[ext_resource type="Texture2D" uid="uid://ianyhr67helt" path="res://Assets/Sprites/Menu/Timeout.png" id="1_lwbyn"]
+[ext_resource type="Script" uid="uid://b4qiwutyvgdjp" path="res://Scripts/timeout.gd" id="1_pvr4q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43yrm"]
+atlas = ExtResource("1_lwbyn")
+region = Rect2(0, 0, 471, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwbyn"]
+atlas = ExtResource("1_lwbyn")
+region = Rect2(0, 55, 471, 55)
+
+[node name="Timeout" type="Control" unique_id=78205780]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pvr4q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=995088078]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = 420.0
+offset_right = 420.0
+offset_bottom = -420.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="TimeoutUp" type="TextureRect" parent="VBoxContainer" unique_id=1207034301]
+custom_minimum_size = Vector2(750, 87)
+clip_contents = true
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-1920, 0)
+texture = SubResource("AtlasTexture_43yrm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TimeoutBottom" type="TextureRect" parent="VBoxContainer" unique_id=1149571776]
+custom_minimum_size = Vector2(750, 87)
+clip_contents = true
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(1920, 0)
+texture = SubResource("AtlasTexture_lwbyn")
+expand_mode = 1
+stretch_mode = 5

@@ -2,6 +2,8 @@ extends Node
 
 ##### CONSTANTES #####
 
+const VICTORY_PARTICLE_TIME: float = 2.0
+
 enum Format {
 	SAGE,
 	UPF,
@@ -257,7 +259,6 @@ func _get_hero(_name: String) -> Hero:
 	for k in Data._Hero.keys():
 		if k == _name:
 			return Data._Hero[_name]
-			break
 	push_error("Hero not found")
 	return Hero.new(-1, "", -1, -1, [], [], [])
 

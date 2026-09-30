@@ -2,7 +2,7 @@ class_name Main extends Control
 
 ##### DECLARATIONS #####
 
-const GAMEOVER = ""
+const GAMEOVER = preload("res://Scenes/game_over.tscn")
 
 enum State {
 	IN_GAME,
@@ -44,8 +44,11 @@ func state_change_for_timeout():
 
 ##### SIGNAL RESPONSES #####
 
-func _on_go_gameover():
-	print("gameover")
+func _on_go_gameover(winner: String):
+	print("winner : ", winner)
+	var instance: GameOver = GAMEOVER.instantiate()
+	instance.winner = winner
+	get_tree().root.add_child(instance)
 
 func _on_player_change_hp(p1: bool, new_amt: int):
 	if new_amt <= 0:
