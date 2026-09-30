@@ -3,6 +3,7 @@ class_name Main extends Control
 ##### DECLARATIONS #####
 
 const GAMEOVER = preload("res://Scenes/game_over.tscn")
+const TIMEOUT = preload("res://Scenes/timeout.tscn")
 
 enum State {
 	IN_GAME,
@@ -25,6 +26,10 @@ signal state_changed(new_state: State)
 func _ready() -> void:
 	Event.connect("player_change_hp", _on_player_change_hp)
 	Event.connect("go_gameover", _on_go_gameover)
+	Event.connect("game_timeout", func():
+		var instance = TIMEOUT.instantiate()
+		get_tree().root.add_child(instance)
+	)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

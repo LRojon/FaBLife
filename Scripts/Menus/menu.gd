@@ -39,6 +39,11 @@ func _ready() -> void:
 	gem_btn.connect("pressed", _on_gem_btn_pressed)
 	db_btn.connect("pressed", _on_database_btn_pressed)
 	
+	timer.connect("timeout", func(): 
+		timer.stop()
+		Event.emit_signal("game_timeout")
+	)
+	
 	Event.connect("modev_changed", func(): rotate_btn.texture_normal = ROTATE_ICON["V" if Settings.modeV else "H"])
 	Event.connect("format_selected", func(format: Data.Format): 
 		_reset_timer()

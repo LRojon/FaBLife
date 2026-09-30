@@ -14,6 +14,8 @@ signal go_gameover(winner: String)
 
 signal reset_format()
 
+signal game_timeout()
+
 # Settings signal
 signal change_modev()
 signal modev_changed()

@@ -6,20 +6,20 @@ const MODE_V_PARAM = {
 	"V" : {
 		"HP_BAR": Vector2(0, 50),
 		"BAR_FILL": ProgressBar.FILL_BEGIN_TO_END,
-		"DEG_ROT_P1": -90,
-		"DEG_ROT_P2": 90,
-		"BTN_ORDER": [2, 1, 0],
-		"HERO_BTN_X_P2": "src - btn - 20",
-		"HERO_BTN_X_P1": "20"
-	},
-	"H" : {
-		"HP_BAR": Vector2(0, 45),
-		"BAR_FILL": ProgressBar.FILL_END_TO_BEGIN,
 		"DEG_ROT_P1": 90,
 		"DEG_ROT_P2": -90,
 		"BTN_ORDER": [2, 1, 0],
 		"HERO_BTN_X_P2": "20",
 		"HERO_BTN_X_P1": "src - btn - 20"
+	},
+	"H" : {
+		"HP_BAR": Vector2(0, 45),
+		"BAR_FILL": ProgressBar.FILL_END_TO_BEGIN,
+		"DEG_ROT_P1": -90,
+		"DEG_ROT_P2": 90,
+		"BTN_ORDER": [2, 1, 0],
+		"HERO_BTN_X_P2": "src - btn - 20",
+		"HERO_BTN_X_P1": "20"
 	}
 }
 
