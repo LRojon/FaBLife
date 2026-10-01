@@ -20,6 +20,9 @@ signal game_timeout()
 signal change_modev()
 signal modev_changed()
 
+signal change_blood()
+signal blood_changed()
+
 signal change_menu()
 signal menu_changed()
 

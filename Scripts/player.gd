@@ -8,7 +8,7 @@ const MODE_V_PARAM = {
 		"BAR_FILL": ProgressBar.FILL_BEGIN_TO_END,
 		"DEG_ROT_P1": 180,
 		"DEG_ROT_P2": 0,
-		"BTN_ORDER": [2, 1, 0],
+		"BTN_ORDER": [0, 1, 2],
 		"HERO_BTN_X_P2": "src - btn - 20",
 		"HERO_BTN_X_P1": "20"
 	},
@@ -52,9 +52,9 @@ const HERO_SELECTION = preload("res://Scenes/Menus/hero_selection.tscn")
 @onready var sysContent  = $Content/VBoxContainer
 @onready var hero_name   = $"Content/VBoxContainer/Hero Name"
 @onready var hp_content  = $Content/VBoxContainer/HBoxContainer2
-@onready var hp          = $Content/VBoxContainer/HBoxContainer2/HP
-@onready var minus       = $Content/VBoxContainer/HBoxContainer2/Minus
-@onready var plus        = $Content/VBoxContainer/HBoxContainer2/Plus
+@onready var hp          = $"Content/VBoxContainer/HBoxContainer2/1_HP"
+@onready var minus       = $"Content/VBoxContainer/HBoxContainer2/0_Minus"
+@onready var plus        = $"Content/VBoxContainer/HBoxContainer2/2_Plus"
 @onready var normBar     = $Content/VBoxContainer/HBoxContainer/MarginContainer/NormalBar
 @onready var supBar      = $Content/VBoxContainer/HBoxContainer/MarginContainer/NormalBar/SupBar
 @onready var bufferT     = $Content/VBoxContainer/Buffer
@@ -94,6 +94,7 @@ func _ready() -> void:
 		content.rotation_degrees = 0
 	custom_minimum_size = targetSize
 	custom_maximum_size = screenSize
+	size = targetSize
 	content.custom_minimum_size = targetSize
 	content.custom_maximum_size = screenSize
 	content.pivot_offset = targetSize / 2
@@ -191,13 +192,20 @@ func change_bar(from : float, to : float):
 			tween2.set_trans(Tween.TRANS_EXPO)
 			tween2. tween_property(supBar, "value", to - 100.0, HP_BAR_DELAY / 2)
 		else:
+			if Settings.blood:
+				blood.global_position = _get_blood_pos(normBar.value)
+				var percent: float = (from - to) / 100.0
+				var amt: float = 5 * (percent * hero.base_hp)
+				blood.lifetime = HP_BAR_DELAY
+				blood.amount = min(amt, 200)
+				blood.emitting = true
+				var tweenB = create_tween()
+				tweenB.set_trans(Tween.TRANS_EXPO)
+				tweenB.set_ease(Tween.EASE_OUT)
+				tweenB.tween_property(blood, "global_position", _get_blood_pos(to), HP_BAR_DELAY)
+			
 			tween.set_ease(Tween.EASE_OUT)
 			tween.tween_property(normBar, "value", to, HP_BAR_DELAY)
-			var pos = _get_blood_pos()
-			blood.global_position = _get_blood_pos()
-			blood.amount = 10 * ((to - from) * hero.base_hp)
-			blood.emitting = true
-			print("amt blood:", blood.amount, " | pos : ", blood.position)
 	else:
 		if to >= 100.0:
 			tween.set_ease(Tween.EASE_OUT)
@@ -209,21 +217,24 @@ func change_bar(from : float, to : float):
 			var tween2 = create_tween()
 			tween2.set_ease(Tween.EASE_OUT)
 			tween2.set_trans(Tween.TRANS_EXPO)
-			tween2. tween_property(normBar, "value", to, HP_BAR_DELAY / 2)
+			tween2.tween_property(normBar, "value", to, HP_BAR_DELAY / 2)
 
 func change_child_order(parent: Node, order: Array):
 	if parent.get_children().size() != order.size():
 		push_error("change_child_order: the order array size must be equal to number of node child.")
 		return
 	var tmp_child: Array[Node] = parent.get_children()
+	var n: int = 0
 	for o in order:
-		for c in tmp_child:
-			parent.move_child(c, o)
+		for child in tmp_child:
+			if child.name.split("_")[0] == str(o):
+				parent.move_child(child, n)
+		n += 1
 
-func _get_blood_pos() -> Vector2:
-	var ini_pos = normBar.position
+func _get_blood_pos(value: float) -> Vector2:
+	var ini_pos = normBar.global_position
 	ini_pos.y += normBar.size.y / 2
-	ini_pos.x += normBar.size.x * normBar.value / 100
+	ini_pos.x += normBar.size.x * value / 100
 	return ini_pos
 
 ##### EVENT #####
@@ -305,8 +316,11 @@ func _on_plus_timeout():
 
 func _on_modev_changed():
 	var mode := "V" if Settings.modeV else "H"
-	
-	var targetSize := Vector2(content.custom_minimum_size.y, content.custom_minimum_size.x)
+	var targetSize : Vector2
+	if mode == "H":
+		targetSize = Vector2(self.size.y, self.size.x)
+	else:
+		targetSize = Vector2(self.size.x, self.size.y)
 	
 	content.pivot_offset = targetSize / 2
 	if p1:

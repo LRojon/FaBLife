@@ -180,7 +180,7 @@ layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Minus" type="Button" parent="Content/VBoxContainer/HBoxContainer2" unique_id=1787446180]
+[node name="0_Minus" type="Button" parent="Content/VBoxContainer/HBoxContainer2" unique_id=1787446180]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -193,12 +193,12 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_skvsw")
 theme_override_styles/focus = SubResource("StyleBoxFlat_skvsw")
 text = "-"
 
-[node name="HP" type="Label" parent="Content/VBoxContainer/HBoxContainer2" unique_id=1012168453]
+[node name="1_HP" type="Label" parent="Content/VBoxContainer/HBoxContainer2" unique_id=1012168453]
 layout_mode = 2
 text = "40"
 label_settings = SubResource("LabelSettings_s002b")
 
-[node name="Plus" type="Button" parent="Content/VBoxContainer/HBoxContainer2" unique_id=435181391]
+[node name="2_Plus" type="Button" parent="Content/VBoxContainer/HBoxContainer2" unique_id=435181391]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -227,7 +227,7 @@ one_shot = true
 one_shot = true
 
 [node name="Blood" type="CPUParticles2D" parent="Content" unique_id=1418229085]
-position = Vector2(539, 310)
+position = Vector2(553, 480)
 emitting = false
 amount = 200
 lifetime = 0.5

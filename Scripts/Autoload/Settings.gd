@@ -14,8 +14,7 @@ var menuOption : Array[Array] = [
 	[1, false],
 ]
 var db_src: String = "fabrary"
-var gem_usr: String = ""
-var gem_pwd: String = ""
+var blood: bool = true
 
 func _ready() -> void:
 	_load()
@@ -23,6 +22,11 @@ func _ready() -> void:
 		modeV = !modeV
 		_save()
 		Event.emit_signal("modev_changed")
+	)
+	Event.connect("change_blood", func ():
+		blood = !blood
+		_save()
+		Event.emit_signal("blood_changed")
 	)
 	Event.connect("change_db_src", func(_id):
 		db_src = _id
@@ -36,6 +40,7 @@ func _save():
 	var config = ConfigFile.new()
 	
 	config.set_value("Settings", "modeV", modeV)
+	config.set_value("Settings", "blood", blood)
 	config.set_value("Settings", "menuOption", menuOption)
 	config.set_value("Settings", "dbSrc", db_src)
 	
@@ -48,7 +53,8 @@ func _load():
 	if err != OK:
 		return
 	
-	modeV = config.get_value("Settings", "modeV")
+	modeV = config.get_value("Settings", "modeV", true)
+	blood = config.get_value("Settings", "blood", true)
 	menuOption = config.get_value("Settings", "menuOption")
 	db_src = config.get_value("Settings", "dbSrc")
 	

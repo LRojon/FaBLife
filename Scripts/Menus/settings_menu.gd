@@ -7,6 +7,7 @@ const MENU_EDITOR = preload("res://Scenes/Menus/Settings/menu_editor.tscn")
 @onready var quit = $VBoxContainer/SettingsPanel/Quit
 
 @onready var vmode = $VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/VModeLine/VModeContainer/VMode
+@onready var blood = $VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/BloodLine/BloodContainer/Blood
 @onready var menu_editor = $VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/CustomMenuLine/CustomMenuContainer/MenuEditor
 @onready var fabrary_db    = $VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine/SettingsContainer/Fabrary
 @onready var card_vault_db = $VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/DatabaseSrcLine/SettingsContainer/Cardvault
@@ -21,10 +22,12 @@ func _ready() -> void:
 	)
 	
 	vmode.connect("pressed", _on_vmode_press)
+	blood.connect("pressed", _on_blood_press)
 	menu_editor.connect("pressed", _on_menu_editor_pressed)
 	fabrary_db.pressed.connect(_on_db_src_f_pressed)
 	card_vault_db.pressed.connect(_on_db_src_c_pressed)
 	Event.connect("modev_changed", init_settings)
+	Event.connect("blood_changed", init_settings)
 	Event.connect("db_src_changed", init_settings)
 
 ##### LOGIC #####
@@ -41,6 +44,9 @@ func init_settings():
 
 func _on_vmode_press():
 	Event.emit_signal("change_modev")
+
+func _on_blood_press():
+	Event.emit_signal("change_blood")
 
 func _on_menu_editor_pressed():
 	var instance = MENU_EDITOR.instantiate()

@@ -129,6 +129,30 @@ layout_mode = 2
 theme_override_icons/checked = ExtResource("3_ffwnc")
 theme_override_icons/unchecked = ExtResource("4_etqfa")
 
+[node name="BloodLine" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer" unique_id=752756191]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="BloodLbl" type="Label" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/BloodLine" unique_id=1213995761]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Sang:"
+label_settings = ExtResource("1_mvkpc")
+
+[node name="BloodContainer" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/BloodLine" unique_id=916134971]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Blood" type="CheckBox" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/BloodLine/BloodContainer" unique_id=1705068154]
+custom_minimum_size = Vector2(100, 100)
+custom_maximum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_icons/checked = ExtResource("3_ffwnc")
+theme_override_icons/unchecked = ExtResource("4_etqfa")
+
 [node name="CustomMenuLine" type="HBoxContainer" parent="VBoxContainer/SettingsPanel/MarginContainer/VBoxContainer" unique_id=1499048625]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
