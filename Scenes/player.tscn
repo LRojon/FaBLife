@@ -35,6 +35,11 @@ bg_color = Color(1, 1, 1, 0.0627451)
 font = ExtResource("2_6t5aa")
 font_size = 400
 
+[sub_resource type="Curve" id="Curve_43yrm"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 0.9821429), 0.0, 0.0, 0, 0, Vector2(0.50236964, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="Curve" id="Curve_ccsow"]
 _limits = [0.0, 10.0, 0.0, 1.0]
 _data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -220,6 +225,19 @@ one_shot = true
 
 [node name="BufferTimer" type="Timer" parent="Content" unique_id=1948262167]
 one_shot = true
+
+[node name="Blood" type="CPUParticles2D" parent="Content" unique_id=1418229085]
+position = Vector2(539, 310)
+emitting = false
+amount = 200
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.5
+initial_velocity_min = 980.0
+initial_velocity_max = 980.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_43yrm")
+color = Color(0.72156864, 0.15294118, 0.14509805, 1)
 
 [node name="VictoryParticle" type="CPUParticles2D" parent="Content" unique_id=979171136]
 position = Vector2(553, 480)

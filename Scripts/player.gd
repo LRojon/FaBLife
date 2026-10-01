@@ -6,20 +6,20 @@ const MODE_V_PARAM = {
 	"V" : {
 		"HP_BAR": Vector2(0, 50),
 		"BAR_FILL": ProgressBar.FILL_BEGIN_TO_END,
-		"DEG_ROT_P1": 90,
-		"DEG_ROT_P2": -90,
+		"DEG_ROT_P1": 180,
+		"DEG_ROT_P2": 0,
 		"BTN_ORDER": [2, 1, 0],
-		"HERO_BTN_X_P2": "20",
-		"HERO_BTN_X_P1": "src - btn - 20"
+		"HERO_BTN_X_P2": "src - btn - 20",
+		"HERO_BTN_X_P1": "20"
 	},
 	"H" : {
 		"HP_BAR": Vector2(0, 45),
 		"BAR_FILL": ProgressBar.FILL_END_TO_BEGIN,
 		"DEG_ROT_P1": -90,
-		"DEG_ROT_P2": 90,
+		"DEG_ROT_P2": -90,
 		"BTN_ORDER": [2, 1, 0],
-		"HERO_BTN_X_P2": "src - btn - 20",
-		"HERO_BTN_X_P1": "20"
+		"HERO_BTN_X_P2": "20",
+		"HERO_BTN_X_P1": "src - btn - 20"
 	}
 }
 
@@ -46,6 +46,8 @@ const HERO_SELECTION = preload("res://Scenes/Menus/hero_selection.tscn")
 
 @onready var hero_btn    = $Content/HeroButton
 @onready var particle    = $Content/VictoryParticle
+
+@onready var blood       = $Content/Blood
 
 @onready var sysContent  = $Content/VBoxContainer
 @onready var hero_name   = $"Content/VBoxContainer/Hero Name"
@@ -88,6 +90,8 @@ func _ready() -> void:
 
 	if p1:
 		content.rotation_degrees = 180
+	else:
+		content.rotation_degrees = 0
 	custom_minimum_size = targetSize
 	custom_maximum_size = screenSize
 	content.custom_minimum_size = targetSize
@@ -189,6 +193,11 @@ func change_bar(from : float, to : float):
 		else:
 			tween.set_ease(Tween.EASE_OUT)
 			tween.tween_property(normBar, "value", to, HP_BAR_DELAY)
+			var pos = _get_blood_pos()
+			blood.global_position = _get_blood_pos()
+			blood.amount = 10 * ((to - from) * hero.base_hp)
+			blood.emitting = true
+			print("amt blood:", blood.amount, " | pos : ", blood.position)
 	else:
 		if to >= 100.0:
 			tween.set_ease(Tween.EASE_OUT)
@@ -210,6 +219,12 @@ func change_child_order(parent: Node, order: Array):
 	for o in order:
 		for c in tmp_child:
 			parent.move_child(c, o)
+
+func _get_blood_pos() -> Vector2:
+	var ini_pos = normBar.position
+	ini_pos.y += normBar.size.y / 2
+	ini_pos.x += normBar.size.x * normBar.value / 100
+	return ini_pos
 
 ##### EVENT #####
 
@@ -289,12 +304,13 @@ func _on_plus_timeout():
 	plusTimer.start(LONG_PRESS_DELAY / 2)
 
 func _on_modev_changed():
-	var targetSize := Vector2(content.custom_minimum_size.y, content.custom_minimum_size.x)
 	var mode := "V" if Settings.modeV else "H"
+	
+	var targetSize := Vector2(content.custom_minimum_size.y, content.custom_minimum_size.x)
 	
 	content.pivot_offset = targetSize / 2
 	if p1:
-		content.rotation_degrees += MODE_V_PARAM[mode]["DEG_ROT_P1"]
+		content.rotation_degrees = MODE_V_PARAM[mode]["DEG_ROT_P1"]
 		normBar.fill_mode = MODE_V_PARAM[mode]["BAR_FILL"]
 		supBar.fill_mode  = MODE_V_PARAM[mode]["BAR_FILL"]
 		change_child_order(hp_content, MODE_V_PARAM[mode]["BTN_ORDER"])
@@ -305,7 +321,7 @@ func _on_modev_changed():
 		})
 		hero_btn.position.x = xoffset
 	else:
-		content.rotation_degrees += MODE_V_PARAM[mode]["DEG_ROT_P2"]
+		content.rotation_degrees = MODE_V_PARAM[mode]["DEG_ROT_P2"]
 
 		var xoffset: float = evalue(MODE_V_PARAM[mode]["HERO_BTN_X_P2"], {
 			"src" : targetSize.x,
