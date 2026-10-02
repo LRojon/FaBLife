@@ -256,9 +256,8 @@ func _get_talent(_name: String) -> Talent:
 	return Talent.new(-1, "")
 
 func _get_hero(_name: String) -> Hero:
-	for k in Data._Hero.keys():
-		if k == _name:
-			return Data._Hero[_name]
+	if Data._Hero.keys().has(_name):
+		return Data._Hero[_name]
 	push_error("Hero not found")
 	return Hero.new(-1, "", -1, -1, [], [], [])
 

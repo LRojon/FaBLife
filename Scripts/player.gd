@@ -48,6 +48,7 @@ const HERO_SELECTION = preload("res://Scenes/Menus/hero_selection.tscn")
 @onready var particle    = $Content/VictoryParticle
 
 @onready var blood       = $Content/Blood
+@onready var remoteBlood = $Content/VBoxContainer/HBoxContainer/MarginContainer/NormalBar/RemoteBlood
 
 @onready var sysContent  = $Content/VBoxContainer
 @onready var hero_name   = $"Content/VBoxContainer/Hero Name"
@@ -180,7 +181,6 @@ func update_hero(_hero: Hero):
 	historic = []
 
 func change_bar(from : float, to : float):
-	print("Call change bar | from: ", from, " to: ", to)
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_EXPO)
 	if from <= 100.0:
@@ -193,16 +193,19 @@ func change_bar(from : float, to : float):
 			tween2. tween_property(supBar, "value", to - 100.0, HP_BAR_DELAY / 2)
 		else:
 			if Settings.blood:
-				blood.global_position = _get_blood_pos(normBar.value)
+				remoteBlood.position = _get_blood_pos(normBar.value)
 				var percent: float = (from - to) / 100.0
 				var amt: float = 5 * (percent * hero.base_hp)
 				blood.lifetime = HP_BAR_DELAY
+				blood.direction = Vector2.RIGHT
+				if p1 and !Settings.modeV:
+					blood.direction = Vector2.LEFT
 				blood.amount = min(amt, 200)
 				blood.emitting = true
 				var tweenB = create_tween()
 				tweenB.set_trans(Tween.TRANS_EXPO)
 				tweenB.set_ease(Tween.EASE_OUT)
-				tweenB.tween_property(blood, "global_position", _get_blood_pos(to), HP_BAR_DELAY)
+				tweenB.tween_property(remoteBlood, "position", _get_blood_pos(to), HP_BAR_DELAY)
 			
 			tween.set_ease(Tween.EASE_OUT)
 			tween.tween_property(normBar, "value", to, HP_BAR_DELAY)
@@ -213,7 +216,6 @@ func change_bar(from : float, to : float):
 		else:
 			tween.tween_property(supBar, "value", 0.0, HP_BAR_DELAY / 2)
 			await tween.finished
-			print("supbar value: ", supBar.value)
 			var tween2 = create_tween()
 			tween2.set_ease(Tween.EASE_OUT)
 			tween2.set_trans(Tween.TRANS_EXPO)
@@ -232,7 +234,13 @@ func change_child_order(parent: Node, order: Array):
 		n += 1
 
 func _get_blood_pos(value: float) -> Vector2:
-	var ini_pos = normBar.global_position
+	if p1 and !Settings.modeV:
+		var ini_pos = Vector2.ZERO
+		ini_pos.y += normBar.size.y / 2
+		ini_pos.x += normBar.size.x * (100.0-value) / 100
+		return ini_pos
+	
+	var ini_pos = Vector2.ZERO
 	ini_pos.y += normBar.size.y / 2
 	ini_pos.x += normBar.size.x * value / 100
 	return ini_pos

@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bm2g7w05ku12l"]
+
+[ext_resource type="PackedScene" uid="uid://w78xeku2iiuk" path="res://Scenes/Versus/Hero.tscn" id="1_abs23"]
+[ext_resource type="Texture2D" uid="uid://bsxyl38gmw85" path="res://Assets/Sprites/Menu/VS.png" id="2_fh2ex"]
+
+[node name="Versus" type="Control" unique_id=1060716423]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = 420.0
+offset_right = 420.0
+offset_bottom = -420.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="Container" type="MarginContainer" parent="." unique_id=387261540]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Container" unique_id=1739517403]
+layout_mode = 2
+color = Color(0, 0, 0, 0.2)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container" unique_id=908991199]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer" unique_id=2057300982]
+layout_mode = 2
+alignment = 1
+
+[node name="HeroP2" parent="Container/VBoxContainer/HBoxContainer" unique_id=530322041 instance=ExtResource("1_abs23")]
+layout_mode = 2
+_p1 = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/HBoxContainer" unique_id=1841045868]
+layout_mode = 2
+alignment = 1
+
+[node name="VS" type="TextureRect" parent="Container/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1924260645]
+custom_minimum_size = Vector2(384, 384)
+custom_maximum_size = Vector2(384, 384)
+layout_mode = 2
+texture = ExtResource("2_fh2ex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HeroP1" parent="Container/VBoxContainer/HBoxContainer" unique_id=1487286384 instance=ExtResource("1_abs23")]
+layout_mode = 2
+
+[node name="Flash" type="ColorRect" parent="Container" unique_id=1559214108]
+layout_mode = 2
+color = Color(1, 1, 1, 0)

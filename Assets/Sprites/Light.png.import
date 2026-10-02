@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvunrg4kdkuk2"
-path="res://.godot/imported/YTuffnut.jpg-e67f479930a236b3f7f5e0f1366f4d1e.ctex"
+uid="uid://bd26on7urnwiw"
+path="res://.godot/imported/Light.png-6bdfb0deab3465b86bdf56a68648603d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Heroes/YTuffnut.jpg"
-dest_files=["res://.godot/imported/YTuffnut.jpg-e67f479930a236b3f7f5e0f1366f4d1e.ctex"]
+source_file="res://Assets/Sprites/Light.png"
+dest_files=["res://.godot/imported/Light.png-6bdfb0deab3465b86bdf56a68648603d.ctex"]
 
 [params]
 

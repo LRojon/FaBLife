@@ -1,8 +1,10 @@
 [gd_resource type="LabelSettings" format=3 uid="uid://mss31c03bgsv"]
 
-[ext_resource type="FontFile" uid="uid://cxiggcnwie1ob" path="res://Assets/Fonts/Almendra-Regular.ttf" id="1_pooga"]
+[ext_resource type="FontFile" uid="uid://b865x8m3mvaj6" path="res://Assets/Fonts/Almendra-Bold.ttf" id="1_pooga"]
 
 [resource]
 font = ExtResource("1_pooga")
-font_size = 100
-font_color = Color(0.13725491, 0.74509805, 0.13725491, 1)
+font_size = 128
+font_color = Color(0, 1, 0, 1)
+outline_size = 25
+outline_color = Color(0, 0, 0, 1)

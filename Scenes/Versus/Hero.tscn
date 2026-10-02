@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://w78xeku2iiuk"]
+
+[ext_resource type="Texture2D" uid="uid://ba6ujfhe7k6us" path="res://Assets/Sprites/Heroes/Arakni.jpg" id="1_j4fr5"]
+[ext_resource type="Texture2D" uid="uid://bd26on7urnwiw" path="res://Assets/Sprites/Light.png" id="3_1fidq"]
+[ext_resource type="Script" uid="uid://d22h3ke0c4e1f" path="res://Scripts/Versus/hero.gd" id="3_eb1jh"]
+
+[node name="Hero" type="TextureRect" unique_id=780394230]
+clip_children = 1
+custom_minimum_size = Vector2(600, 600)
+custom_maximum_size = Vector2(600, 600)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_1fidq")
+stretch_mode = 5
+script = ExtResource("3_eb1jh")
+
+[node name="Texture" type="TextureRect" parent="." unique_id=1179972396]
+custom_minimum_size = Vector2(600, 600)
+custom_maximum_size = Vector2(600, 600)
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 600.0
+texture = ExtResource("1_j4fr5")
+stretch_mode = 5
