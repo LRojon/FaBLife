@@ -6,11 +6,14 @@ extends Control
 const FORMAT_MENU   = preload("res://Scenes/Menus/format_menu.tscn")
 const HISTORIQUE    = preload("res://Scenes/Menus/historique.tscn")
 const SETTINGS_MENU = preload("res://Scenes/Menus/Settings/settings_menu.tscn")
+const VERSUS_ANIM   = preload("res://Scenes/Versus/Versus.tscn")
 
 const ROTATE_ICON = {
 	"V": preload("res://Assets/Icons/RotateV.png"),
 	"H": preload("res://Assets/Icons/RotateH.png")
 }
+
+const VERSUS_DURATION: float = 3.0
 
 @onready var container    = $VBoxContainer/MenuContainer
 @onready var hero_btn     = $"VBoxContainer/MenuContainer/4-HeroBtn/Hero"
@@ -103,6 +106,10 @@ func _on_rotate_btn_pressed():
 	Event.emit_signal("change_modev")
 	
 func _on_timer_strt_pressed():
+	var instance: Versus = VERSUS_ANIM.instantiate()
+	instance.ANIM_DURATION = VERSUS_DURATION
+	get_tree().root.add_child(instance)
+	
 	if format_timer == -1:
 		timer_strt.visible = false
 		disTime.visible = true

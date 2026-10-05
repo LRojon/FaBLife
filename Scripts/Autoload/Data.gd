@@ -258,8 +258,8 @@ func _get_talent(_name: String) -> Talent:
 func _get_hero(_name: String) -> Hero:
 	if Data._Hero.keys().has(_name):
 		return Data._Hero[_name]
-	push_error("Hero not found")
-	return Hero.new(-1, "", -1, -1, [], [], [])
+	push_error("Hero ", _name, " not found")
+	return Hero.new("", "", -1, -1, [], [], [])
 
 func _get_heroes_by_format(format: Data.Format) -> Array[Hero]:
 	var ret_heroes : Array[Hero] = []

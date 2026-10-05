@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://bm2g7w05ku12l"]
 
 [ext_resource type="PackedScene" uid="uid://w78xeku2iiuk" path="res://Scenes/Versus/Hero.tscn" id="1_abs23"]
+[ext_resource type="Script" uid="uid://die7y51pdumwd" path="res://Scripts/Versus/versus.gd" id="1_r8pp4"]
 [ext_resource type="Texture2D" uid="uid://bsxyl38gmw85" path="res://Assets/Sprites/Menu/VS.png" id="2_fh2ex"]
 
 [node name="Versus" type="Control" unique_id=1060716423]
+z_index = 1000
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -1.5707964
 pivot_offset_ratio = Vector2(0.5, 0.5)
+script = ExtResource("1_r8pp4")
 
 [node name="Container" type="MarginContainer" parent="." unique_id=387261540]
 layout_mode = 1
@@ -25,9 +28,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Container" unique_id=1739517403]
+[node name="Back" type="ColorRect" parent="Container" unique_id=1739517403]
 layout_mode = 2
-color = Color(0, 0, 0, 0.2)
+color = Color(0, 0, 0, 0.5)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Container" unique_id=908991199]
 layout_mode = 2
@@ -39,6 +42,8 @@ alignment = 1
 
 [node name="HeroP2" parent="Container/VBoxContainer/HBoxContainer" unique_id=530322041 instance=ExtResource("1_abs23")]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-350, -1400)
 _p1 = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Container/VBoxContainer/HBoxContainer" unique_id=1841045868]
@@ -55,7 +60,9 @@ stretch_mode = 5
 
 [node name="HeroP1" parent="Container/VBoxContainer/HBoxContainer" unique_id=1487286384 instance=ExtResource("1_abs23")]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(350, -1400)
 
 [node name="Flash" type="ColorRect" parent="Container" unique_id=1559214108]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-color = Color(1, 1, 1, 0)

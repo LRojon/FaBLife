@@ -1,6 +1,5 @@
-extends TextureRect
+class_name HeroVersus extends TextureRect
 
-@export var _hero: String	= "ArakniS"
 @export var _p1: bool		= true
 
 @onready var _texture = $Texture
@@ -8,7 +7,10 @@ extends TextureRect
 var hero: Hero
 
 func _ready() -> void:
-	hero = Data._get_hero(_hero)
+	for node in get_tree().get_nodes_in_group("Player"):
+		if node is Player:
+			if node.p1 == _p1:
+				hero = Data._get_hero(node.hero.id)
 	_texture.texture = load(hero.get_img_path())
 	flip_h = _p1
 

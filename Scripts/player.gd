@@ -192,7 +192,7 @@ func change_bar(from : float, to : float):
 			tween2.set_trans(Tween.TRANS_EXPO)
 			tween2. tween_property(supBar, "value", to - 100.0, HP_BAR_DELAY / 2)
 		else:
-			if Settings.blood:
+			if Settings.blood and (from - to) > 0:
 				remoteBlood.position = _get_blood_pos(normBar.value)
 				var percent: float = (from - to) / 100.0
 				var amt: float = 5 * (percent * hero.base_hp)
