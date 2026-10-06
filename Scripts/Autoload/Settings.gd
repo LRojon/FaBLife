@@ -8,11 +8,11 @@ var menuOption : Array[Array] = [
 	[4, true],
 	[7, true],
 	[2, true],
-	[6, true],
 	[5, false],
 	[0, false],
 	[1, false],
 	[8, false],
+	[6, true],
 ]
 var db_src: String = "fabrary"
 var blood: bool    = true
@@ -64,7 +64,18 @@ func _load():
 	modeV = config.get_value("Settings", "modeV", true)
 	blood = config.get_value("Settings", "blood", true)
 	flash = config.get_value("Settings", "flash", true)
-	menuOption = config.get_value("Settings", "menuOption")
+	menuOption = config.get_value("Settings", "menuOption", [
+			[3, true],
+			[4, true],
+			[7, true],
+			[2, true],
+			[5, false],
+			[0, false],
+			[1, false],
+			[8, false],
+			[6, true],
+		]
+	)
 	db_src = config.get_value("Settings", "dbSrc")
 	
 	for el in menuOption:

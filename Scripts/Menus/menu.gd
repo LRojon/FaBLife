@@ -7,7 +7,7 @@ const FORMAT_MENU   = preload("res://Scenes/Menus/format_menu.tscn")
 const HISTORIQUE    = preload("res://Scenes/Menus/historique.tscn")
 const SETTINGS_MENU = preload("res://Scenes/Menus/Settings/settings_menu.tscn")
 const VERSUS_ANIM   = preload("res://Scenes/Versus/Versus.tscn")
-const DICE          = ""
+const DICE          = preload("res://Scenes/Menus/Dice.tscn")
 
 const ROTATE_ICON = {
 	"V": preload("res://Assets/Icons/RotateV.png"),
@@ -25,6 +25,7 @@ const VERSUS_DURATION: float = 3.0
 @onready var settings_btn = $"VBoxContainer/MenuContainer/6-SettingsBtn/Settings"
 @onready var gem_btn      = $"VBoxContainer/MenuContainer/1-GEMBtn/GEM"
 @onready var db_btn       = $"VBoxContainer/MenuContainer/0-DatabaseBtn/Database"
+@onready var dice_btn     = $"VBoxContainer/MenuContainer/8-Dice/Dice"
 
 @onready var timer	 = $"VBoxContainer/MenuContainer/7-TimerBtn/Timer"
 @onready var disTime = $"VBoxContainer/MenuContainer/7-TimerBtn/DisTime"
@@ -42,6 +43,7 @@ func _ready() -> void:
 	settings_btn.connect("pressed", _on_settings_btn_pressed)
 	gem_btn.connect("pressed", _on_gem_btn_pressed)
 	db_btn.connect("pressed", _on_database_btn_pressed)
+	dice_btn.connect("pressed", _on_dice_pressed)
 	
 	timer.connect("timeout", func(): 
 		timer.stop()
@@ -133,3 +135,8 @@ func _on_gem_btn_pressed():
 func _on_database_btn_pressed():
 	print("db button pressed")
 	OS.shell_open(Data.DB_SRC[Settings.db_src])
+
+func _on_dice_pressed():
+	print("Dice pressed")
+	var instance: DiceUI = DICE.instantiate()
+	get_tree().root.add_child(instance)
