@@ -1,8 +1,12 @@
 class_name HeroVersus extends TextureRect
 
+const LIGHT_FULL = preload("res://Assets/Sprites/Light_full.png")
+
 @export var _p1: bool		= true
 
 @onready var _texture = $Texture
+
+signal expend_finished
 
 var hero: Hero
 
@@ -15,12 +19,8 @@ func _ready() -> void:
 	flip_h = _p1
 
 
-func expend():
+func expend(to : PackedVector2Array, duration: float = 1.0):
 	var t = create_tween()
-	var poly: PackedVector2Array = [
-		Vector2.ZERO,
-		Vector2.RIGHT * 600,
-		Vector2.ONE * 600,
-		Vector2.DOWN * 600
-	]
-	t.tween_property(self, "polygon", poly, 1)
+	t.tween_property(self, "texture", LIGHT_FULL, duration)
+	await t.finished
+	emit_signal("expend_finished")

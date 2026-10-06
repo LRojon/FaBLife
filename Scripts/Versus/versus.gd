@@ -3,7 +3,7 @@ class_name Versus extends Control
 @export var ANIM_DURATION: float = 3.0
 const ANIM_SPLIT = [
 	0.15,
-	0.40,
+	0.30,
 	0.30,
 	0.15
 ] # -> La somme doit faire 1
@@ -14,7 +14,16 @@ const ANIM_SPLIT = [
 @onready var vs: TextureRect     = $Container/VBoxContainer/HBoxContainer/VBoxContainer/VS
 @onready var flash: ColorRect    = $Container/Flash
 
-func _ready() -> void:	
+func _ready() -> void:
+	var screenSize = get_viewport_rect().size
+	var targetSize = Vector2(screenSize.y, screenSize.x)
+	
+	custom_maximum_size = targetSize
+	custom_minimum_size = targetSize
+	size = targetSize
+	var val = abs(targetSize.x - targetSize.y) / 2
+	position = Vector2(-val, val)
+	
 	back.color                        = Color("#0000")
 	hero_p1.offset_transform_position = Vector2(350, -1400)
 	hero_p2.offset_transform_position = Vector2(-350, -1400)
@@ -49,9 +58,9 @@ func _ready() -> void:
 	# All Fade Out ANIM_SPLIT[3]
 	var tweenFO = create_tween()
 	tweenFO.set_ease(Tween.EASE_IN_OUT) ; tweenFO.set_trans(Tween.TRANS_EXPO)
-	tweenFO.tween_property(self, "self_modulate", Color("#fff0"), ANIM_DURATION * ANIM_SPLIT[3])
+	tweenFO.tween_property(self, "modulate", Color("#fff0"), ANIM_DURATION * ANIM_SPLIT[3])
 	await tweenFO.finished
-	
+
 	queue_free()
 
 

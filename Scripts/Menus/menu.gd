@@ -7,6 +7,7 @@ const FORMAT_MENU   = preload("res://Scenes/Menus/format_menu.tscn")
 const HISTORIQUE    = preload("res://Scenes/Menus/historique.tscn")
 const SETTINGS_MENU = preload("res://Scenes/Menus/Settings/settings_menu.tscn")
 const VERSUS_ANIM   = preload("res://Scenes/Versus/Versus.tscn")
+const DICE          = ""
 
 const ROTATE_ICON = {
 	"V": preload("res://Assets/Icons/RotateV.png"),

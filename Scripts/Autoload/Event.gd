@@ -23,6 +23,9 @@ signal modev_changed()
 signal change_blood()
 signal blood_changed()
 
+signal change_flash()
+signal flash_changed()
+
 signal change_menu()
 signal menu_changed()
 

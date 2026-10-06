@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://tf3vpcmm5okd" path="res://Assets/Icons/Settings.png" id="8_q3rjx"]
 [ext_resource type="Texture2D" uid="uid://cfua8sgfkflct" path="res://Assets/Icons/Database.png" id="9_7qvly"]
 [ext_resource type="Texture2D" uid="uid://coejdpby56nj0" path="res://Assets/Icons/GEM_big.png" id="10_rfqti"]
+[ext_resource type="Texture2D" uid="uid://ngvgyugb42yo" path="res://Assets/Icons/Dice.png" id="11_rfqti"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_43yrm"]
 font = ExtResource("5_wbdvm")
@@ -191,4 +192,22 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_rotation = -1.5707964
 texture_normal = ExtResource("10_rfqti")
+stretch_mode = 6
+
+[node name="8-Dice" type="HBoxContainer" parent="VBoxContainer/MenuContainer" unique_id=1746837776]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(-1, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 1
+
+[node name="Dice" type="TextureButton" parent="VBoxContainer/MenuContainer/8-Dice" unique_id=1180541167]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(80, 80)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_rotation = -1.5707964
+texture_normal = ExtResource("11_rfqti")
 stretch_mode = 6

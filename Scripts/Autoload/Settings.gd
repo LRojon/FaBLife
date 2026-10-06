@@ -12,6 +12,7 @@ var menuOption : Array[Array] = [
 	[5, false],
 	[0, false],
 	[1, false],
+	[8, false],
 ]
 var db_src: String = "fabrary"
 var blood: bool    = true
@@ -29,11 +30,11 @@ func _ready() -> void:
 		_save()
 		Event.emit_signal("blood_changed")
 	)
-	#Event.connect("change_flash", func ():
-		#blood = !blood
-		#_save()
-		#Event.emit_signal("flash_changed")
-	#)
+	Event.connect("change_flash", func ():
+		flash = !flash
+		_save()
+		Event.emit_signal("flash_changed")
+	)
 	Event.connect("change_db_src", func(_id):
 		db_src = _id
 		_save()
@@ -62,7 +63,7 @@ func _load():
 	
 	modeV = config.get_value("Settings", "modeV", true)
 	blood = config.get_value("Settings", "blood", true)
-	blood = config.get_value("Settings", "flash", true)
+	flash = config.get_value("Settings", "flash", true)
 	menuOption = config.get_value("Settings", "menuOption")
 	db_src = config.get_value("Settings", "dbSrc")
 	

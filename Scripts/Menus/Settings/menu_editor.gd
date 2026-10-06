@@ -23,6 +23,7 @@ func _update_options():
 		child.queue_free()
 	var n = 0
 	for mo in Settings.menuOption:
+		print(Data.MENU_OPTION[mo[0]].label)
 		var instance: MenuOptionRow = MENU_OPTION.instantiate()
 		instance.option = Data.MENU_OPTION[mo[0]]
 		instance.menu_pos = n

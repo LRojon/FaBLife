@@ -32,6 +32,7 @@ var MENU_OPTION: Array[MenuOptionData] = [
 	load("res://Assets/Resources/MenuOptions/Reset.tres"),
 	load("res://Assets/Resources/MenuOptions/Settings.tres"),
 	load("res://Assets/Resources/MenuOptions/Timer.tres"),
+	load("res://Assets/Resources/MenuOptions/Dice.tres")
 ]
 
 # En sec
